@@ -1,0 +1,215 @@
+{
+  "stage": 1,
+  "logo": {
+    "file": "wwwroot/assets/Logo_GgWp.png",
+    "sha256": "462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33",
+    "unchanged": true
+  },
+  "blazor_compilation": "pending: .NET SDK unavailable; outbound download failed",
+  "github_pages_deployment": "pending: no repository modified",
+  "browser_preview_tests": {
+    "browser": "Chromium via Playwright",
+    "method": "HTML and existing asset bytes loaded in memory; URL access blocked by browser administrator policy. No network or file URL test.",
+    "viewports": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "images": [
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          }
+        ],
+        "eras": 7,
+        "games": 14,
+        "frameworkLoaded": false,
+        "section_links": true,
+        "source_link_opens_details": true,
+        "javascript_errors": []
+      },
+      {
+        "width": 375,
+        "scroll": 375,
+        "images": [
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          }
+        ],
+        "eras": 7,
+        "games": 14,
+        "frameworkLoaded": false,
+        "section_links": true,
+        "source_link_opens_details": true,
+        "javascript_errors": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "images": [
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          }
+        ],
+        "eras": 7,
+        "games": 14,
+        "frameworkLoaded": false,
+        "section_links": true,
+        "source_link_opens_details": true,
+        "javascript_errors": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "images": [
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          }
+        ],
+        "eras": 7,
+        "games": 14,
+        "frameworkLoaded": false,
+        "section_links": true,
+        "source_link_opens_details": true,
+        "javascript_errors": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "images": [
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          }
+        ],
+        "eras": 7,
+        "games": 14,
+        "frameworkLoaded": false,
+        "section_links": true,
+        "source_link_opens_details": true,
+        "javascript_errors": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "images": [
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          }
+        ],
+        "eras": 7,
+        "games": 14,
+        "frameworkLoaded": false,
+        "section_links": true,
+        "source_link_opens_details": true,
+        "javascript_errors": []
+      },
+      {
+        "width": 1920,
+        "scroll": 1920,
+        "images": [
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          },
+          {
+            "complete": true,
+            "width": 800
+          }
+        ],
+        "eras": 7,
+        "games": 14,
+        "frameworkLoaded": false,
+        "section_links": true,
+        "source_link_opens_details": true,
+        "javascript_errors": []
+      },
+      {
+        "deviceEmulation": "iPhone 13",
+        "noOverflow": true
+      },
+      {
+        "deviceEmulation": "Pixel 5",
+        "noOverflow": true
+      },
+      {
+        "deviceEmulation": "iPad Pro 11",
+        "noOverflow": true
+      },
+      {
+        "javascript_disabled": "content and anchor navigation visible"
+      },
+      {
+        "javascript_bridge_mock": "pass - not C# execution"
+      }
+    ],
+    "notes": "Responsive emulation only. No .NET build, production WASM or physical devices tested."
+  },
+  "physical_devices": "not tested",
+  "structural_checks": {
+    "singlePNG": true,
+    "logoHashMatches": true,
+    "noReadme": true,
+    "noEnv": true,
+    "uniqueIds": true,
+    "allInternalAnchorsResolve": true,
+    "allLocalAssetsExist": true,
+    "noPlaceholderTokens": true,
+    "javascriptSyntax": "node --check passed"
+  }
+}

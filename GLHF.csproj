@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>GLHF</RootNamespace>
+    <AssemblyName>GLHF</AssemblyName>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <BlazorEnableCompression>false</BlazorEnableCompression>
+    <WasmEnableWebcil>true</WasmEnableWebcil>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.12" PrivateAssets="all" />
+    <Compile Remove="tools/**/*.cs" />
+    <Content Remove="tools/**;Templates/**;Content/**;artifacts/**;index.html" />
+    <EmbeddedResource Include="Content/history.json" LogicalName="GLHF.history.json" />
+    <Watch Include="Content/history.json;Templates/**/*.html" />
+  </ItemGroup>
+  <Target Name="GenerateMuseumHtml" BeforeTargets="BeforeBuild" Condition="'DesignTimeBuild' != 'true'">
+    <Exec Command="dotnet run --project &quot;$(MSBuildProjectDirectory)/tools/SiteBuilder/SiteBuilder.csproj&quot; --configuration Release -- &quot;$(MSBuildProjectDirectory)&quot;" />
+  </Target>
+</Project>

@@ -1,0 +1,57 @@
+name: GLHF - Build and deploy Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Publish Blazor
+        run: dotnet publish GLHF.csproj -c Release -o artifacts/publish
+      - name: Configure deployment base and check logo
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          python3 - <<'PYCODE'
+          import os, pathlib
+          root = pathlib.Path('artifacts/publish/wwwroot')
+          path = os.environ.get('PAGES_BASE_PATH', '').strip('/')
+          base = '/' + path + '/' if path else '/'
+          index = root / 'index.html'
+          content = index.read_text(encoding='utf-8')
+          assert '<base href="./" />' in content
+          index.write_text(content.replace('<base href="./" />', '<base href="' + base + '" />'), encoding='utf-8')
+          (root / '.nojekyll').touch()
+          images = list(root.rglob('*.png'))
+          assert len(images) == 1 and images[0].name == 'Logo_GgWp.png', images
+          assert (root / '_framework' / 'blazor.webassembly.js').is_file()
+          assert 'LA HISTORIA' in content and 'era-2020' in content
+          PYCODE
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: artifacts/publish/wwwroot
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

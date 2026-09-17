@@ -1,0 +1,84 @@
+@inject ArchiveCatalog Catalog
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<nav class="era-navigation" aria-label="Elegir una era">
+    <p class="eyebrow">ELIGE TU PUNTO DE PARTIDA</p>
+    <ol>
+        @foreach (var era in Catalog.Eras)
+        {
+            <li @key="era.Id">
+                <a class="era-link" href="@($"#{era.Id}")" data-era-link="@era.Id"
+                   aria-current="@(era.Id == _selectedId ? "step" : null)"
+                   @onclick="() => SelectEraAsync(era.Id, false)" @onclick:preventDefault="true">
+                    <span class="nav-dot" aria-hidden="true"></span>
+                    <span>@era.Label</span>
+                    <span class="nav-era-name">@ShortName(era)</span>
+                </a>
+            </li>
+        }
+    </ol>
+    <p class="navigation-note">Explora con Tab, Enter o las flechas.</p>
+    <span class="sr-only" role="status" aria-live="polite">@_announcement</span>
+</nav>
+
+@code {
+    private string _selectedId = "";
+    private string _announcement = "";
+    private bool _disposed;
+    private DotNetObjectReference<EraNavigator>? _reference;
+
+    protected override void OnInitialized() => _selectedId = Catalog.Eras[0].Id;
+
+    private static string ShortName(Era era) => era.Kicker.Split(" / ", 2).Last().ToLowerInvariant();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        _reference = DotNetObjectReference.Create(this);
+        await JS.InvokeVoidAsync("glhf.navigation.connect", _reference);
+    }
+
+    private async Task SelectEraAsync(string id, bool focusLink)
+    {
+        var era = Catalog.Eras.FirstOrDefault(e => e.Id == id);
+        if (era is null || _disposed) return;
+        _selectedId = id;
+        _announcement = $"Era {era.Period}: {era.Title}";
+        await JS.InvokeVoidAsync("glhf.navigation.scrollTo", id, focusLink);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public async Task NavigateKey(string key, string currentId)
+    {
+        if (_disposed) return;
+        var index = Catalog.Eras.ToList().FindIndex(e => e.Id == currentId);
+        if (index < 0) index = 0;
+        index = key switch
+        {
+            "Home" => 0,
+            "End" => Catalog.Eras.Count - 1,
+            "ArrowLeft" or "ArrowUp" => Math.Max(0, index - 1),
+            "ArrowRight" or "ArrowDown" => Math.Min(Catalog.Eras.Count - 1, index + 1),
+            _ => index
+        };
+        await SelectEraAsync(Catalog.Eras[Math.Max(0, index)].Id, true);
+    }
+
+    [JSInvokable]
+    public async Task SetVisibleEra(string id)
+    {
+        if (_disposed || !Catalog.Eras.Any(e => e.Id == id)) return;
+        _selectedId = id;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        _disposed = true;
+        try { await JS.InvokeVoidAsync("glhf.navigation.disconnect"); }
+        catch (JSDisconnectedException) { }
+        finally { _reference?.Dispose(); }
+    }
+}
