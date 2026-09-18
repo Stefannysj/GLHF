@@ -1,112 +1,85 @@
-GLHF - ETAPA 01 / BASE Y ESTRUCTURA
-=================================
+GLHF - ETAPA 02 / ESTILO VISUAL BASE
+===================================
 
-1. VISTA PREVIA INMEDIATA
-Extrae TODO el ZIP. Abre index.html en el navegador.
-Es una vista previa HTML: no ejecuta C# ni pretende ser un build de Blazor.
-Todos los textos, enlaces de seccion y referencias son accesibles.
-El unico PNG esta en wwwroot/assets/Logo_GgWp.png.
+1. QUE SE IMPLEMENTO EN ESTA ETAPA
+La Etapa 2 aplica la direccion visual base solicitada para GLHF:
+- Dark mode como tema principal y unico tema visual de esta entrega.
+- Paleta oscura con rojo inspirado en el logo, acento cyan y violeta secundario.
+- Tipografia de sistema combinando display contundente, sans moderna y mono retro.
+- Layout responsive refinado para mobile, tablet y desktop.
+- Iconos/emojis usados de forma moderada como acentos de seccion.
+- Scanlines y reticula muy sutiles creadas solo con CSS.
+- Tarjetas, bordes, chips, estados de foco y superficies visuales coherentes.
+- Navegacion movil horizontal y objetivos tactiles de al menos ~44 px.
 
-2. EJECUTAR EL PROYECTO BLAZOR
-Instala el SDK .NET 10 (no solo el Runtime) desde la pagina oficial:
-https://dotnet.microsoft.com/es-es/download/dotnet/10.0
-Abre una terminal en la carpeta que contiene GLHF.csproj y ejecuta:
+No se implementa aun el Hero dinamico entre esquinas, porque corresponde a la Etapa 3.
+Tampoco se incorporan aun imagenes reales de juegos ni tilt/glow avanzado de la
+coleccion, ya que forman parte de etapas posteriores.
+
+2. LOGO
+Se mantiene UN SOLO PNG en todo el proyecto:
+
+    wwwroot/assets/Logo_GgWp.png
+
+No se genero ninguna variante, miniatura, recoloreado ni copia PNG adicional.
+El encabezado, la portada, el footer y el favicon siguen usando el mismo archivo.
+SHA-256 esperado:
+462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33
+
+3. VISTA PREVIA INMEDIATA
+Extrae TODO el ZIP y abre index.html de la carpeta principal.
+Esta vista previa HTML no ejecuta C#, pero permite revisar contenido y estilo visual.
+
+4. EJECUTAR EL PROYECTO BLAZOR
+Requiere .NET 10 SDK. Desde la carpeta que contiene GLHF.csproj:
 
     dotnet --version
     dotnet restore GLHF.csproj
     dotnet watch --project GLHF.csproj
 
-URL del perfil de desarrollo: http://localhost:5180
+Perfil de desarrollo: http://localhost:5180
 Para iniciar sin watch:
 
     dotnet run --project GLHF.csproj
 
-No abras wwwroot/index.html con doble clic: ese archivo requiere el runtime
-que genera .NET. Usa la vista index.html de la raiz o el servidor de .NET.
-Al ejecutar correctamente Blazor, el pie indica "Navegacion C# activa".
-El contenido del museo permanece visible aunque WASM tarde en arrancar.
+No abras wwwroot/index.html directamente como sustituto del servidor de Blazor.
+Usa index.html de la raiz para preview o ejecuta el proyecto con .NET.
 
-3. ESTRUCTURA
+5. ESTRUCTURA PRINCIPAL
 index.html                       Vista previa HTML en la raiz.
 GLHF.csproj                      Aplicacion Blazor WebAssembly .NET 10.
-Program.cs / App.razor            Entrada y montaje de la isla interactiva.
-Components/EraNavigator.razor     Navegacion y estado de era en C#.
-Services/ArchiveCatalog.cs        Datos embebidos, sin backend ni API.
-Content/history.json              Fuente unica del contenido editorial.
-Templates/*.html                 Plantillas del museo.
-tools/SiteBuilder/                Generador C# del HTML inicial.
-wwwroot/index.html               HTML inicial de Blazor (generado).
-wwwroot/assets/Logo_GgWp.png      Unico archivo de logo.
-wwwroot/assets/css/site.css      Estilos estructurales, no diseno final.
+Components/EraNavigator.razor    Navegacion y estado de era en C#.
+Content/history.json             Fuente unica del contenido editorial.
+Templates/*.html                 Plantillas HTML del museo.
+wwwroot/index.html               HTML inicial de Blazor.
+wwwroot/assets/Logo_GgWp.png     Unico PNG del proyecto.
+wwwroot/assets/css/site.css      Sistema visual completo de Etapa 2.
 wwwroot/assets/js/site.js        Puente a APIs del navegador.
 wwwroot/assets/js/bootstrap.js   Inicio progresivo de Blazor, sin loader.
-.github/workflows/pages.yml      Compilacion y publicacion automatizadas.
+.github/workflows/pages.yml      Build y publicacion en GitHub Pages.
 tools/Publish.ps1                Publicacion local con base configurable.
-VALIDACION.json                  Resultados reales y validaciones pendientes.
+VALIDACION.json                  Chequeos automatizados de esta entrega.
 
-Los archivos index.html se generan desde las plantillas y el catalogo.
-No edites directamente esos dos index para cambios permanentes.
-El generador se ejecuta al compilar; solo escribe cuando cambia el contenido.
+6. GITHUB PAGES
+El flujo de publicacion de Etapa 1 se conserva. En GitHub:
+Settings > Pages > Build and deployment > GitHub Actions.
+El workflow compila y publica artifacts/publish/wwwroot con base href ajustado.
 
-4. PUBLICACION LOCAL
-Desde PowerShell en la raiz del proyecto:
+7. RESTRICCIONES MANTENIDAS
+- No README.md.
+- No .env.
+- Sin Bootstrap u otros frameworks CSS pesados.
+- Sin imagenes generadas por IA.
+- Sin PNG adicionales.
+- Sin pantalla de carga.
+- El contenido permanece visible como HTML aunque Blazor todavia no haya iniciado.
 
-    ./tools/Publish.ps1 -BasePath "/"
+8. ESTADO DE QA
+Se ejecutan chequeos estructurales sobre HTML/CSS/JS, referencias locales, IDs,
+anclas internas, existencia de assets, cantidad de PNG y hash del logo.
+La compilacion C# solo puede darse por validada cuando se ejecuta con .NET 10 SDK.
 
-Salida: artifacts/publish/wwwroot
-Sirve esa carpeta por HTTP antes de publicar. Si ya tienes Python:
-
-    python -m http.server 5181 --directory artifacts/publish/wwwroot
-
-Abre http://localhost:5181 y verifica "Navegacion C# activa".
-Para simular un repositorio llamado GLHF en un subdirectorio:
-
-    ./tools/Publish.ps1 -BasePath "/GLHF/"
-    New-Item -ItemType Directory -Force artifacts/preview/GLHF
-    Copy-Item artifacts/publish/wwwroot/* artifacts/preview/GLHF -Recurse -Force
-    python -m http.server 5181 --directory artifacts/preview
-
-Abre http://localhost:5181/GLHF/
-
-5. GITHUB PAGES
-Sube el contenido del proyecto a la rama main de un repositorio.
-En Settings > Pages > Build and deployment selecciona GitHub Actions.
-El workflow compila C#, configura base href segun el sitio y publica SOLO
-artifacts/publish/wwwroot. No se necesitan secretos ni .env.
-No se ha creado ni modificado ningun repositorio desde esta entrega.
-No basta con subir archivos C# para que un navegador los ejecute:
-la primera compilacion la realiza GitHub Actions o tu SDK local.
-El visitante final no necesita instalar ni compilar nada.
-No elijas Deploy from branch para verificar la version Blazor: la raiz
-contiene una vista HTML deliberadamente estatica.
-
-6. LOGO
-No se ha redibujado, recortado, recoloreado ni convertido el archivo original.
-Encabezado, portada, pie y favicon apuntan a la misma ruta y al mismo PNG.
-SHA-256 del original y del PNG entregado:
-462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33
-Esto garantiza coherencia de archivo, no exclusividad legal del diseno.
-
-7. ALCANCE Y LIMITES
-Incluido: HTML semantico, siete eras, 14 fichas textuales, seis ejes tematicos,
-fuentes enlazadas, navegacion por anclas, esqueleto interactivo C# y workflow.
-No incluido aun: Hero movil por esquinas, imagenes de juegos, parallax,
-tilt/glow, comparador, mini-juego, PWA, sonido ni modo Konami.
-No hay README.md, .env, Bootstrap, imagenes generadas ni PNG alternativos.
-
-El proyecto C# NO pudo compilarse en el entorno de entrega: no habia SDK
-y el acceso a la descarga estaba bloqueado. La vista HTML se reviso en Chromium
-cargando los mismos bytes de HTML, CSS, JS y logo en memoria: la politica
-del navegador de este entorno bloqueo abrir URLs HTTP y file://. Por ello,
-no se validaron aqui el servidor local ni la apertura directa del archivo.
-Esta revision no equivale a compilar ni ejecutar Blazor.
-Se revisaron anchos de 320, 375, 390, 768, 1024, 1440 y 1920 pixeles,
-mas emulacion de iPhone 13, Pixel 5 e iPad Pro 11, sin desborde horizontal.
-Se verificaron anclas, referencias y contenido sin JavaScript. El puente
-JS/C# solo se probo con un mock de JavaScript, no con C# compilado.
-La publicacion real y las pruebas en dispositivos fisicos quedan pendientes.
-Las cifras de eras y fichas describen esta edicion, no estadisticas de ventas.
-
-8. SIGUIENTE ETAPA
-Etapa 2: direccion visual final, paleta, tipografias y responsive refinado.
-Mantener siempre el mismo Logo_GgWp.png.
+9. SIGUIENTE ETAPA
+Etapa 3: Hero dinamico.
+Se implementara el bloque principal moviendose entre centro y esquinas con una
+transicion suave, definiendo un disparador compatible con desktop y mobile.
