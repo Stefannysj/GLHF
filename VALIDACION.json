@@ -1,24 +1,27 @@
 {
-  "stage": 2,
-  "scope": "Estilo visual base",
+  "stage": 3,
+  "scope": "Hero dinamico",
   "implemented": [
-    "dark_mode_default",
-    "neon_retro_palette",
-    "mixed_system_typography",
-    "responsive_mobile_tablet_desktop",
-    "moderate_icon_emoji_accents",
-    "css_scanlines_and_grid",
-    "accessible_focus_states",
-    "responsive_navigation"
+    "hero_five_positions",
+    "smooth_position_transitions",
+    "automatic_rotation_desktop_5_5s",
+    "automatic_rotation_mobile_6_5s",
+    "manual_position_controls",
+    "manual_pause_12s",
+    "pause_on_interaction_visibility_and_viewport",
+    "reduced_motion_support",
+    "mobile_safe_positioning",
+    "blazor_hero_state_with_js_interop",
+    "static_preview_progressive_enhancement"
   ],
-  "responsive_css": {
-    "breakpoints_px": [430, 680, 900, 1180, 1600],
-    "mobile_first_adaptation": true,
-    "tablet_adaptation": true,
-    "desktop_adaptation": true
-  },
+  "hero_positions": [
+    "center",
+    "top-left",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+  ],
   "deferred": [
-    "dynamic_hero_positions_stage_3",
     "interactive_timeline_and_real_game_images_stage_4",
     "advanced_scroll_animations_stage_5",
     "final_production_QA_stage_6"
@@ -28,6 +31,24 @@
     "sha256": "462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33",
     "unchanged": true,
     "png_count": 1
+  },
+  "responsive_css": {
+    "breakpoints_px": [
+      430,
+      680,
+      900,
+      1180,
+      1600
+    ],
+    "desktop_five_positions": true,
+    "tablet_five_positions": true,
+    "mobile_five_positions": true,
+    "mobile_logo_exhibit_as_background": true
+  },
+  "runtime_validation": {
+    "blazor_compilation": "pending: .NET SDK unavailable in delivery environment",
+    "github_pages_deployment": "pending: no repository modified",
+    "chromium_navigation": "direct localhost navigation blocked by administrator policy; interaction QA executed with injected local assets"
   },
   "structural_checks": {
     "singlePNG": true,
@@ -41,10 +62,27 @@
     "javascriptSyntax": "node --check passed",
     "cssBraceBalance": "passed"
   },
-  "runtime_validation": {
-    "blazor_compilation": "pending: .NET SDK unavailable in delivery environment",
-    "github_pages_deployment": "pending: no repository modified",
-    "chromium_navigation": "not executed: local/data URL navigation is blocked by administrator policy in this environment",
-    "note": "Browser policy limitation is environmental; static HTML/CSS/JS and project structure checks passed."
+  "browser_qa": {
+    "method": "Chromium headless via Playwright with local HTML/CSS/JS injected because direct localhost navigation is blocked by administrator policy",
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "width": 820,
+        "height": 1180
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "allFivePositionsInsideHeroStage": true,
+    "horizontalOverflowPx": 0,
+    "autoRotationDesktopAfter6_1s": "center -> top-left",
+    "manualSelectionPausesAuto": true,
+    "reducedMotionKeepsCenter": true,
+    "javascriptErrors": 0
   }
 }

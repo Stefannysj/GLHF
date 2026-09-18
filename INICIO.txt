@@ -1,36 +1,43 @@
-GLHF - ETAPA 02 / ESTILO VISUAL BASE
-===================================
+GLHF - ETAPA 03 / HERO DINAMICO
+==============================
 
 1. QUE SE IMPLEMENTO EN ESTA ETAPA
-La Etapa 2 aplica la direccion visual base solicitada para GLHF:
-- Dark mode como tema principal y unico tema visual de esta entrega.
-- Paleta oscura con rojo inspirado en el logo, acento cyan y violeta secundario.
-- Tipografia de sistema combinando display contundente, sans moderna y mono retro.
-- Layout responsive refinado para mobile, tablet y desktop.
-- Iconos/emojis usados de forma moderada como acentos de seccion.
-- Scanlines y reticula muy sutiles creadas solo con CSS.
-- Tarjetas, bordes, chips, estados de foco y superficies visuales coherentes.
-- Navegacion movil horizontal y objetivos tactiles de al menos ~44 px.
+La Etapa 3 incorpora el comportamiento dinamico solicitado para el bloque principal:
+- El Hero puede ocupar cinco posiciones: centro, arriba-izquierda, arriba-derecha,
+  abajo-izquierda y abajo-derecha.
+- Transicion suave entre posiciones mediante CSS, sin desplazar el flujo del resto de la pagina.
+- Rotacion automatica del Hero: 5.5 s en desktop/tablet y 6.5 s en mobile.
+- Controles manuales accesibles para elegir cualquiera de las cinco posiciones.
+- Tras una seleccion manual, la rotacion automatica se pausa durante 12 segundos.
+- La rotacion tambien se pausa mientras el usuario interactua con el Hero, cuando la
+  pestaña no esta visible o cuando la portada queda fuera del viewport.
+- Si el sistema usa prefers-reduced-motion, no hay autorrotacion y el Hero vuelve al centro.
+- En mobile el bloque reduce ancho/tipografia y mantiene las cinco posiciones dentro de
+  una zona segura para evitar overflow horizontal.
+- El panel del logo se desplaza visualmente al lado opuesto en desktop para mantener
+  legibilidad. En mobile queda centrado y atenuado como fondo de la portada.
 
-No se implementa aun el Hero dinamico entre esquinas, porque corresponde a la Etapa 3.
-Tampoco se incorporan aun imagenes reales de juegos ni tilt/glow avanzado de la
-coleccion, ya que forman parte de etapas posteriores.
+2. IMPLEMENTACION BLAZOR
+Se agrega Components/HeroController.razor.
+En ejecucion Blazor, C# conserva el estado seleccionado y sincroniza los cambios
+producidos por la rotacion automatica del navegador mediante JS interop.
+La vista previa estatica conserva el mismo comportamiento con JavaScript progresivo,
+por lo que index.html de la raiz sigue siendo revisable sin iniciar .NET.
 
-2. LOGO
+3. LOGO
 Se mantiene UN SOLO PNG en todo el proyecto:
 
     wwwroot/assets/Logo_GgWp.png
 
 No se genero ninguna variante, miniatura, recoloreado ni copia PNG adicional.
-El encabezado, la portada, el footer y el favicon siguen usando el mismo archivo.
 SHA-256 esperado:
 462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33
 
-3. VISTA PREVIA INMEDIATA
+4. VISTA PREVIA INMEDIATA
 Extrae TODO el ZIP y abre index.html de la carpeta principal.
-Esta vista previa HTML no ejecuta C#, pero permite revisar contenido y estilo visual.
+La portada dinamica funciona tambien en esta vista previa.
 
-4. EJECUTAR EL PROYECTO BLAZOR
+5. EJECUTAR EL PROYECTO BLAZOR
 Requiere .NET 10 SDK. Desde la carpeta que contiene GLHF.csproj:
 
     dotnet --version
@@ -38,48 +45,37 @@ Requiere .NET 10 SDK. Desde la carpeta que contiene GLHF.csproj:
     dotnet watch --project GLHF.csproj
 
 Perfil de desarrollo: http://localhost:5180
-Para iniciar sin watch:
 
-    dotnet run --project GLHF.csproj
-
-No abras wwwroot/index.html directamente como sustituto del servidor de Blazor.
-Usa index.html de la raiz para preview o ejecuta el proyecto con .NET.
-
-5. ESTRUCTURA PRINCIPAL
-index.html                       Vista previa HTML en la raiz.
-GLHF.csproj                      Aplicacion Blazor WebAssembly .NET 10.
-Components/EraNavigator.razor    Navegacion y estado de era en C#.
-Content/history.json             Fuente unica del contenido editorial.
-Templates/*.html                 Plantillas HTML del museo.
-wwwroot/index.html               HTML inicial de Blazor.
-wwwroot/assets/Logo_GgWp.png     Unico PNG del proyecto.
-wwwroot/assets/css/site.css      Sistema visual completo de Etapa 2.
-wwwroot/assets/js/site.js        Puente a APIs del navegador.
-wwwroot/assets/js/bootstrap.js   Inicio progresivo de Blazor, sin loader.
-.github/workflows/pages.yml      Build y publicacion en GitHub Pages.
-tools/Publish.ps1                Publicacion local con base configurable.
-VALIDACION.json                  Chequeos automatizados de esta entrega.
-
-6. GITHUB PAGES
-El flujo de publicacion de Etapa 1 se conserva. En GitHub:
-Settings > Pages > Build and deployment > GitHub Actions.
-El workflow compila y publica artifacts/publish/wwwroot con base href ajustado.
+6. ESTRUCTURA PRINCIPAL ACTUALIZADA
+index.html                        Vista previa HTML en la raiz.
+GLHF.csproj                       Aplicacion Blazor WebAssembly .NET 10.
+Components/EraNavigator.razor     Navegacion y estado de era en C#.
+Components/HeroController.razor   Estado y controles del Hero dinamico en C#.
+Content/history.json              Fuente unica del contenido editorial.
+Templates/*.html                  Plantillas HTML del museo.
+wwwroot/index.html                HTML inicial de Blazor.
+wwwroot/assets/Logo_GgWp.png      Unico PNG del proyecto.
+wwwroot/assets/css/site.css       Estilos y posiciones responsive del Hero.
+wwwroot/assets/js/site.js         Autorrotacion, viewport y puente JS/C#.
+wwwroot/assets/js/bootstrap.js    Inicio progresivo de Blazor, sin loader.
+.github/workflows/pages.yml       Build y publicacion en GitHub Pages.
+tools/Publish.ps1                 Publicacion local con base configurable.
+VALIDACION.json                   Chequeos automatizados de esta entrega.
 
 7. RESTRICCIONES MANTENIDAS
 - No README.md.
 - No .env.
-- Sin Bootstrap u otros frameworks CSS pesados.
+- Sin frameworks CSS pesados.
 - Sin imagenes generadas por IA.
 - Sin PNG adicionales.
 - Sin pantalla de carga.
-- El contenido permanece visible como HTML aunque Blazor todavia no haya iniciado.
+- El contenido permanece visible como HTML antes de que Blazor inicie.
 
 8. ESTADO DE QA
-Se ejecutan chequeos estructurales sobre HTML/CSS/JS, referencias locales, IDs,
-anclas internas, existencia de assets, cantidad de PNG y hash del logo.
-La compilacion C# solo puede darse por validada cuando se ejecuta con .NET 10 SDK.
+Se validan estructura HTML, enlaces internos, assets, sintaxis JavaScript, balance CSS,
+cantidad de PNG, hash del logo y comportamiento responsive del Hero con Chromium local.
+La compilacion C# queda pendiente cuando el entorno de entrega no dispone de .NET 10 SDK.
 
 9. SIGUIENTE ETAPA
-Etapa 3: Hero dinamico.
-Se implementara el bloque principal moviendose entre centro y esquinas con una
-transicion suave, definiendo un disparador compatible con desktop y mobile.
+Etapa 4: Linea de tiempo interactiva.
+Incluira navegacion por eras, tarjetas con imagenes reales y cambios visuales por decada.

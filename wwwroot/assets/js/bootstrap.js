@@ -7,7 +7,7 @@
   const fallbackNavigation = controls?.innerHTML;
   const failure = error => {
     if (controls && fallbackNavigation) controls.innerHTML = fallbackNavigation;
-    if (status) status.textContent = "Navegación HTML";
+    if (status) status.textContent = "Interacción HTML";
     document.getElementById("engine-error").hidden = false;
     console.error("GLHF: no se pudo iniciar Blazor.", error);
   };
@@ -19,7 +19,7 @@
     try {
       await Blazor.start();
       document.documentElement.dataset.engine = "blazor";
-      if (status) status.textContent = "Navegación C# activa";
+      if (status) status.textContent = "Interacción C# activa";
     } catch (error) { failure(error); }
   };
   document.body.append(script);

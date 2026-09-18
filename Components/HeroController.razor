@@ -1,0 +1,80 @@
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div class="hero-position-controls" role="group" aria-label="Posición del bloque principal">
+    <span class="hero-control-label">MOVER HERO</span>
+    @foreach (var position in Positions)
+    {
+        <button type="button"
+                class="hero-position-button"
+                data-hero-position-button="@position.Id"
+                aria-label="@position.Label"
+                aria-pressed="@(position.Id == _position ? "true" : "false")"
+                title="@position.Label"
+                @onclick="() => SelectAsync(position.Id)">
+            <span aria-hidden="true">@position.Glyph</span>
+        </button>
+    }
+    <span class="hero-auto-state" aria-hidden="true">AUTO</span>
+    <span class="sr-only" role="status" aria-live="polite">@_announcement</span>
+</div>
+
+@code {
+    private sealed record HeroPosition(string Id, string Label, string Glyph);
+
+    private static readonly HeroPosition[] Positions =
+    [
+        new("top-left", "Mover arriba a la izquierda", "↖"),
+        new("top-right", "Mover arriba a la derecha", "↗"),
+        new("center", "Mover al centro", "●"),
+        new("bottom-left", "Mover abajo a la izquierda", "↙"),
+        new("bottom-right", "Mover abajo a la derecha", "↘")
+    ];
+
+    private string _position = "center";
+    private string _announcement = "Hero centrado.";
+    private DotNetObjectReference<HeroController>? _reference;
+    private bool _disposed;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        _reference = DotNetObjectReference.Create(this);
+        await JS.InvokeVoidAsync("glhf.hero.connect", _reference);
+    }
+
+    private async Task SelectAsync(string position)
+    {
+        if (_disposed || !Positions.Any(item => item.Id == position)) return;
+        _position = position;
+        _announcement = Announcement(position);
+        await JS.InvokeVoidAsync("glhf.hero.setPosition", position, true);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public async Task SetPositionFromBrowser(string position)
+    {
+        if (_disposed || !Positions.Any(item => item.Id == position) || position == _position) return;
+        _position = position;
+        _announcement = Announcement(position);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private static string Announcement(string position) => position switch
+    {
+        "top-left" => "Hero arriba a la izquierda.",
+        "top-right" => "Hero arriba a la derecha.",
+        "bottom-left" => "Hero abajo a la izquierda.",
+        "bottom-right" => "Hero abajo a la derecha.",
+        _ => "Hero centrado."
+    };
+
+    public async ValueTask DisposeAsync()
+    {
+        _disposed = true;
+        try { await JS.InvokeVoidAsync("glhf.hero.disconnect"); }
+        catch (JSDisconnectedException) { }
+        finally { _reference?.Dispose(); }
+    }
+}
