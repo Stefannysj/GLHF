@@ -73,7 +73,8 @@
     if (title) title.textContent = meta.title;
     const progressEra = document.querySelector("[data-scroll-progress-era]");
     if (progressEra) progressEra.textContent = `${meta.period} / ${meta.title}`;
-    if (changed) ensureRailLinkVisible(id);
+    if (!timeMachineDragging) updateTimeMachine(id);
+    if (changed) { ensureRailLinkVisible(id); if (progressPersistenceReady) persistEra(id); }
 
     if (changed && syncDotnet && dotnet) {
       dotnet.invokeMethodAsync("SetVisibleEra", id).catch(console.error);
@@ -463,6 +464,124 @@
     });
   }
 
+
+  // Stage 06 — time machine, remembered progress, installability and Konami easter egg.
+  const STORAGE_ERA = "glhf:last-era";
+  const STORAGE_SECRET = "glhf:player2";
+  let deferredInstallPrompt = null;
+  let timeMachineDragging = false;
+  let progressPersistenceReady = false;
+
+  function eraIndex(id) { return Math.max(0, eraIds.indexOf(id)); }
+
+  function updateTimeMachine(id) {
+    const slider = document.querySelector("[data-time-machine-slider]");
+    const period = document.querySelector("[data-time-machine-period]");
+    const name = document.querySelector("[data-time-machine-name]");
+    if (!slider || !sectionIds.has(id)) return;
+    slider.value = String(eraIndex(id));
+    const meta = eraMeta(id);
+    if (period) period.textContent = meta.period;
+    if (name) name.textContent = meta.title;
+    slider.setAttribute("aria-valuetext", `${meta.period}: ${meta.title}`);
+  }
+
+  function initializeTimeMachine() {
+    const slider = document.querySelector("[data-time-machine-slider]");
+    if (!slider || !eraIds.length) return;
+    updateTimeMachine(active || eraIds[0]);
+    const preview = () => {
+      const id = eraIds[Math.max(0, Math.min(eraIds.length - 1, Number(slider.value) || 0))];
+      timeMachineDragging = true;
+      setActiveEra(id, true);
+      updateTimeMachine(id);
+    };
+    slider.addEventListener("input", preview);
+    slider.addEventListener("change", () => {
+      const id = eraIds[Math.max(0, Math.min(eraIds.length - 1, Number(slider.value) || 0))];
+      timeMachineDragging = false;
+      scrollToEra(id, null);
+      try { localStorage.setItem(STORAGE_ERA, id); } catch { }
+    });
+    slider.addEventListener("blur", () => { timeMachineDragging = false; });
+  }
+
+  function persistEra(id) {
+    if (!sectionIds.has(id)) return;
+    try { localStorage.setItem(STORAGE_ERA, id); } catch { }
+  }
+
+  function initializeResumeProgress() {
+    const prompt = document.querySelector("[data-resume-prompt]");
+    const label = prompt?.querySelector("[data-resume-label]");
+    const go = prompt?.querySelector("[data-resume-go]");
+    const dismiss = prompt?.querySelector("[data-resume-dismiss]");
+    let saved = "";
+    try { saved = localStorage.getItem(STORAGE_ERA) || ""; } catch { }
+    if (!prompt || !sectionIds.has(saved) || saved === eraIds[0] || location.hash) return;
+    const meta = eraMeta(saved);
+    if (label) label.textContent = `Continuar en ${meta.period} · ${meta.title}`;
+    prompt.hidden = false;
+    go?.addEventListener("click", () => { prompt.hidden = true; scrollToEra(saved, null); }, { once: true });
+    dismiss?.addEventListener("click", () => {
+      prompt.hidden = true;
+      try { localStorage.setItem(STORAGE_ERA, eraIds[0]); } catch { }
+      setActiveEra(eraIds[0], true);
+    }, { once: true });
+  }
+
+  function showSecretToast(message) {
+    const toast = document.querySelector("[data-secret-toast]");
+    if (!toast) return;
+    toast.textContent = message;
+    toast.hidden = false;
+    window.clearTimeout(showSecretToast.timer);
+    showSecretToast.timer = window.setTimeout(() => { toast.hidden = true; }, 3600);
+  }
+
+  function setSecretMode(enabled, announce = false) {
+    document.documentElement.classList.toggle("secret-mode", enabled);
+    try { localStorage.setItem(STORAGE_SECRET, enabled ? "1" : "0"); } catch { }
+    if (announce) showSecretToast(enabled ? "KONAMI CODE · MODO PLAYER 2 DESBLOQUEADO" : "MODO PLAYER 2 DESACTIVADO");
+  }
+
+  function initializeKonamiCode() {
+    try { if (localStorage.getItem(STORAGE_SECRET) === "1") setSecretMode(true, false); } catch { }
+    const sequence = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+    let index = 0;
+    document.addEventListener("keydown", event => {
+      const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+      if (key === sequence[index]) index += 1;
+      else index = key === sequence[0] ? 1 : 0;
+      if (index !== sequence.length) return;
+      index = 0;
+      setSecretMode(!document.documentElement.classList.contains("secret-mode"), true);
+    });
+  }
+
+  function initializePwa() {
+    const button = document.querySelector("[data-pwa-install]");
+    window.addEventListener("beforeinstallprompt", event => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      if (button) button.hidden = false;
+    });
+    button?.addEventListener("click", async () => {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      try { await deferredInstallPrompt.userChoice; } catch { }
+      deferredInstallPrompt = null;
+      button.hidden = true;
+    });
+    window.addEventListener("appinstalled", () => { if (button) button.hidden = true; });
+
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      const mode = document.querySelector('meta[name="glhf-mode"]')?.content;
+      const sw = mode === "preview" ? "wwwroot/sw.js" : "sw.js";
+      window.addEventListener("load", () => navigator.serviceWorker.register(sw).catch(() => {}), { once: true });
+    }
+  }
+
   window.glhf = {
     hero: {
       connect(reference) {
@@ -507,4 +626,9 @@
   initializeHero();
   initializeGameCards();
   initializeMotionSystem();
+  initializeTimeMachine();
+  initializeResumeProgress();
+  progressPersistenceReady = true;
+  initializeKonamiCode();
+  initializePwa();
 })();

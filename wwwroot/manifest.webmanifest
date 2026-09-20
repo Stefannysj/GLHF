@@ -1,0 +1,14 @@
+{
+  "name": "GLHF — La historia se juega",
+  "short_name": "GLHF",
+  "description": "Museo digital interactivo sobre la historia de los videojuegos, 1958—2026.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07080c",
+  "theme_color": "#07080c",
+  "lang": "es",
+  "icons": [
+    { "src": "assets/Logo_GgWp.png", "sizes": "800x800", "type": "image/png", "purpose": "any" }
+  ]
+}

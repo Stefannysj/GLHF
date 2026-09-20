@@ -1,81 +1,111 @@
-GLHF - ETAPA 05 / ANIMACIONES Y MICROINTERACCIONES
-=================================================
+GLHF - ETAPA 06 / PULIDO FINAL Y QA
+===================================
 
-1. QUE SE IMPLEMENTO EN ESTA ETAPA
-La Etapa 5 pule la experiencia del museo sin alterar la arquitectura de las etapas previas:
-- Animaciones de entrada controladas por IntersectionObserver y ejecutadas una sola vez.
-- Stagger moderado en títulos, eras, hitos, revoluciones y fichas documentales.
-- Barra cronológica fija que muestra el avance global y la era activa.
-- Parallax ligero del Hero vinculado al scroll, sin modificar su sistema de 5 posiciones.
-- Transiciones visuales de sección y resaltado de llegada al navegar por anclas.
-- Navegación interna con scroll suave para evitar saltos abruptos.
-- Microinteracciones refinadas en botones, eras, hitos y tarjetas de revoluciones.
-- Respeto completo de prefers-reduced-motion.
-- Revisión de performance: requestAnimationFrame para el scroll, observers desconectados por elemento al revelarse, content-visibility/contain en tarjetas y fetchpriority bajo para imágenes documentales lazy.
+1. OBJETIVO DE ESTA ENTREGA
+La Etapa 6 cierra el desarrollo incremental de GLHF con QA responsive, mejoras finales de experiencia,
+funcionalidades "wow" y preparación de despliegue en GitHub Pages.
 
-2. PERFORMANCE / SIN JANK
-El listener de scroll no modifica el DOM directamente en cada evento: agrupa el trabajo con requestAnimationFrame.
-Las animaciones de entrada usan opacity/translate/scale y cada elemento deja de observarse después de aparecer.
-Las fichas visuales mantienen un contenedor con aspect-ratio, loading=lazy y decoding=async para evitar layout shift.
+2. FUNCIONALIDADES FINALES
+- Máquina del tiempo: slider maestro de 7 eras. Mientras se arrastra cambia en tiempo real la paleta,
+  tipografía y era activa; al soltar navega a la sección correspondiente.
+- Progreso persistente: se guarda la última era visitada en localStorage y, al regresar, se ofrece
+  continuar exactamente desde esa etapa.
+- Konami Code: ↑ ↑ ↓ ↓ ← → ← → B A activa/desactiva el modo secreto "Player 2".
+- PWA: manifest.webmanifest + sw.js para instalación y caché progresiva del contenido visitado.
+- Botón INSTALAR: aparece únicamente cuando el navegador informa que la PWA puede instalarse.
+- Barra cronológica, Hero dinámico, timeline interactiva, tilt/glow, scroll animations y reduced-motion
+  de las etapas anteriores se mantienen.
 
-3. ACCESIBILIDAD DE MOVIMIENTO
-Con prefers-reduced-motion: reduce:
-- No se oculta contenido para animarlo.
-- Se detienen animaciones/transiciones decorativas.
-- Se neutraliza el parallax.
-- La navegación sigue siendo funcional.
-
-4. LOGO
-Se mantiene UN SOLO PNG local en todo el proyecto:
+3. LOGO - REGLA INALTERABLE
+Solo existe un PNG local en todo el proyecto:
 
     wwwroot/assets/Logo_GgWp.png
 
-No se generó ninguna variante, miniatura, recoloreado ni copia PNG adicional.
+No se generó ninguna copia, miniatura, icono alternativo, recoloreado ni variante PNG.
+El manifest PWA reutiliza exactamente este mismo archivo.
 SHA-256 esperado:
 462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33
 
-5. VISTA PREVIA INMEDIATA
-Extrae TODO el ZIP y abre index.html de la carpeta principal.
-Las animaciones, la barra de progreso, el Hero, la timeline y las microinteracciones funcionan en esta vista.
-Para ver las imágenes documentales remotas se necesita conexión a Internet.
+4. VISTA PREVIA
+Extrae todo el ZIP y abre:
 
-6. EJECUTAR EL PROYECTO BLAZOR
+    index.html
+
+La vista previa HTML muestra el contenido y las interacciones sin esperar a que Blazor cargue.
+Las imágenes documentales externas requieren conexión a Internet.
+
+5. EJECUCION BLAZOR
 Requiere .NET 10 SDK. Desde la carpeta que contiene GLHF.csproj:
 
-    dotnet --version
     dotnet restore GLHF.csproj
     dotnet watch --project GLHF.csproj
 
-Perfil de desarrollo: http://localhost:5180
+6. BUILD DE PRODUCCION
 
-7. ESTRUCTURA PRINCIPAL
-index.html                        Vista previa HTML en la raíz.
-GLHF.csproj                       Aplicación Blazor WebAssembly .NET 10.
-Components/EraNavigator.razor     Navegación y estado de era en C#.
-Components/HeroController.razor   Estado y controles del Hero dinámico en C#.
-Content/history.json              Contenido + metadatos del archivo visual.
-Templates/page.html               Estructura canónica del museo.
-Templates/game.html               Tarjetas con lazy loading optimizado.
-wwwroot/index.html                HTML inicial de Blazor.
-wwwroot/assets/Logo_GgWp.png      Único PNG local del proyecto.
-wwwroot/assets/css/site.css       Motion system, microinteracciones y responsive.
-wwwroot/assets/js/site.js         Observers, progreso cronológico, scroll y navegación.
-VALIDACION.json                   Chequeos automatizados de esta entrega.
+    dotnet publish GLHF.csproj -c Release -o artifacts/publish
 
-8. RESTRICCIONES MANTENIDAS
-- No README.md.
-- No .env.
+El HTML canónico se genera desde Templates/ + Content/history.json antes del build.
+
+7. GITHUB PAGES
+El workflow incluido está en:
+
+    .github/workflows/pages.yml
+
+Flujo:
+- checkout
+- setup de .NET 10
+- dotnet publish
+- ajuste automático de <base href> con el base_path real del repositorio
+- verificación de que exista un solo PNG llamado Logo_GgWp.png
+- tools/qa.py sobre el artefacto publicado
+- upload-pages-artifact
+- deploy-pages
+
+En GitHub: Settings > Pages > Source debe estar configurado como GitHub Actions.
+
+8. QA LOCAL
+Chequeo estructural sin dependencias externas:
+
+    python tools/qa.py --root .
+
+El QA valida IDs duplicados, anclas, assets locales, ausencia de loader, PWA, logo único y archivos prohibidos.
+
+9. RESPONSIVE VALIDADO
+Se revisó el HTML/CSS/JS entregado en Chromium headless en los siguientes viewports:
+1920x1080, 1440x900, 1024x768, 820x1180, 680x960, 430x932, 390x844 y 320x568.
+Resultado: 0 px de overflow horizontal en todos.
+
+10. ACCESIBILIDAD
+- Navegación por teclado en timeline.
+- Focus visible.
+- Skip link.
+- Regiones y estados ARIA.
+- prefers-reduced-motion neutraliza Hero automático, parallax y reveals decorativos.
+- El contenido permanece visible aunque JavaScript no se ejecute.
+
+11. RESTRICCIONES CUMPLIDAS
+- Sin README.md.
+- Sin .env.
+- Sin pantalla de carga.
 - Sin frameworks CSS pesados.
 - Sin imágenes generadas por IA.
 - Un solo PNG local: Logo_GgWp.png.
-- Sin pantalla de carga.
-- Contenido visible como HTML antes de que JavaScript/Blazor inicie.
 
-9. ESTADO DE QA
-Se validan estructura HTML, enlaces internos, assets locales, sintaxis JavaScript, balance CSS,
-cantidad/hash del PNG, reduced-motion, barra de progreso y comportamiento responsive.
-La compilación C# queda pendiente si el entorno de entrega no dispone de .NET 10 SDK.
+12. ARCHIVOS CLAVE
+index.html                         Vista previa inmediata en raíz.
+GLHF.csproj                        Blazor WebAssembly .NET 10.
+Content/history.json               Catálogo histórico y fuentes.
+Templates/page.html                Plantilla canónica de la página.
+wwwroot/index.html                 Shell estático de Blazor.
+wwwroot/assets/Logo_GgWp.png       Único PNG del proyecto.
+wwwroot/assets/css/site.css        Diseño, responsive y animaciones.
+wwwroot/assets/js/site.js          Hero, timeline, máquina del tiempo, progreso y easter egg.
+wwwroot/manifest.webmanifest       Metadata PWA.
+wwwroot/sw.js                      Service Worker / caché offline progresiva.
+tools/qa.py                        QA predeploy.
+VALIDACION.json                    Evidencias técnicas de esta entrega.
 
-10. SIGUIENTE ETAPA
-Etapa 6: pulido final y QA.
-Incluye revisión responsive completa, ausencia de loader/archivos prohibidos y validación de publicación.
+13. LIMITACION DEL ENTORNO DE ENTREGA
+El contenedor usado para preparar este ZIP no tiene instalado el SDK .NET 10, por lo que no se ejecutó
+localmente dotnet publish. El workflow queda preparado para compilarlo en GitHub Actions antes del deploy.
+El despliegue remoto real no se ejecutó porque no se proporcionó/autorizó un repositorio de GitHub.

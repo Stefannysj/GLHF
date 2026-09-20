@@ -77,7 +77,8 @@ void Generate(string path, string basePath, string mode, string status)
     {
         text = text.Replace("<base href=\"" + H(basePath) + "\" />\n", "", StringComparison.Ordinal)
             .Replace("href=\"assets/", "href=\"wwwroot/assets/", StringComparison.Ordinal)
-            .Replace("src=\"assets/", "src=\"wwwroot/assets/", StringComparison.Ordinal);
+            .Replace("src=\"assets/", "src=\"wwwroot/assets/", StringComparison.Ordinal)
+            .Replace("href=\"manifest.webmanifest\"", "href=\"wwwroot/manifest.webmanifest\"", StringComparison.Ordinal);
     }
     if (!File.Exists(path) || File.ReadAllText(path) != text)
         File.WriteAllText(path, text, new UTF8Encoding(false));

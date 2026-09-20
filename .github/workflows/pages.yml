@@ -42,6 +42,8 @@ jobs:
           assert (root / '_framework' / 'blazor.webassembly.js').is_file()
           assert 'LA HISTORIA' in content and 'era-2020' in content
           PYCODE
+      - name: Final structural QA
+        run: python3 tools/qa.py --root . --published artifacts/publish/wwwroot
       - uses: actions/upload-pages-artifact@v3
         with:
           path: artifacts/publish/wwwroot

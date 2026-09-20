@@ -1,96 +1,110 @@
 {
-  "stage": 5,
-  "scope": "Animaciones, transiciones, microinteracciones y performance",
+  "stage": 6,
+  "scope": "Pulido final, QA, PWA y cierre de requisitos",
   "implemented": [
-    "intersection_observer_reveal_once",
-    "staggered_scroll_reveals",
-    "fixed_chronology_progress_bar",
-    "chapter_and_active_era_progress_labels",
-    "hero_scroll_parallax",
-    "smooth_internal_fragment_navigation",
-    "section_arrival_transition",
-    "section_focus_ambient_transition",
-    "button_era_milestone_revolution_microinteractions",
-    "request_animation_frame_scroll_updates",
-    "content_visibility_and_containment",
-    "lazy_images_decoding_async_fetchpriority_low",
-    "prefers_reduced_motion_support"
+    "final_responsive_qa_320_to_1920",
+    "time_machine_master_scrubber",
+    "era_palette_and_typography_live_switch",
+    "remember_last_era_localstorage",
+    "resume_prompt",
+    "konami_code_player2_skin",
+    "pwa_manifest_and_service_worker",
+    "offline_cache_for_visited_content",
+    "install_prompt_when_supported",
+    "github_pages_base_path_workflow",
+    "predeploy_structural_qa"
   ],
   "structural_qa": {
-    "index.html": {
-      "duplicate_ids": [],
-      "missing_fragment_targets": [],
-      "missing_local_assets": [],
-      "chronology_progress": true,
-      "optimized_lazy_images": 14,
-      "stage5_footer": true
-    },
-    "wwwroot/index.html": {
-      "duplicate_ids": [],
-      "missing_fragment_targets": [],
-      "missing_local_assets": [],
-      "chronology_progress": true,
-      "optimized_lazy_images": 14,
-      "stage5_footer": true
-    },
-    "javascript_syntax": "pass",
-    "css_brace_balance": "pass",
-    "reveal_system_present": true,
-    "raf_scroll_present": true,
-    "intersection_observer_present": true
+    "duplicate_ids": [],
+    "missing_fragment_targets": [],
+    "missing_local_assets": [],
+    "javascript_syntax": "pass: site.js, bootstrap.js, sw.js",
+    "css_brace_balance": "pass: 534/534",
+    "loading_screen": "absent",
+    "manifest": "present",
+    "service_worker": "present",
+    "stage6_footer": true
   },
   "browser_qa": {
-    "desktop_1440x900": {
-      "horizontal_overflow_px": 0,
-      "gallery_columns": 3,
-      "progress_ui": true,
-      "progress_after_scroll": "55%",
-      "reveal_items_total": 62,
-      "revealed_initial": 0,
-      "revealed_after_scroll": 37,
-      "internal_navigation_hash": "#futuro",
-      "arrival_transition_active": true,
-      "page_errors": 0
+    "method": "Delivered HTML/CSS/JS loaded in Chromium headless in-memory because the sandbox blocks localhost navigation; external documentary images were aborted during layout QA.",
+    "viewports": {
+      "1920x1080": {
+        "horizontal_overflow_px": 0,
+        "gallery_columns": 4,
+        "page_errors": 0
+      },
+      "1440x900": {
+        "horizontal_overflow_px": 0,
+        "gallery_columns": 3,
+        "page_errors": 0
+      },
+      "1024x768": {
+        "horizontal_overflow_px": 0,
+        "gallery_columns": 3,
+        "page_errors": 0
+      },
+      "820x1180": {
+        "horizontal_overflow_px": 0,
+        "gallery_columns": 2,
+        "page_errors": 0
+      },
+      "680x960": {
+        "horizontal_overflow_px": 0,
+        "gallery_columns": 2,
+        "page_errors": 0
+      },
+      "430x932": {
+        "horizontal_overflow_px": 0,
+        "gallery_columns": 1,
+        "page_errors": 0
+      },
+      "390x844": {
+        "horizontal_overflow_px": 0,
+        "gallery_columns": 1,
+        "page_errors": 0
+      },
+      "320x568": {
+        "horizontal_overflow_px": 0,
+        "gallery_columns": 1,
+        "page_errors": 0
+      }
     },
-    "tablet_820x1180": {
-      "horizontal_overflow_px": 0,
-      "gallery_columns": 2,
-      "progress_ui": true,
-      "progress_after_scroll": "58%",
-      "reveal_items_total": 62,
-      "revealed_initial": 2,
-      "revealed_after_scroll": 42,
-      "internal_navigation_hash": "#futuro",
-      "arrival_transition_active": true,
-      "page_errors": 0
+    "time_machine": {
+      "input_era": "era-2000",
+      "preview_period": "2000—2009",
+      "preview_accent": "#3e8cff",
+      "commit_hash": "#era-2000",
+      "stored_era": "era-2000"
     },
-    "mobile_390x844": {
-      "horizontal_overflow_px": 0,
-      "gallery_columns": 1,
-      "progress_ui": true,
-      "progress_after_scroll": "43%",
-      "reveal_items_total": 62,
-      "revealed_initial": 0,
-      "revealed_after_scroll": 23,
-      "internal_navigation_hash": "#futuro",
-      "arrival_transition_active": true,
-      "page_errors": 0
+    "resume_progress": {
+      "saved": "era-2010",
+      "prompt_visible": true,
+      "continue_hash": "#era-2010",
+      "active_after_continue": "era-2010"
+    },
+    "konami_code": {
+      "secret_mode": true,
+      "toast_visible": true
     },
     "reduced_motion": {
-      "motion_ready_class": 0,
-      "hidden_reveal_items": 0,
-      "hero_position": "center",
-      "page_errors": 0
-    },
-    "bottom_chronology_label": "FUENTES / ARCHIVO ABIERTO",
-    "bottom_progress": "100%"
+      "hero_position_after_wait": "center",
+      "motion_ready": false,
+      "hidden_reveal_items": 0
+    }
   },
-  "performance": {
-    "scroll_work_batched_with_raf": true,
-    "reveal_observer_unobserves_after_first_entry": true,
-    "game_cards_content_visibility_auto": true,
-    "remote_game_images_optimized": 14,
-    "layout_shift_guard": "game media retains fixed aspect-ratio frame"
+  "pwa": {
+    "manifest": "wwwroot/manifest.webmanifest",
+    "service_worker": "wwwroot/sw.js",
+    "cache_strategy": "cache-first for previously visited GET resources with background refresh; network fallback caches successful/opaque responses",
+    "uses_existing_logo_only": true,
+    "source_shell_registration": "not browser-validated because sandbox blocks localhost/service-worker origin testing"
+  },
+  "github_pages": {
+    "workflow": ".github/workflows/pages.yml",
+    "base_path_source": "actions/configure-pages output base_path",
+    "publish_command": "dotnet publish GLHF.csproj -c Release -o artifacts/publish",
+    "predeploy_qa": "python3 tools/qa.py --root . --published artifacts/publish/wwwroot",
+    "remote_deployment": "pending: no user repository/Pages environment was modified from this conversation"
   },
   "logo": {
     "file": "wwwroot/assets/Logo_GgWp.png",
@@ -103,11 +117,26 @@
     ".env": 0
   },
   "runtime_validation": {
-    "blazor_compilation": "pending: .NET 10 SDK unavailable in delivery environment",
-    "github_pages_deployment": "pending: no repository modified",
-    "browser_method": "Delivered HTML/CSS/JS loaded in Chromium headless in-memory because the sandbox blocks file:// and localhost navigation. Remote documentary images were aborted during layout QA."
+    "blazor_compilation": "not executed: .NET SDK is unavailable in the delivery container",
+    "package_reference_check": "Microsoft.AspNetCore.Components.WebAssembly 10.0.12 confirmed published on NuGet on 2026-09-08",
+    "github_pages_remote_deploy": "not executed: no repository was provided/authorized"
   },
-  "deferred": [
-    "final_responsive_and_production_QA_stage_6"
-  ]
+  "checklist": {
+    "root_index_html": true,
+    "no_loading_screen": true,
+    "responsive_complete": true,
+    "scroll_and_microinteractions": true,
+    "real_non_ai_documentary_images": true,
+    "icons_and_emoji_accents": true,
+    "no_readme": true,
+    "no_env": true,
+    "wow_features_at_least_3": [
+      "time_machine",
+      "konami_code",
+      "chronology_progress",
+      "remember_progress",
+      "pwa"
+    ],
+    "logo_single_png": true
+  }
 }
