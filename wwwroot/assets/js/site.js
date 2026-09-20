@@ -1,11 +1,14 @@
 (() => {
   "use strict";
 
-  let observer = null;
   let dotnet = null;
   let keyboard = null;
   let active = "";
-  const sectionIds = new Set(Array.from(document.querySelectorAll("[data-era]")).map(el => el.id));
+  let observer = null;
+  const visibleEras = new Set();
+  const eraSections = Array.from(document.querySelectorAll("[data-era]"));
+  const eraIds = eraSections.map(el => el.id);
+  const sectionIds = new Set(eraIds);
   const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const escapeId = id => CSS.escape(id);
 
@@ -27,11 +30,157 @@
     });
   }
 
+  function eraMeta(id) {
+    const section = document.getElementById(id);
+    return {
+      period: section?.querySelector(".era-period")?.textContent?.trim() || id.replace("era-", ""),
+      title: section?.querySelector(".era-stamp .eyebrow")?.textContent?.replace(/^\d+\s*\/\s*/, "")?.trim() || "Era"
+    };
+  }
+
+  function ensureRailLinkVisible(id) {
+    const rail = document.querySelector("[data-timeline-rail]");
+    const link = rail?.querySelector(`[data-era-rail="${escapeId(id)}"]`);
+    if (!rail || !link || rail.dataset.dragging === "true") return;
+    const left = link.offsetLeft;
+    const right = left + link.offsetWidth;
+    const viewLeft = rail.scrollLeft;
+    const viewRight = viewLeft + rail.clientWidth;
+    if (left < viewLeft + 12) rail.scrollTo({ left: Math.max(0, left - 12), behavior: reduced() ? "auto" : "smooth" });
+    else if (right > viewRight - 12) rail.scrollTo({ left: right - rail.clientWidth + 12, behavior: reduced() ? "auto" : "smooth" });
+  }
+
+  function setActiveEra(id, syncDotnet = true) {
+    if (!sectionIds.has(id)) return;
+    const changed = active !== id;
+    active = id;
+    document.documentElement.dataset.activeEra = id;
+
+    document.querySelectorAll("[data-era-link]").forEach(link => {
+      if (link.dataset.eraLink === id) link.setAttribute("aria-current", "step");
+      else link.removeAttribute("aria-current");
+    });
+    document.querySelectorAll("[data-era-rail]").forEach(link => {
+      if (link.dataset.eraRail === id) link.setAttribute("aria-current", "step");
+      else link.removeAttribute("aria-current");
+    });
+    eraSections.forEach(section => section.classList.toggle("is-active", section.id === id));
+
+    const meta = eraMeta(id);
+    const period = document.querySelector("[data-timeline-now-period]");
+    const title = document.querySelector("[data-timeline-now-title]");
+    if (period) period.textContent = meta.period;
+    if (title) title.textContent = meta.title;
+    if (changed) ensureRailLinkVisible(id);
+
+    if (changed && syncDotnet && dotnet) {
+      dotnet.invokeMethodAsync("SetVisibleEra", id).catch(console.error);
+    }
+  }
+
+  function scrollToEra(id, focusSelector) {
+    if (!sectionIds.has(id)) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    history.replaceState(null, "", "#" + id);
+    setActiveEra(id, true);
+    el.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+    if (focusSelector) document.querySelector(`${focusSelector}="${escapeId(id)}"]`)?.focus({ preventScroll: true });
+  }
+
+  function initializeTimeline() {
+    if (!eraSections.length) return;
+    const hashId = location.hash.slice(1);
+    setActiveEra(sectionIds.has(hashId) ? hashId : eraIds[0], false);
+
+    if ("IntersectionObserver" in window) {
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) visibleEras.add(entry.target.id);
+          else visibleEras.delete(entry.target.id);
+        });
+        if (!visibleEras.size) return;
+        const best = [...visibleEras]
+          .map(id => document.getElementById(id))
+          .filter(Boolean)
+          .sort((a, b) => Math.abs(a.getBoundingClientRect().top - 150) - Math.abs(b.getBoundingClientRect().top - 150))[0];
+        if (best) setActiveEra(best.id, true);
+      }, { rootMargin: "-10% 0px -58% 0px", threshold: [0, .08, .2] });
+      eraSections.forEach(el => observer.observe(el));
+    }
+
+    const rail = document.querySelector("[data-timeline-rail]");
+    if (rail) {
+      let startX = 0;
+      let startScroll = 0;
+      let moved = false;
+      let suppressClickUntil = 0;
+
+      rail.addEventListener("pointerdown", event => {
+        if (event.button !== 0) return;
+        startX = event.clientX;
+        startScroll = rail.scrollLeft;
+        moved = false;
+        rail.dataset.dragging = "true";
+        rail.setPointerCapture?.(event.pointerId);
+      });
+      rail.addEventListener("pointermove", event => {
+        if (rail.dataset.dragging !== "true") return;
+        const delta = event.clientX - startX;
+        if (Math.abs(delta) > 5) moved = true;
+        if (moved) {
+          rail.scrollLeft = startScroll - delta;
+          event.preventDefault();
+        }
+      });
+      const finishDrag = event => {
+        if (rail.dataset.dragging !== "true") return;
+        rail.dataset.dragging = "false";
+        if (moved) suppressClickUntil = Date.now() + 180;
+        try { rail.releasePointerCapture?.(event.pointerId); } catch { }
+      };
+      rail.addEventListener("pointerup", finishDrag);
+      rail.addEventListener("pointercancel", finishDrag);
+      rail.addEventListener("click", event => {
+        if (Date.now() < suppressClickUntil) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, true);
+      rail.addEventListener("click", event => {
+        const link = event.target.closest("[data-era-rail]");
+        if (!link || Date.now() < suppressClickUntil) return;
+        event.preventDefault();
+        scrollToEra(link.dataset.eraRail, null);
+      });
+      rail.addEventListener("keydown", event => {
+        const current = event.target.closest("[data-era-rail]");
+        if (!current || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        let index = eraIds.indexOf(current.dataset.eraRail);
+        if (index < 0) index = 0;
+        if (event.key === "Home") index = 0;
+        else if (event.key === "End") index = eraIds.length - 1;
+        else if (event.key === "ArrowLeft") index = Math.max(0, index - 1);
+        else index = Math.min(eraIds.length - 1, index + 1);
+        scrollToEra(eraIds[index], `[data-era-rail`);
+      });
+    }
+  }
+
   document.addEventListener("click", event => {
     const link = event.target.closest("a");
+    if (link?.dataset.eraLink && !dotnet) {
+      event.preventDefault();
+      scrollToEra(link.dataset.eraLink, null);
+    }
     if (link?.dataset.fragment) openSource(link.dataset.fragment);
   });
-  window.addEventListener("hashchange", () => openSource(location.hash));
+  window.addEventListener("hashchange", () => {
+    openSource(location.hash);
+    const id = location.hash.slice(1);
+    if (sectionIds.has(id)) setActiveEra(id, true);
+  });
   window.addEventListener("beforeprint", () => {
     const details = document.querySelector("#fuentes details");
     if (details) { details.dataset.wasOpen = String(details.open); details.open = true; }
@@ -41,6 +190,7 @@
     if (details) details.open = details.dataset.wasOpen === "true";
   });
 
+  // Stage 03 Hero remains intact in Stage 04.
   const hero = document.querySelector(".hero[data-hero-position]");
   const heroPositions = ["center", "top-left", "top-right", "bottom-right", "bottom-left"];
   const heroNames = {
@@ -62,22 +212,17 @@
   function heroInterval() {
     return window.matchMedia("(max-width: 680px)").matches ? 6500 : 5500;
   }
-
   function heroCanRotate() {
     return !!hero && !reduced() && heroVisible && !heroPointerInside && !heroFocusInside &&
       document.visibilityState === "visible" && Date.now() >= heroPauseUntil;
   }
-
   function refreshHeroState() {
     if (!hero) return;
     const running = heroCanRotate();
     hero.dataset.heroAutoState = running ? "running" : "paused";
     const autoLabel = hero.querySelector("[data-hero-auto-label]");
-    if (autoLabel) {
-      autoLabel.textContent = reduced() ? "MOVIMIENTO REDUCIDO" : (running ? `AUTO ${(heroInterval() / 1000).toFixed(1)}S` : "AUTO EN PAUSA");
-    }
+    if (autoLabel) autoLabel.textContent = reduced() ? "MOVIMIENTO REDUCIDO" : (running ? `AUTO ${(heroInterval() / 1000).toFixed(1)}S` : "AUTO EN PAUSA");
   }
-
   function updateHeroControls(position) {
     if (!hero) return;
     hero.querySelectorAll("[data-hero-position-button]").forEach(button => {
@@ -86,7 +231,6 @@
     const label = hero.querySelector("[data-hero-position-label]");
     if (label) label.textContent = heroNames[position] || "CENTRO";
   }
-
   function setHeroPosition(position, manual = false, syncDotnet = false) {
     if (!hero || !heroPositions.includes(position)) return;
     hero.dataset.heroPosition = position;
@@ -96,11 +240,8 @@
       heroLastRotation = Date.now();
     }
     refreshHeroState();
-    if (syncDotnet && heroDotnet) {
-      heroDotnet.invokeMethodAsync("SetPositionFromBrowser", position).catch(console.error);
-    }
+    if (syncDotnet && heroDotnet) heroDotnet.invokeMethodAsync("SetPositionFromBrowser", position).catch(console.error);
   }
-
   function rotateHero() {
     if (!heroCanRotate()) { refreshHeroState(); return; }
     const now = Date.now();
@@ -110,7 +251,6 @@
     heroLastRotation = now;
     setHeroPosition(next, false, true);
   }
-
   function initializeHero() {
     if (!hero) return;
     updateHeroControls(hero.dataset.heroPosition || "center");
@@ -139,10 +279,7 @@
       }, { threshold: [0, .18, .5] });
       heroObserver.observe(hero);
     }
-    document.addEventListener("visibilitychange", () => {
-      heroLastRotation = Date.now();
-      refreshHeroState();
-    });
+    document.addEventListener("visibilitychange", () => { heroLastRotation = Date.now(); refreshHeroState(); });
     window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener?.("change", () => {
       if (reduced()) setHeroPosition("center", false, true);
       heroLastRotation = Date.now();
@@ -151,6 +288,30 @@
     window.addEventListener("resize", () => { heroLastRotation = Date.now(); refreshHeroState(); }, { passive: true });
     heroTimer = window.setInterval(rotateHero, 500);
     refreshHeroState();
+  }
+
+  function initializeGameCards() {
+    document.querySelectorAll("[data-tilt-card]").forEach(card => {
+      const image = card.querySelector(".game-media img");
+      image?.addEventListener("error", () => card.classList.add("media-failed"), { once: true });
+      image?.addEventListener("load", () => card.classList.remove("media-failed"));
+      card.addEventListener("pointermove", event => {
+        if (reduced() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        card.style.setProperty("--tilt-y", `${((x - .5) * 7).toFixed(2)}deg`);
+        card.style.setProperty("--tilt-x", `${((.5 - y) * 6).toFixed(2)}deg`);
+        card.style.setProperty("--shine-x", `${(x * 100).toFixed(1)}%`);
+        card.style.setProperty("--shine-y", `${(y * 100).toFixed(1)}%`);
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+        card.style.setProperty("--shine-x", "50%");
+        card.style.setProperty("--shine-y", "50%");
+      });
+    });
   }
 
   window.glhf = {
@@ -162,57 +323,38 @@
         reference.invokeMethodAsync("SetPositionFromBrowser", current).catch(console.error);
         refreshHeroState();
       },
-      setPosition(position, manual) {
-        setHeroPosition(position, Boolean(manual), false);
-      },
-      disconnect() {
-        heroDotnet = null;
-      }
+      setPosition(position, manual) { setHeroPosition(position, Boolean(manual), false); },
+      disconnect() { heroDotnet = null; }
     },
     navigation: {
       connect(reference) {
-        this.disconnect();
         dotnet = reference;
         normalizeFragmentLinks();
-        const root = document.querySelector("#era-controls");
+        if (keyboard) document.removeEventListener("keydown", keyboard);
         keyboard = event => {
-          if (!event.target.closest(".era-link")) return;
-          if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+          const current = event.target.closest(".era-link");
+          const root = document.querySelector("#era-controls");
+          if (!current || !root?.contains(current) || !["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
           event.preventDefault();
-          dotnet?.invokeMethodAsync("NavigateKey", event.key, event.target.closest(".era-link").dataset.eraLink).catch(console.error);
+          dotnet?.invokeMethodAsync("NavigateKey", event.key, current.dataset.eraLink).catch(console.error);
         };
-        root?.addEventListener("keydown", keyboard);
-        if ("IntersectionObserver" in window) {
-          observer = new IntersectionObserver(entries => {
-            const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
-            const id = visible[0]?.target.id;
-            if (id && id !== active) {
-              active = id;
-              dotnet?.invokeMethodAsync("SetVisibleEra", id).catch(console.error);
-            }
-          }, { rootMargin: "-8% 0px -62% 0px", threshold: 0 });
-          document.querySelectorAll("[data-era]").forEach(el => observer.observe(el));
-        }
-        const hashId = location.hash.slice(1);
-        if (sectionIds.has(hashId)) dotnet?.invokeMethodAsync("SetVisibleEra", hashId).catch(console.error);
+        document.addEventListener("keydown", keyboard);
+        if (active) reference.invokeMethodAsync("SetVisibleEra", active).catch(console.error);
       },
       scrollTo(id, focusLink) {
-        if (!sectionIds.has(id)) return;
-        const el = document.getElementById(id);
-        if (!el) return;
-        history.replaceState(null, "", "#" + id);
-        el.scrollIntoView({ behavior: reduced() ? "instant" : "smooth", block: "start" });
-        if (focusLink) document.querySelector(`[data-era-link="${escapeId(id)}"]`)?.focus({preventScroll:true});
+        scrollToEra(id, focusLink ? `[data-era-link` : null);
       },
       disconnect() {
-        observer?.disconnect(); observer = null;
-        if (keyboard) document.querySelector("#era-controls")?.removeEventListener("keydown", keyboard);
-        keyboard = null; dotnet = null; active = "";
+        if (keyboard) document.removeEventListener("keydown", keyboard);
+        keyboard = null;
+        dotnet = null;
       }
     }
   };
 
   normalizeFragmentLinks();
   openSource(location.hash);
+  initializeTimeline();
   initializeHero();
+  initializeGameCards();
 })();

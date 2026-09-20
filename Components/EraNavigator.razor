@@ -69,7 +69,7 @@
     [JSInvokable]
     public async Task SetVisibleEra(string id)
     {
-        if (_disposed || !Catalog.Eras.Any(e => e.Id == id)) return;
+        if (_disposed || _selectedId == id || !Catalog.Eras.Any(e => e.Id == id)) return;
         _selectedId = id;
         await InvokeAsync(StateHasChanged);
     }

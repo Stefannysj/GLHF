@@ -1,88 +1,100 @@
 {
-  "stage": 3,
-  "scope": "Hero dinamico",
+  "stage": 4,
+  "scope": "Linea de tiempo interactiva y archivo visual",
   "implemented": [
-    "hero_five_positions",
-    "smooth_position_transitions",
-    "automatic_rotation_desktop_5_5s",
-    "automatic_rotation_mobile_6_5s",
-    "manual_position_controls",
-    "manual_pause_12s",
-    "pause_on_interaction_visibility_and_viewport",
-    "reduced_motion_support",
-    "mobile_safe_positioning",
-    "blazor_hero_state_with_js_interop",
-    "static_preview_progressive_enhancement"
+    "horizontal_timeline_navigation",
+    "timeline_pointer_drag",
+    "timeline_keyboard_navigation",
+    "active_era_scroll_detection",
+    "era_palette_transitions",
+    "era_typography_evolution",
+    "real_wikimedia_visual_archive",
+    "game_card_tilt_and_glow",
+    "lazy_remote_images",
+    "remote_image_fallback",
+    "responsive_timeline_and_gallery",
+    "static_preview_progressive_enhancement",
+    "blazor_navigation_sync"
   ],
-  "hero_positions": [
-    "center",
-    "top-left",
-    "top-right",
-    "bottom-left",
-    "bottom-right"
-  ],
-  "deferred": [
-    "interactive_timeline_and_real_game_images_stage_4",
-    "advanced_scroll_animations_stage_5",
-    "final_production_QA_stage_6"
-  ],
+  "structural_qa": {
+    "html_documents": 2,
+    "duplicate_ids": 0,
+    "missing_fragment_targets": 0,
+    "missing_local_assets": 0,
+    "unresolved_template_tokens": 0,
+    "era_sections": 7,
+    "timeline_links": 7,
+    "game_cards": 14,
+    "game_images": 14,
+    "remote_commons_images": 14,
+    "lazy_game_images": 14,
+    "javascript_syntax": "pass",
+    "css_brace_balance": "pass"
+  },
+  "browser_qa": {
+    "engine": "Chromium headless",
+    "method": "Delivered HTML, CSS and JavaScript loaded in-browser with local assets inlined because direct local navigation is restricted in the delivery sandbox. Remote images were not fetched during this layout test.",
+    "desktop_1440x900": {
+      "horizontal_overflow_px": 0,
+      "gallery_columns": 3,
+      "timeline_scrollable": true,
+      "timeline_click_target": "era-1990",
+      "keyboard_target_after_right_arrow": "era-2000",
+      "sidebar_target": "era-2010",
+      "scroll_detected_target": "era-2020",
+      "active_markers_synchronized": true,
+      "pointer_drag_delta_px": 58,
+      "tilt_variables_changed": true,
+      "page_errors": 0
+    },
+    "tablet_820x1180": {
+      "horizontal_overflow_px": 0,
+      "gallery_columns": 2,
+      "timeline_scrollable": true,
+      "page_errors": 0
+    },
+    "mobile_390x844": {
+      "horizontal_overflow_px": 0,
+      "gallery_columns": 1,
+      "timeline_scrollable": true,
+      "page_errors": 0
+    }
+  },
+  "visual_archive": {
+    "game_cards": 14,
+    "provider": "Wikimedia Commons",
+    "generated_ai_images": 0,
+    "local_visual_copies": 0,
+    "credit_links_per_card": true,
+    "requires_network_for_remote_images": true,
+    "remote_fetch_qa": "not executed in Chromium sandbox; every card retains a direct Commons file-page credit link"
+  },
   "logo": {
     "file": "wwwroot/assets/Logo_GgWp.png",
     "sha256": "462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33",
     "unchanged": true,
-    "png_count": 1
+    "png_count": 1,
+    "local_raster_image_count": 1
   },
   "responsive_css": {
-    "breakpoints_px": [
-      430,
-      680,
-      900,
-      1180,
-      1600
-    ],
-    "desktop_five_positions": true,
-    "tablet_five_positions": true,
-    "mobile_five_positions": true,
-    "mobile_logo_exhibit_as_background": true
+    "breakpoints_px": [430, 680, 900, 1180, 1600],
+    "timeline_horizontal_scroll": true,
+    "timeline_drag": true,
+    "gallery_columns_desktop": "3-4",
+    "gallery_columns_tablet": 2,
+    "gallery_columns_mobile": 1
   },
+  "forbidden_files": {
+    "README.md": 0,
+    ".env": 0
+  },
+  "deferred": [
+    "advanced_scroll_animations_stage_5",
+    "section_view_transitions_stage_5",
+    "final_production_QA_stage_6"
+  ],
   "runtime_validation": {
-    "blazor_compilation": "pending: .NET SDK unavailable in delivery environment",
-    "github_pages_deployment": "pending: no repository modified",
-    "chromium_navigation": "direct localhost navigation blocked by administrator policy; interaction QA executed with injected local assets"
-  },
-  "structural_checks": {
-    "singlePNG": true,
-    "logoHashMatchesOriginalUpload": true,
-    "noReadme": true,
-    "noEnv": true,
-    "uniqueIds": true,
-    "allInternalAnchorsResolve": true,
-    "allLocalAssetsExist": true,
-    "noPlaceholderTokensInGeneratedHtml": true,
-    "javascriptSyntax": "node --check passed",
-    "cssBraceBalance": "passed"
-  },
-  "browser_qa": {
-    "method": "Chromium headless via Playwright with local HTML/CSS/JS injected because direct localhost navigation is blocked by administrator policy",
-    "viewports": [
-      {
-        "width": 1440,
-        "height": 900
-      },
-      {
-        "width": 820,
-        "height": 1180
-      },
-      {
-        "width": 390,
-        "height": 844
-      }
-    ],
-    "allFivePositionsInsideHeroStage": true,
-    "horizontalOverflowPx": 0,
-    "autoRotationDesktopAfter6_1s": "center -> top-left",
-    "manualSelectionPausesAuto": true,
-    "reducedMotionKeepsCenter": true,
-    "javascriptErrors": 0
+    "blazor_compilation": "pending: .NET 10 SDK unavailable in delivery environment",
+    "github_pages_deployment": "pending: no repository modified"
   }
 }

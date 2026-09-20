@@ -32,6 +32,7 @@ string Refs(JsonNode item)
     return "<div class=\"refs\">" + string.Join("", links) + "</div>";
 }
 var navigation = new StringBuilder();
+var timeline = new StringBuilder();
 var eras = new StringBuilder();
 foreach (var item in catalog["eras"]!.AsArray())
 {
@@ -39,6 +40,7 @@ foreach (var item in catalog["eras"]!.AsArray())
     var v = Scalars(n);
     v["name"] = H(Value(n, "kicker").Split(" / ", 2).Last().ToLowerInvariant());
     navigation.Append(Render("nav-item", v));
+    timeline.Append(Render("timeline-item", v));
     var events = new StringBuilder();
     foreach (var e in n["events"]!.AsArray())
     {
@@ -67,7 +69,7 @@ void Generate(string path, string basePath, string mode, string status)
 {
     var values = new Dictionary<string,string> {
         ["base"] = H(basePath), ["mode"] = H(mode), ["status"] = H(status),
-        ["navigation"] = navigation.ToString(), ["eras"] = eras.ToString(),
+        ["navigation"] = navigation.ToString(), ["timeline"] = timeline.ToString(), ["eras"] = eras.ToString(),
         ["games"] = games.ToString(), ["revolutions"] = revolutions.ToString(), ["sources"] = sources
     };
     var text = Render("page", values);

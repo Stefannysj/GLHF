@@ -1,6 +1,6 @@
 {
   "edition": "2026",
-  "reviewDate": "2026-09-16",
+  "reviewDate": "2026-09-19",
   "eras": [
     {
       "id": "era-1958",
@@ -356,7 +356,12 @@
       "description": "La pista no estaba en un televisor: se dibujaba en un osciloscopio.",
       "sources": [
         "bnl"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tennis%20For%20Two%20on%20a%20DuMont%20Lab%20Oscilloscope%20Type%20304-A.jpg?width=1200",
+      "mediaAlt": "Tennis for Two ejecutándose en un osciloscopio DuMont, recreación histórica del sistema de 1958.",
+      "mediaKind": "Pantalla histórica",
+      "mediaCredit": "Brookhaven National Laboratory / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Tennis%20For%20Two%20on%20a%20DuMont%20Lab%20Oscilloscope%20Type%20304-A.jpg"
     },
     {
       "eraId": "era-1958",
@@ -366,7 +371,12 @@
       "description": "Dos naves se enfrentan alrededor de una estrella en uno de los primeros juegos digitales influyentes.",
       "sources": [
         "chm"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Spacewar%20screenshot.jpg?width=1200",
+      "mediaAlt": "Spacewar! ejecutándose en una computadora PDP-1.",
+      "mediaKind": "Captura histórica",
+      "mediaCredit": "Kenneth Lu / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Spacewar%20screenshot.jpg"
     },
     {
       "eraId": "era-1970",
@@ -376,7 +386,12 @@
       "description": "Una idea sencilla de tenis de mesa ayuda a abrir el mercado de las recreativas.",
       "sources": [
         "pong"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/PONG%20arcade.jpg?width=1200",
+      "mediaAlt": "Gabinete arcade de Pong fotografiado en una sala recreativa.",
+      "mediaKind": "Arcade real",
+      "mediaCredit": "Luis Alfredo Romero / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:PONG%20arcade.jpg"
     },
     {
       "eraId": "era-1970",
@@ -386,7 +401,12 @@
       "description": "Defender la pantalla de oleadas enemigas se convierte en un emblema del arcade.",
       "sources": [
         "invaders"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Space%20Invader%20Cabinet.jpg?width=1200",
+      "mediaAlt": "Gabinete arcade de Space Invaders, ejemplo físico de la cultura recreativa de finales de los setenta.",
+      "mediaKind": "Arcade real",
+      "mediaCredit": "Scalleja / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Space%20Invader%20Cabinet.jpg"
     },
     {
       "eraId": "era-1980",
@@ -396,7 +416,12 @@
       "description": "Piezas geométricas y reglas sencillas sostienen un diseño reconocible entre generaciones.",
       "sources": [
         "strong"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Game-Boy-Original.jpg?width=1200",
+      "mediaAlt": "Nintendo Game Boy original de 1989, plataforma estrechamente asociada con la expansión global de Tetris.",
+      "mediaKind": "Hardware real",
+      "mediaCredit": "Evan-Amos / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Game-Boy-Original.jpg"
     },
     {
       "eraId": "era-1980",
@@ -406,7 +431,12 @@
       "description": "El Reino Champiñón convierte un desplazamiento lateral en una aventura reconocible por millones.",
       "sources": [
         "mario"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nintendo-Entertainment-System-NES-Console-FL.jpg?width=1200",
+      "mediaAlt": "Nintendo Entertainment System, la plataforma doméstica vinculada al lanzamiento occidental de Super Mario Bros.",
+      "mediaKind": "Hardware real",
+      "mediaCredit": "Evan-Amos / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Nintendo-Entertainment-System-NES-Console-FL.jpg"
     },
     {
       "eraId": "era-1990",
@@ -416,7 +446,12 @@
       "description": "Su comunidad no solo juega: también transforma niveles y apariencias.",
       "sources": [
         "chm"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/American%20McGee%20at%20id%20Software,%206%20October%201995%20(by%20Ian%20Mapleson,%20administrator%20of%20the%20Doom%20Help%20Service).jpg?width=1200",
+      "mediaAlt": "American McGee en id Software en 1995, archivo fotográfico del estudio durante la era de Doom.",
+      "mediaKind": "Archivo de estudio",
+      "mediaCredit": "Ian Mapleson / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:American%20McGee%20at%20id%20Software,%206%20October%201995%20(by%20Ian%20Mapleson,%20administrator%20of%20the%20Doom%20Help%20Service).jpg"
     },
     {
       "eraId": "era-1990",
@@ -426,7 +461,12 @@
       "description": "La conducción y la simulación se vuelven parte de la identidad de PlayStation.",
       "sources": [
         "sie"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/PlayStation-SCPH-1000-with-Controller.jpg?width=1200",
+      "mediaAlt": "PlayStation SCPH-1000 con control y tarjeta de memoria, hardware de la generación de Gran Turismo.",
+      "mediaKind": "Hardware real",
+      "mediaCredit": "Evan-Amos / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:PlayStation-SCPH-1000-with-Controller.jpg"
     },
     {
       "eraId": "era-2000",
@@ -436,7 +476,12 @@
       "description": "Forma parte del catálogo que acompaña la llegada de la primera Xbox.",
       "sources": [
         "xbox"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Xbox-console.jpg?width=1200",
+      "mediaAlt": "Xbox original con control S, plataforma de lanzamiento de Halo: Combat Evolved.",
+      "mediaKind": "Hardware real",
+      "mediaCredit": "Evan-Amos / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Xbox-console.jpg"
     },
     {
       "eraId": "era-2000",
@@ -446,7 +491,12 @@
       "description": "Azeroth funciona como escenario compartido para aventuras, grupos y comunidades.",
       "sources": [
         "wow"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Blizzard's%20Rob%20Pardo%20and%20Tom%20Chilton%20of%20World%20of%20Warcraft%20(520725354).jpg?width=1200",
+      "mediaAlt": "Rob Pardo y Tom Chilton, desarrolladores vinculados a World of Warcraft, fotografiados en 2007.",
+      "mediaKind": "Archivo de desarrollo",
+      "mediaCredit": "Joi Ito / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Blizzard's%20Rob%20Pardo%20and%20Tom%20Chilton%20of%20World%20of%20Warcraft%20(520725354).jpg"
     },
     {
       "eraId": "era-2000",
@@ -456,7 +506,12 @@
       "description": "Sus primeras versiones públicas ya permiten construir con bloques: Mojang recuerda ese comienzo en Minecraft Classic.",
       "sources": [
         "minecraft"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/MineCon2015ExpoHall.jpg?width=1200",
+      "mediaAlt": "Vista del pabellón de MineCon 2015, encuentro de la comunidad de Minecraft.",
+      "mediaKind": "Comunidad real",
+      "mediaCredit": "Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:MineCon2015ExpoHall.jpg"
     },
     {
       "eraId": "era-2010",
@@ -466,7 +521,12 @@
       "description": "El lanzamiento gratuito une supervivencia competitiva y construcción.",
       "sources": [
         "fortnite"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fortnite%20Battle%20Royale%20at%20GDC%202018.jpg?width=1200",
+      "mediaAlt": "Instalación de Fortnite Battle Royale durante la Game Developers Conference de 2018.",
+      "mediaKind": "Evento real",
+      "mediaCredit": "Official GDC / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Fortnite%20Battle%20Royale%20at%20GDC%202018.jpg"
     },
     {
       "eraId": "era-2020",
@@ -476,7 +536,12 @@
       "description": "La exploración de Teyvat se organiza alrededor de poderes elementales.",
       "sources": [
         "genshin"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/TECO%20TL32A1TRE%20at%20Genshin%20Impact%20booth%20stage%2020210131.jpg?width=1200",
+      "mediaAlt": "Pantalla y escenario del stand de Genshin Impact en Taipei Game Show 2021.",
+      "mediaKind": "Evento real",
+      "mediaCredit": "Solomon203 / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:TECO%20TL32A1TRE%20at%20Genshin%20Impact%20booth%20stage%2020210131.jpg"
     },
     {
       "eraId": "era-2020",
@@ -486,7 +551,12 @@
       "description": "Acompaña el estreno de la nueva consola de Nintendo.",
       "sources": [
         "switch2"
-      ]
+      ],
+      "mediaUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nintendo%20Switch%202.jpg?width=1200",
+      "mediaAlt": "Nintendo Switch 2 fotografiada en 2025, plataforma de Mario Kart World.",
+      "mediaKind": "Hardware real",
+      "mediaCredit": "Leohideki86 / Wikimedia Commons",
+      "mediaSource": "https://commons.wikimedia.org/wiki/File:Nintendo%20Switch%202.jpg"
     }
   ],
   "revolutions": [

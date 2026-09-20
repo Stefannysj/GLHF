@@ -1,41 +1,41 @@
-GLHF - ETAPA 03 / HERO DINAMICO
-==============================
+GLHF - ETAPA 04 / LINEA DE TIEMPO INTERACTIVA
+=============================================
 
 1. QUE SE IMPLEMENTO EN ESTA ETAPA
-La Etapa 3 incorpora el comportamiento dinamico solicitado para el bloque principal:
-- El Hero puede ocupar cinco posiciones: centro, arriba-izquierda, arriba-derecha,
-  abajo-izquierda y abajo-derecha.
-- Transicion suave entre posiciones mediante CSS, sin desplazar el flujo del resto de la pagina.
-- Rotacion automatica del Hero: 5.5 s en desktop/tablet y 6.5 s en mobile.
-- Controles manuales accesibles para elegir cualquiera de las cinco posiciones.
-- Tras una seleccion manual, la rotacion automatica se pausa durante 12 segundos.
-- La rotacion tambien se pausa mientras el usuario interactua con el Hero, cuando la
-  pestaña no esta visible o cuando la portada queda fuera del viewport.
-- Si el sistema usa prefers-reduced-motion, no hay autorrotacion y el Hero vuelve al centro.
-- En mobile el bloque reduce ancho/tipografia y mantiene las cinco posiciones dentro de
-  una zona segura para evitar overflow horizontal.
-- El panel del logo se desplaza visualmente al lado opuesto en desktop para mantener
-  legibilidad. En mobile queda centrado y atenuado como fondo de la portada.
+La Etapa 4 incorpora la navegación cronológica y la colección visual real:
+- Línea de tiempo horizontal navegable por décadas/eras.
+- Scroll normal por la página + selección directa de una era.
+- Arrastre horizontal con mouse/puntero en la barra cronológica.
+- Navegación por teclado con flechas, Home, End y Enter.
+- Era activa detectada mientras se hace scroll.
+- Cambio progresivo de paleta y tratamiento tipográfico según la era activa.
+- Resaltado de la era visible en la navegación lateral y en la barra cronológica.
+- Tarjetas documentales con imágenes reales de Wikimedia Commons.
+- Efecto tilt/glow en las tarjetas con puntero fino; se desactiva con reduced motion.
+- Lazy loading de imágenes y fallback visual si un recurso remoto no puede cargarse.
+- Adaptación de la línea de tiempo y galería para mobile/tablet/desktop.
 
-2. IMPLEMENTACION BLAZOR
-Se agrega Components/HeroController.razor.
-En ejecucion Blazor, C# conserva el estado seleccionado y sincroniza los cambios
-producidos por la rotacion automatica del navegador mediante JS interop.
-La vista previa estatica conserva el mismo comportamiento con JavaScript progresivo,
-por lo que index.html de la raiz sigue siendo revisable sin iniciar .NET.
+2. IMAGENES REALES / NO IA
+Las 14 fichas usan fotografías, capturas históricas, hardware, arcades, estudios o
+registros de eventos alojados en Wikimedia Commons. Cada ficha enlaza su página de
+crédito/licencia. Ver también FUENTES_VISUALES.txt.
+
+Las imágenes visuales NO se guardan como archivos PNG dentro del proyecto. Se cargan
+remotamente y de forma lazy para mantener la restricción del logo único.
 
 3. LOGO
-Se mantiene UN SOLO PNG en todo el proyecto:
+Se mantiene UN SOLO PNG local en todo el proyecto:
 
     wwwroot/assets/Logo_GgWp.png
 
-No se genero ninguna variante, miniatura, recoloreado ni copia PNG adicional.
+No se generó ninguna variante, miniatura, recoloreado ni copia PNG adicional.
 SHA-256 esperado:
 462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33
 
 4. VISTA PREVIA INMEDIATA
 Extrae TODO el ZIP y abre index.html de la carpeta principal.
-La portada dinamica funciona tambien en esta vista previa.
+La línea de tiempo, paletas, navegación y efectos de tarjetas funcionan en esta vista.
+Para ver las imágenes documentales remotas se necesita conexión a Internet.
 
 5. EJECUTAR EL PROYECTO BLAZOR
 Requiere .NET 10 SDK. Desde la carpeta que contiene GLHF.csproj:
@@ -47,35 +47,44 @@ Requiere .NET 10 SDK. Desde la carpeta que contiene GLHF.csproj:
 Perfil de desarrollo: http://localhost:5180
 
 6. ESTRUCTURA PRINCIPAL ACTUALIZADA
-index.html                        Vista previa HTML en la raiz.
-GLHF.csproj                       Aplicacion Blazor WebAssembly .NET 10.
-Components/EraNavigator.razor     Navegacion y estado de era en C#.
-Components/HeroController.razor   Estado y controles del Hero dinamico en C#.
-Content/history.json              Fuente unica del contenido editorial.
-Templates/*.html                  Plantillas HTML del museo.
+index.html                        Vista previa HTML en la raíz.
+GLHF.csproj                       Aplicación Blazor WebAssembly .NET 10.
+Components/EraNavigator.razor     Navegación y estado de era en C#.
+Components/HeroController.razor   Estado y controles del Hero dinámico en C#.
+Content/history.json              Contenido + metadatos del archivo visual.
+Templates/timeline-item.html      Elementos de la barra cronológica.
+Templates/game.html               Tarjetas con archivo visual real.
+Templates/page.html               Estructura del museo.
+FUENTES_VISUALES.txt              Inventario de imágenes y criterio de uso.
 wwwroot/index.html                HTML inicial de Blazor.
-wwwroot/assets/Logo_GgWp.png      Unico PNG del proyecto.
-wwwroot/assets/css/site.css       Estilos y posiciones responsive del Hero.
-wwwroot/assets/js/site.js         Autorrotacion, viewport y puente JS/C#.
+wwwroot/assets/Logo_GgWp.png      Único PNG local del proyecto.
+wwwroot/assets/css/site.css       Paletas por era, timeline, responsive y tilt.
+wwwroot/assets/js/site.js         Scroll activo, drag, teclado, paletas y tilt.
 wwwroot/assets/js/bootstrap.js    Inicio progresivo de Blazor, sin loader.
-.github/workflows/pages.yml       Build y publicacion en GitHub Pages.
-tools/Publish.ps1                 Publicacion local con base configurable.
+.github/workflows/pages.yml       Build y publicación en GitHub Pages.
+tools/Publish.ps1                 Publicación local con base configurable.
 VALIDACION.json                   Chequeos automatizados de esta entrega.
 
 7. RESTRICCIONES MANTENIDAS
 - No README.md.
 - No .env.
 - Sin frameworks CSS pesados.
-- Sin imagenes generadas por IA.
-- Sin PNG adicionales.
+- Sin imágenes generadas por IA.
+- Un solo PNG local: Logo_GgWp.png.
 - Sin pantalla de carga.
-- El contenido permanece visible como HTML antes de que Blazor inicie.
+- Contenido visible como HTML antes de que Blazor inicie.
 
 8. ESTADO DE QA
-Se validan estructura HTML, enlaces internos, assets, sintaxis JavaScript, balance CSS,
-cantidad de PNG, hash del logo y comportamiento responsive del Hero con Chromium local.
-La compilacion C# queda pendiente cuando el entorno de entrega no dispone de .NET 10 SDK.
+Se validaron estructura HTML, enlaces internos, assets locales, sintaxis JavaScript,
+balance CSS, cantidad/hash del PNG y estructura de la línea de tiempo. También se
+probó el HTML/CSS/JS entregado en Chromium headless a 1440x900, 820x1180 y 390x844:
+sin overflow horizontal, galería 3/2/1 columnas, navegación por click/teclado/scroll,
+arrastre horizontal de la timeline y tilt de tarjetas. La navegación directa a archivos
+locales está bloqueada por el sandbox, por lo que el QA del navegador inyectó los mismos
+HTML/CSS/JS en memoria. Las imágenes remotas no se descargaron en esa prueba.
+
+La compilación C# queda pendiente porque este entorno no dispone de .NET 10 SDK.
 
 9. SIGUIENTE ETAPA
-Etapa 4: Linea de tiempo interactiva.
-Incluira navegacion por eras, tarjetas con imagenes reales y cambios visuales por decada.
+Etapa 5: animaciones y microinteracciones finas.
+Incluye scroll-driven animations, transiciones de sección y revisión de performance.
