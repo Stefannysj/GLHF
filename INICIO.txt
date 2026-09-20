@@ -1,29 +1,31 @@
-GLHF - ETAPA 04 / LINEA DE TIEMPO INTERACTIVA
-=============================================
+GLHF - ETAPA 05 / ANIMACIONES Y MICROINTERACCIONES
+=================================================
 
 1. QUE SE IMPLEMENTO EN ESTA ETAPA
-La Etapa 4 incorpora la navegación cronológica y la colección visual real:
-- Línea de tiempo horizontal navegable por décadas/eras.
-- Scroll normal por la página + selección directa de una era.
-- Arrastre horizontal con mouse/puntero en la barra cronológica.
-- Navegación por teclado con flechas, Home, End y Enter.
-- Era activa detectada mientras se hace scroll.
-- Cambio progresivo de paleta y tratamiento tipográfico según la era activa.
-- Resaltado de la era visible en la navegación lateral y en la barra cronológica.
-- Tarjetas documentales con imágenes reales de Wikimedia Commons.
-- Efecto tilt/glow en las tarjetas con puntero fino; se desactiva con reduced motion.
-- Lazy loading de imágenes y fallback visual si un recurso remoto no puede cargarse.
-- Adaptación de la línea de tiempo y galería para mobile/tablet/desktop.
+La Etapa 5 pule la experiencia del museo sin alterar la arquitectura de las etapas previas:
+- Animaciones de entrada controladas por IntersectionObserver y ejecutadas una sola vez.
+- Stagger moderado en títulos, eras, hitos, revoluciones y fichas documentales.
+- Barra cronológica fija que muestra el avance global y la era activa.
+- Parallax ligero del Hero vinculado al scroll, sin modificar su sistema de 5 posiciones.
+- Transiciones visuales de sección y resaltado de llegada al navegar por anclas.
+- Navegación interna con scroll suave para evitar saltos abruptos.
+- Microinteracciones refinadas en botones, eras, hitos y tarjetas de revoluciones.
+- Respeto completo de prefers-reduced-motion.
+- Revisión de performance: requestAnimationFrame para el scroll, observers desconectados por elemento al revelarse, content-visibility/contain en tarjetas y fetchpriority bajo para imágenes documentales lazy.
 
-2. IMAGENES REALES / NO IA
-Las 14 fichas usan fotografías, capturas históricas, hardware, arcades, estudios o
-registros de eventos alojados en Wikimedia Commons. Cada ficha enlaza su página de
-crédito/licencia. Ver también FUENTES_VISUALES.txt.
+2. PERFORMANCE / SIN JANK
+El listener de scroll no modifica el DOM directamente en cada evento: agrupa el trabajo con requestAnimationFrame.
+Las animaciones de entrada usan opacity/translate/scale y cada elemento deja de observarse después de aparecer.
+Las fichas visuales mantienen un contenedor con aspect-ratio, loading=lazy y decoding=async para evitar layout shift.
 
-Las imágenes visuales NO se guardan como archivos PNG dentro del proyecto. Se cargan
-remotamente y de forma lazy para mantener la restricción del logo único.
+3. ACCESIBILIDAD DE MOVIMIENTO
+Con prefers-reduced-motion: reduce:
+- No se oculta contenido para animarlo.
+- Se detienen animaciones/transiciones decorativas.
+- Se neutraliza el parallax.
+- La navegación sigue siendo funcional.
 
-3. LOGO
+4. LOGO
 Se mantiene UN SOLO PNG local en todo el proyecto:
 
     wwwroot/assets/Logo_GgWp.png
@@ -32,12 +34,12 @@ No se generó ninguna variante, miniatura, recoloreado ni copia PNG adicional.
 SHA-256 esperado:
 462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33
 
-4. VISTA PREVIA INMEDIATA
+5. VISTA PREVIA INMEDIATA
 Extrae TODO el ZIP y abre index.html de la carpeta principal.
-La línea de tiempo, paletas, navegación y efectos de tarjetas funcionan en esta vista.
+Las animaciones, la barra de progreso, el Hero, la timeline y las microinteracciones funcionan en esta vista.
 Para ver las imágenes documentales remotas se necesita conexión a Internet.
 
-5. EJECUTAR EL PROYECTO BLAZOR
+6. EJECUTAR EL PROYECTO BLAZOR
 Requiere .NET 10 SDK. Desde la carpeta que contiene GLHF.csproj:
 
     dotnet --version
@@ -46,45 +48,34 @@ Requiere .NET 10 SDK. Desde la carpeta que contiene GLHF.csproj:
 
 Perfil de desarrollo: http://localhost:5180
 
-6. ESTRUCTURA PRINCIPAL ACTUALIZADA
+7. ESTRUCTURA PRINCIPAL
 index.html                        Vista previa HTML en la raíz.
 GLHF.csproj                       Aplicación Blazor WebAssembly .NET 10.
 Components/EraNavigator.razor     Navegación y estado de era en C#.
 Components/HeroController.razor   Estado y controles del Hero dinámico en C#.
 Content/history.json              Contenido + metadatos del archivo visual.
-Templates/timeline-item.html      Elementos de la barra cronológica.
-Templates/game.html               Tarjetas con archivo visual real.
-Templates/page.html               Estructura del museo.
-FUENTES_VISUALES.txt              Inventario de imágenes y criterio de uso.
+Templates/page.html               Estructura canónica del museo.
+Templates/game.html               Tarjetas con lazy loading optimizado.
 wwwroot/index.html                HTML inicial de Blazor.
 wwwroot/assets/Logo_GgWp.png      Único PNG local del proyecto.
-wwwroot/assets/css/site.css       Paletas por era, timeline, responsive y tilt.
-wwwroot/assets/js/site.js         Scroll activo, drag, teclado, paletas y tilt.
-wwwroot/assets/js/bootstrap.js    Inicio progresivo de Blazor, sin loader.
-.github/workflows/pages.yml       Build y publicación en GitHub Pages.
-tools/Publish.ps1                 Publicación local con base configurable.
+wwwroot/assets/css/site.css       Motion system, microinteracciones y responsive.
+wwwroot/assets/js/site.js         Observers, progreso cronológico, scroll y navegación.
 VALIDACION.json                   Chequeos automatizados de esta entrega.
 
-7. RESTRICCIONES MANTENIDAS
+8. RESTRICCIONES MANTENIDAS
 - No README.md.
 - No .env.
 - Sin frameworks CSS pesados.
 - Sin imágenes generadas por IA.
 - Un solo PNG local: Logo_GgWp.png.
 - Sin pantalla de carga.
-- Contenido visible como HTML antes de que Blazor inicie.
+- Contenido visible como HTML antes de que JavaScript/Blazor inicie.
 
-8. ESTADO DE QA
-Se validaron estructura HTML, enlaces internos, assets locales, sintaxis JavaScript,
-balance CSS, cantidad/hash del PNG y estructura de la línea de tiempo. También se
-probó el HTML/CSS/JS entregado en Chromium headless a 1440x900, 820x1180 y 390x844:
-sin overflow horizontal, galería 3/2/1 columnas, navegación por click/teclado/scroll,
-arrastre horizontal de la timeline y tilt de tarjetas. La navegación directa a archivos
-locales está bloqueada por el sandbox, por lo que el QA del navegador inyectó los mismos
-HTML/CSS/JS en memoria. Las imágenes remotas no se descargaron en esa prueba.
+9. ESTADO DE QA
+Se validan estructura HTML, enlaces internos, assets locales, sintaxis JavaScript, balance CSS,
+cantidad/hash del PNG, reduced-motion, barra de progreso y comportamiento responsive.
+La compilación C# queda pendiente si el entorno de entrega no dispone de .NET 10 SDK.
 
-La compilación C# queda pendiente porque este entorno no dispone de .NET 10 SDK.
-
-9. SIGUIENTE ETAPA
-Etapa 5: animaciones y microinteracciones finas.
-Incluye scroll-driven animations, transiciones de sección y revisión de performance.
+10. SIGUIENTE ETAPA
+Etapa 6: pulido final y QA.
+Incluye revisión responsive completa, ausencia de loader/archivos prohibidos y validación de publicación.

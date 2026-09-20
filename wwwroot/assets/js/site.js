@@ -71,6 +71,8 @@
     const title = document.querySelector("[data-timeline-now-title]");
     if (period) period.textContent = meta.period;
     if (title) title.textContent = meta.title;
+    const progressEra = document.querySelector("[data-scroll-progress-era]");
+    if (progressEra) progressEra.textContent = `${meta.period} / ${meta.title}`;
     if (changed) ensureRailLinkVisible(id);
 
     if (changed && syncDotnet && dotnet) {
@@ -170,11 +172,19 @@
 
   document.addEventListener("click", event => {
     const link = event.target.closest("a");
-    if (link?.dataset.eraLink && !dotnet) {
+    if (!link) return;
+    if (link.dataset.eraLink && !dotnet) {
       event.preventDefault();
       scrollToEra(link.dataset.eraLink, null);
+      return;
     }
-    if (link?.dataset.fragment) openSource(link.dataset.fragment);
+    if (link.dataset.fragment && !link.dataset.eraLink) {
+      const fragment = link.dataset.fragment;
+      if (document.getElementById(fragment.slice(1))) {
+        event.preventDefault();
+        navigateFragment(fragment);
+      }
+    }
   });
   window.addEventListener("hashchange", () => {
     openSource(location.hash);
@@ -190,7 +200,7 @@
     if (details) details.open = details.dataset.wasOpen === "true";
   });
 
-  // Stage 03 Hero remains intact in Stage 04.
+  // Stage 03 Hero remains intact; Stage 05 adds motion around it without changing its behavior.
   const hero = document.querySelector(".hero[data-hero-position]");
   const heroPositions = ["center", "top-left", "top-right", "bottom-right", "bottom-left"];
   const heroNames = {
@@ -314,6 +324,145 @@
     });
   }
 
+
+  // Stage 05 — reveal-on-scroll, continuous chronology progress and section polish.
+  let revealObserver = null;
+  let sectionObserver = null;
+  let scrollFrame = 0;
+  let arrivalTimer = 0;
+
+  function markArrival(target) {
+    if (!target || reduced()) return;
+    target.classList.remove("section-arrival");
+    // Force only this small animation to restart; no layout reads on normal scroll.
+    void target.offsetWidth;
+    target.classList.add("section-arrival");
+    clearTimeout(arrivalTimer);
+    arrivalTimer = window.setTimeout(() => target.classList.remove("section-arrival"), 850);
+  }
+
+  function navigateFragment(fragment) {
+    if (!fragment?.startsWith("#") || fragment === "#") return false;
+    const id = decodeURIComponent(fragment.slice(1));
+    const target = document.getElementById(id);
+    if (!target) return false;
+    openSource(fragment);
+    history.replaceState(null, "", fragment);
+    target.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+    if (!reduced()) window.setTimeout(() => markArrival(target.closest(".section-wrap") || target), 360);
+    return true;
+  }
+
+  function decorateRevealItems() {
+    const groups = [
+      ".section-heading > *",
+      ".era",
+      ".milestone",
+      ".editorial-note",
+      ".revolution",
+      ".gallery-note",
+      ".game-card",
+      ".future-layout > *",
+      ".sources-section details"
+    ];
+    const items = [];
+    groups.forEach(selector => {
+      document.querySelectorAll(selector).forEach((el, index) => {
+        if (el.classList.contains("reveal-item")) return;
+        el.classList.add("reveal-item");
+        el.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 54}ms`);
+        items.push(el);
+      });
+    });
+
+    if (reduced() || !("IntersectionObserver" in window)) {
+      items.forEach(el => el.classList.add("is-revealed"));
+      return;
+    }
+
+    document.documentElement.classList.add("motion-ready");
+    revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        revealObserver?.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: .08 });
+    items.forEach(el => revealObserver.observe(el));
+  }
+
+  function initializeSectionFocus() {
+    const sections = Array.from(document.querySelectorAll(".section-wrap"));
+    if (!sections.length || !("IntersectionObserver" in window)) return;
+    sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => entry.target.classList.toggle("is-section-active", entry.isIntersecting));
+    }, { rootMargin: "-18% 0px -42% 0px", threshold: 0 });
+    sections.forEach(section => sectionObserver.observe(section));
+  }
+
+  function updateScrollEffects() {
+    scrollFrame = 0;
+    const doc = document.documentElement;
+    const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const ratio = Math.max(0, Math.min(1, window.scrollY / max));
+    doc.style.setProperty("--page-scroll", ratio.toFixed(5));
+    const percent = document.querySelector("[data-scroll-progress-percent]");
+    if (percent) percent.textContent = `${Math.round(ratio * 100).toString().padStart(2, "0")}%`;
+
+    const progressEra = document.querySelector("[data-scroll-progress-era]");
+    if (progressEra) {
+      const chapterPoint = Math.min(window.innerHeight * .28, 220);
+      const chapters = [
+        [hero, "1958—2026 / MUSEO DIGITAL"],
+        [document.getElementById("historia"), null],
+        [document.getElementById("revoluciones"), "REVOLUCIONES / CAMBIOS DE PARADIGMA"],
+        [document.getElementById("coleccion"), "COLECCIÓN / 14 FICHAS"],
+        [document.getElementById("futuro"), "FUTURO / LA PARTIDA CONTINÚA"],
+        [document.getElementById("fuentes"), "FUENTES / ARCHIVO ABIERTO"]
+      ].filter(([el]) => el);
+      const currentChapter = chapters.find(([el]) => {
+        const rect = el.getBoundingClientRect();
+        return rect.top <= chapterPoint && rect.bottom > chapterPoint;
+      });
+      if (ratio > .965 && document.getElementById("fuentes")) {
+        progressEra.textContent = "FUENTES / ARCHIVO ABIERTO";
+      } else if (currentChapter) {
+        if (currentChapter[1]) progressEra.textContent = currentChapter[1];
+        else if (active) {
+          const meta = eraMeta(active);
+          progressEra.textContent = `${meta.period} / ${meta.title}`;
+        }
+      }
+    }
+
+    if (hero && !reduced()) {
+      const heroRect = hero.getBoundingClientRect();
+      const traveled = Math.max(0, Math.min(heroRect.height, -heroRect.top + 88));
+      hero.style.setProperty("--hero-parallax", `${(traveled * .035).toFixed(2)}px`);
+      hero.style.setProperty("--hero-axis-parallax", `${(traveled * -.018).toFixed(2)}px`);
+    }
+  }
+
+  function scheduleScrollEffects() {
+    if (scrollFrame) return;
+    scrollFrame = window.requestAnimationFrame(updateScrollEffects);
+  }
+
+  function initializeMotionSystem() {
+    decorateRevealItems();
+    initializeSectionFocus();
+    updateScrollEffects();
+    window.addEventListener("scroll", scheduleScrollEffects, { passive: true });
+    window.addEventListener("resize", scheduleScrollEffects, { passive: true });
+    window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener?.("change", () => {
+      if (reduced()) {
+        document.documentElement.classList.remove("motion-ready");
+        document.querySelectorAll(".reveal-item").forEach(el => el.classList.add("is-revealed"));
+      }
+      scheduleScrollEffects();
+    });
+  }
+
   window.glhf = {
     hero: {
       connect(reference) {
@@ -357,4 +506,5 @@
   initializeTimeline();
   initializeHero();
   initializeGameCards();
+  initializeMotionSystem();
 })();

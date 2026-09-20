@@ -1,6 +1,7 @@
 /*
-  GLHF — Etapa 04 / Línea de tiempo interactiva
+  GLHF — Etapa 05 / Animaciones y microinteracciones
   Dark museum UI, responsive and accessible. No external frameworks or fonts.
+  Scroll-driven motion, section transitions and performance pass.
   The original Logo_GgWp.png is reused without filters or derived image files.
 */
 
@@ -32,7 +33,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 112px; background: var(--bg); }
+html { scroll-behavior: smooth; scroll-padding-top: 112px; scrollbar-gutter: stable; background: var(--bg); }
 body {
   margin: 0;
   min-width: 280px;
@@ -1112,7 +1113,7 @@ details[open] .details-symbol { transform: rotate(45deg); }
 }
 
 
-/* Stage 04 — interactive chronology, era palettes and real visual archive */
+/* Stage 04 foundation retained — interactive chronology, era palettes and real visual archive */
 html {
   --era-rgb: 242 184 75;
   --era-soft-rgb: 171 255 136;
@@ -1370,14 +1371,188 @@ html[data-active-era="era-1990"] .era.is-active .era-body h3 { font-family: var(
   .game-media-frame { aspect-ratio: 16 / 9; }
 }
 
+
+/* ================================================================
+   ETAPA 05 — Scroll motion, section transitions and microinteractions
+   ================================================================ */
+:root {
+  --page-scroll: 0;
+  --section-progress: 0;
+  --motion-ease: cubic-bezier(.2,.78,.2,1);
+}
+
+.chronology-progress {
+  position: fixed;
+  top: 88px;
+  left: 0;
+  right: 0;
+  z-index: 39;
+  pointer-events: none;
+  opacity: .96;
+}
+.chronology-progress-track {
+  height: 2px;
+  overflow: hidden;
+  background: rgba(255,255,255,.035);
+}
+.chronology-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(var(--page-scroll));
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hot), var(--cyan));
+  box-shadow: 0 0 16px rgb(var(--era-rgb, 255 48 56) / .42);
+  transition: background .35s ease, box-shadow .35s ease;
+}
+.chronology-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: min(100%, 430px);
+  margin-left: auto;
+  padding: 5px var(--gutter) 0 18px;
+  color: rgba(200,204,212,.68);
+  font: 700 7px/1 var(--mono);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.chronology-progress-meta span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Content stays visible without JS. Motion is enabled only after JS decorates it. */
+.motion-ready .reveal-item {
+  opacity: 0;
+  translate: var(--reveal-x, 0) 26px;
+  scale: .985;
+  transition:
+    opacity .58s var(--motion-ease) var(--reveal-delay, 0ms),
+    translate .72s var(--motion-ease) var(--reveal-delay, 0ms),
+    scale .72s var(--motion-ease) var(--reveal-delay, 0ms);
+}
+.motion-ready .reveal-item.is-revealed {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+.motion-ready .section-heading > :first-child { --reveal-x: -14px; }
+.motion-ready .section-heading > :last-child { --reveal-x: 14px; }
+.motion-ready .era:nth-child(odd),
+.motion-ready .revolution:nth-child(3n+1) { --reveal-x: -12px; }
+.motion-ready .era:nth-child(even),
+.motion-ready .revolution:nth-child(3n) { --reveal-x: 12px; }
+
+.section-wrap {
+  --section-focus: .08;
+  isolation: isolate;
+}
+.section-wrap::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 6%;
+  right: 6%;
+  top: 0;
+  height: min(42vh, 420px);
+  pointer-events: none;
+  opacity: var(--section-focus);
+  background: radial-gradient(ellipse at 50% 0%, rgb(var(--era-rgb, 255 48 56) / .16), transparent 68%);
+  transition: opacity .32s ease, background .45s ease;
+}
+.section-wrap.is-section-active { --section-focus: .72; }
+
+.hero-exhibit {
+  translate: 0 var(--hero-parallax, 0px);
+  transition: translate .08s linear;
+}
+.hero-axis {
+  translate: 0 var(--hero-axis-parallax, 0px);
+  transition: translate .08s linear;
+}
+
+/* Fine-grained hover/tap feedback. */
+.button,
+.back-top,
+.era-link,
+.revolution,
+.timeline-rail-link,
+.refs a,
+.source-shortcut,
+.game-media figcaption a {
+  -webkit-tap-highlight-color: transparent;
+}
+.button { position: relative; overflow: hidden; transition: translate .18s ease, border-color .18s ease, background .18s ease, color .18s ease, box-shadow .22s ease; }
+.button::after {
+  content: "";
+  position: absolute;
+  inset: -70% -25%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-55%) rotate(14deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.17), transparent);
+  transition: transform .5s var(--motion-ease), opacity .22s ease;
+}
+.button:hover { translate: 0 -2px; }
+.button:hover::after { opacity: 1; transform: translateX(55%) rotate(14deg); }
+.button:active { translate: 0 0; }
+
+.era-link { transition: color .18s ease, padding-left .18s ease, background .18s ease; }
+.era-link:hover { padding-left: 5px; background: linear-gradient(90deg, rgb(var(--era-rgb, 255 48 56) / .055), transparent 75%); }
+.nav-dot { transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
+.era-link:hover .nav-dot,
+.era-link[aria-current="step"] .nav-dot { transform: scale(1.28); }
+
+.milestone::before { transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+.milestone:hover::before { transform: rotate(45deg) scale(1.2); background: var(--accent); box-shadow: 0 0 13px rgb(var(--era-rgb,255 48 56) / .45); }
+.milestone h4 { transition: color .2s ease, translate .2s ease; }
+.milestone:hover h4 { color: #fff; translate: 3px 0; }
+
+.revolution { transition: translate .25s var(--motion-ease), border-color .25s ease, box-shadow .25s ease, background .25s ease; }
+.revolution::after { transition: transform .45s var(--motion-ease), border-color .25s ease; }
+.revolution-number { transition: color .25s ease, text-shadow .25s ease, translate .25s ease; }
+.revolution:hover { translate: 0 -6px; border-color: rgb(var(--era-rgb,255 48 56) / .45); box-shadow: 0 24px 70px rgba(0,0,0,.26), 0 0 24px rgb(var(--era-rgb,255 48 56) / .08); }
+.revolution:hover::after { transform: rotate(78deg) scale(1.08); border-color: rgb(var(--era-rgb,255 48 56) / .28); }
+.revolution:hover .revolution-number { color: var(--accent); text-shadow: 0 0 18px rgb(var(--era-rgb,255 48 56) / .22); translate: 2px -2px; }
+
+.game-card { contain: layout paint style; content-visibility: auto; contain-intrinsic-size: 505px; }
+.revolution { content-visibility: auto; contain-intrinsic-size: 290px; }
+.game-media-frame { contain: layout paint; }
+.game-media-frame img { will-change: auto; }
+.game-card:hover .game-media-frame img { will-change: transform; }
+
+.section-arrival {
+  animation: section-arrival-pulse .72s var(--motion-ease) both;
+}
+@keyframes section-arrival-pulse {
+  0% { box-shadow: inset 0 0 0 1px transparent; }
+  35% { box-shadow: inset 0 0 0 1px rgb(var(--era-rgb,255 48 56) / .24), inset 0 34px 80px rgb(var(--era-rgb,255 48 56) / .035); }
+  100% { box-shadow: inset 0 0 0 1px transparent; }
+}
+
+@media (max-width: 900px) {
+  .chronology-progress { top: var(--header-height, 88px); }
+  .chronology-progress-meta { width: 100%; padding-right: var(--gutter); }
+  .motion-ready .section-heading > :first-child,
+  .motion-ready .section-heading > :last-child,
+  .motion-ready .era:nth-child(n),
+  .motion-ready .revolution:nth-child(n) { --reveal-x: 0; }
+}
+@media (max-width: 680px) {
+  .chronology-progress-meta { display: none; }
+  .chronology-progress-track { height: 2px; }
+  .button:hover, .revolution:hover { translate: 0 0; }
+  .era-link:hover { padding-left: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  .reveal-item { opacity: 1 !important; translate: 0 0 !important; scale: 1 !important; }
+  .hero-exhibit, .hero-axis { translate: 0 0 !important; }
 }
 
 @media print {
   body { background: #fff; color: #000; }
-  body::before, body::after, .site-header, .hero-exhibit, .hero-actions, .hero-bottom, .timeline-sidebar, .site-footer, .engine-error, .skip-link { display: none !important; }
+  body::before, body::after, .site-header, .hero-exhibit, .hero-actions, .hero-bottom, .timeline-sidebar, .site-footer, .engine-error, .skip-link, .chronology-progress { display: none !important; }
   .hero, .section-wrap { padding: 20px 0; border-color: #aaa; }
   .hero, .history-layout, .future-layout { display: block; }
   .hero-stage { min-height: 0; border: 0; }
