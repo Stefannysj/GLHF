@@ -1,142 +1,64 @@
 {
-  "stage": 6,
-  "scope": "Pulido final, QA, PWA y cierre de requisitos",
-  "implemented": [
-    "final_responsive_qa_320_to_1920",
-    "time_machine_master_scrubber",
-    "era_palette_and_typography_live_switch",
-    "remember_last_era_localstorage",
-    "resume_prompt",
-    "konami_code_player2_skin",
-    "pwa_manifest_and_service_worker",
-    "offline_cache_for_visited_content",
-    "install_prompt_when_supported",
-    "github_pages_base_path_workflow",
-    "predeploy_structural_qa"
-  ],
-  "structural_qa": {
-    "duplicate_ids": [],
-    "missing_fragment_targets": [],
-    "missing_local_assets": [],
-    "javascript_syntax": "pass: site.js, bootstrap.js, sw.js",
-    "css_brace_balance": "pass: 534/534",
-    "loading_screen": "absent",
-    "manifest": "present",
-    "service_worker": "present",
-    "stage6_footer": true
+  "version": "Etapa Extra V2 - Rediseño profesional retro",
+  "status": "pass_static_and_browser_qa",
+  "design": {
+    "background": "gris industrial",
+    "direction": "editorial retro gamer, flat, restrained, catalog/museum inspired",
+    "reduced_generic_effects": true,
+    "content_never_hidden_by_reveal_animation": true
   },
-  "browser_qa": {
-    "method": "Delivered HTML/CSS/JS loaded in Chromium headless in-memory because the sandbox blocks localhost navigation; external documentary images were aborted during layout QA.",
-    "viewports": {
-      "1920x1080": {
-        "horizontal_overflow_px": 0,
-        "gallery_columns": 4,
-        "page_errors": 0
-      },
-      "1440x900": {
-        "horizontal_overflow_px": 0,
-        "gallery_columns": 3,
-        "page_errors": 0
-      },
-      "1024x768": {
-        "horizontal_overflow_px": 0,
-        "gallery_columns": 3,
-        "page_errors": 0
-      },
-      "820x1180": {
-        "horizontal_overflow_px": 0,
-        "gallery_columns": 2,
-        "page_errors": 0
-      },
-      "680x960": {
-        "horizontal_overflow_px": 0,
-        "gallery_columns": 2,
-        "page_errors": 0
-      },
-      "430x932": {
-        "horizontal_overflow_px": 0,
-        "gallery_columns": 1,
-        "page_errors": 0
-      },
-      "390x844": {
-        "horizontal_overflow_px": 0,
-        "gallery_columns": 1,
-        "page_errors": 0
-      },
-      "320x568": {
-        "horizontal_overflow_px": 0,
-        "gallery_columns": 1,
-        "page_errors": 0
-      }
-    },
-    "time_machine": {
-      "input_era": "era-2000",
-      "preview_period": "2000—2009",
-      "preview_accent": "#3e8cff",
-      "commit_hash": "#era-2000",
-      "stored_era": "era-2000"
-    },
-    "resume_progress": {
-      "saved": "era-2010",
-      "prompt_visible": true,
-      "continue_hash": "#era-2010",
-      "active_after_continue": "era-2010"
-    },
-    "konami_code": {
-      "secret_mode": true,
-      "toast_visible": true
-    },
-    "reduced_motion": {
-      "hero_position_after_wait": "center",
-      "motion_ready": false,
-      "hidden_reveal_items": 0
-    }
+  "navigation_dock": {
+    "default": "horizontal",
+    "left_edge": "vertical",
+    "right_edge": "vertical",
+    "center_return": "horizontal",
+    "mouse_touch_drag": true,
+    "keyboard_nudge": true,
+    "reset_button": true,
+    "persistence_when_localStorage_available": true,
+    "viewport_clamping": true
+  },
+  "responsive_browser_qa": {
+    "viewports": [
+      "1920x1080",
+      "1440x900",
+      "1024x768",
+      "820x1180",
+      "680x960",
+      "430x932",
+      "390x844",
+      "320x568"
+    ],
+    "horizontal_overflow_detected": false,
+    "javascript_page_errors": 0,
+    "vertical_dock_mobile_checked": ["390x844", "320x568"]
   },
   "pwa": {
-    "manifest": "wwwroot/manifest.webmanifest",
-    "service_worker": "wwwroot/sw.js",
-    "cache_strategy": "cache-first for previously visited GET resources with background refresh; network fallback caches successful/opaque responses",
-    "uses_existing_logo_only": true,
-    "source_shell_registration": "not browser-validated because sandbox blocks localhost/service-worker origin testing"
+    "requested_state": "removed",
+    "manifest_present": false,
+    "service_worker_present": false,
+    "install_button_present": false,
+    "service_worker_registration_present": false
   },
-  "github_pages": {
-    "workflow": ".github/workflows/pages.yml",
-    "base_path_source": "actions/configure-pages output base_path",
-    "publish_command": "dotnet publish GLHF.csproj -c Release -o artifacts/publish",
-    "predeploy_qa": "python3 tools/qa.py --root . --published artifacts/publish/wwwroot",
-    "remote_deployment": "pending: no user repository/Pages environment was modified from this conversation"
+  "html_qa": {
+    "duplicate_ids": 0,
+    "missing_fragment_targets": 0,
+    "missing_local_assets": 0,
+    "loading_screen": false,
+    "developer_footer": "Desarrolladora: Stefanny"
   },
-  "logo": {
-    "file": "wwwroot/assets/Logo_GgWp.png",
-    "sha256": "462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33",
-    "unchanged": true,
-    "png_count": 1
+  "assets": {
+    "png_count": 1,
+    "png": "wwwroot/assets/Logo_GgWp.png",
+    "logo_sha256": "462aac9a914a35ab7c67f873033ccb84ffb401537a5bc6a288154a93d41f9c33",
+    "ai_generated_images": false
   },
   "forbidden_files": {
-    "README.md": 0,
-    ".env": 0
+    "README.md": false,
+    ".env": false
   },
-  "runtime_validation": {
-    "blazor_compilation": "not executed: .NET SDK is unavailable in the delivery container",
-    "package_reference_check": "Microsoft.AspNetCore.Components.WebAssembly 10.0.12 confirmed published on NuGet on 2026-09-08",
-    "github_pages_remote_deploy": "not executed: no repository was provided/authorized"
-  },
-  "checklist": {
-    "root_index_html": true,
-    "no_loading_screen": true,
-    "responsive_complete": true,
-    "scroll_and_microinteractions": true,
-    "real_non_ai_documentary_images": true,
-    "icons_and_emoji_accents": true,
-    "no_readme": true,
-    "no_env": true,
-    "wow_features_at_least_3": [
-      "time_machine",
-      "konami_code",
-      "chronology_progress",
-      "remember_progress",
-      "pwa"
-    ],
-    "logo_single_png": true
+  "dotnet": {
+    "sdk_available_in_generation_environment": false,
+    "dotnet_publish_executed": false
   }
 }

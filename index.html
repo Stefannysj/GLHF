@@ -1,142 +1,1086 @@
 <!DOCTYPE html>
 <html lang="es" data-engine="static" data-theme="dark" data-active-era="era-1958">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<base href="./" />
-<title>GLHF — La historia se juega</title>
-<meta name="description" content="GLHF. Un museo digital sobre la historia de los videojuegos: del laboratorio a las nuevas fronteras del juego. Edición 2026." />
-<meta name="theme-color" content="#07080c" />
-<meta name="color-scheme" content="dark" />
-<meta name="glhf-mode" content="blazor" />
-<meta name="application-name" content="GLHF" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<link rel="icon" type="image/png" href="assets/Logo_GgWp.png" />
-<link rel="apple-touch-icon" href="assets/Logo_GgWp.png" />
-<link rel="manifest" href="manifest.webmanifest" />
-<link rel="stylesheet" href="assets/css/site.css" />
-<script src="assets/js/site.js" defer></script>
-<script src="assets/js/bootstrap.js" defer></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GLHF — La historia se juega</title>
+    <meta name="description"
+        content="GLHF. Un museo digital sobre la historia de los videojuegos: del laboratorio a las nuevas fronteras del juego. Edición 2026." />
+    <meta name="theme-color" content="#9b9d99" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="glhf-mode" content="preview" />
+    <meta name="application-name" content="GLHF" />
+    <link rel="icon" type="image/png" href="wwwroot/assets/Logo_GgWp.png" />
+    <link rel="stylesheet" href="wwwroot/assets/css/site.css" />
+    <script src="wwwroot/assets/js/site.js" defer></script>
+    <script src="wwwroot/assets/js/bootstrap.js" defer></script>
 </head>
+
 <body>
-<a class="skip-link" href="#contenido">Saltar al contenido</a>
-<div class="chronology-progress" data-scroll-progress aria-hidden="true"><div class="chronology-progress-track"><span class="chronology-progress-fill" data-scroll-progress-fill></span></div><div class="chronology-progress-meta"><span data-scroll-progress-era>1958—1969 / NACIMIENTO</span><span data-scroll-progress-percent>00%</span></div></div>
-<header class="site-header" id="inicio">
- <a class="brand" href="#inicio" aria-label="GLHF, inicio"><img src="assets/Logo_GgWp.png" width="48" height="48" alt="" /><span>GLHF<span class="brand-subtitle">ARCHIVO DE VIDEOJUEGOS</span></span></a>
- <nav class="main-nav" aria-label="Navegación principal"><a href="#historia">Historia</a><a href="#revoluciones">Revoluciones</a><a href="#coleccion">Colección</a><a href="#futuro">Lo que viene <span aria-hidden="true">↗</span></a></nav>
- <div class="header-actions"><button type="button" class="install-button" data-pwa-install hidden aria-label="Instalar GLHF como aplicación">INSTALAR</button><span class="edition">DARK / EDICIÓN 2026</span></div>
-</header>
-<div class="resume-prompt" data-resume-prompt hidden role="region" aria-label="Retomar recorrido"><span class="resume-kicker">PROGRESO GUARDADO</span><span data-resume-label>Continuar donde lo dejaste</span><div><button type="button" data-resume-go>CONTINUAR</button><button type="button" data-resume-dismiss>EMPEZAR DESDE 1958</button></div></div>
-<div class="secret-toast" data-secret-toast role="status" aria-live="polite" hidden>KONAMI CODE · MODO PLAYER 2 DESBLOQUEADO</div>
-<main id="contenido" tabindex="-1">
-<section class="hero" aria-labelledby="hero-title" data-hero-position="center" data-hero-auto-state="running">
- <div class="hero-stage">
-  <div class="hero-copy">
-   <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> MUSEO DIGITAL / 1958—2026</p>
-   <h1 id="hero-title">LA HISTORIA<br />SE <span>JUEGA.</span></h1>
-   <p class="hero-description">Antes de tu primera partida, hubo una revolución. Recorre las ideas, las crisis y los mundos que cambiaron nuestra forma de jugar.</p>
-   <div class="hero-actions"><a class="button primary" href="#historia">Entrar a la historia <span aria-hidden="true">↗</span></a><a class="text-link" href="#coleccion">Explorar la colección <span aria-hidden="true">↓</span></a></div>
-   <div class="hero-index"><span>07 ERAS</span><span>14 FICHAS</span><span>UN MISMO ESPÍRITU</span></div>
-  </div>
-  <figure class="hero-exhibit"><div class="exhibit-bar"><span>ARCHIVO / IDENTIDAD</span><span aria-hidden="true">■ ■ ■</span></div><div class="logo-mat"><img src="assets/Logo_GgWp.png" alt="Logo de GLHF: calavera negra con figura roja" width="800" height="800" fetchpriority="high" /></div><figcaption><span>GLHF<span class="muted">LA PARTIDA CONTINÚA</span></span><span class="exhibit-code">N.º 001<br />EST. 2026</span></figcaption></figure>
-  <div class="hero-axis" aria-hidden="true"><span class="axis-x"></span><span class="axis-y"></span><i></i></div>
- </div>
- <div class="hero-toolbar" aria-label="Control de posición del Hero">
-  <div id="hero-controls"><div class="hero-position-controls" role="group" aria-label="Posición del bloque principal"><span class="hero-control-label">MOVER HERO</span><button type="button" class="hero-position-button" data-hero-position-button="top-left" aria-label="Mover arriba a la izquierda" aria-pressed="false" title="Mover arriba a la izquierda"><span aria-hidden="true">↖</span></button><button type="button" class="hero-position-button" data-hero-position-button="top-right" aria-label="Mover arriba a la derecha" aria-pressed="false" title="Mover arriba a la derecha"><span aria-hidden="true">↗</span></button><button type="button" class="hero-position-button" data-hero-position-button="center" aria-label="Mover al centro" aria-pressed="true" title="Mover al centro"><span aria-hidden="true">●</span></button><button type="button" class="hero-position-button" data-hero-position-button="bottom-left" aria-label="Mover abajo a la izquierda" aria-pressed="false" title="Mover abajo a la izquierda"><span aria-hidden="true">↙</span></button><button type="button" class="hero-position-button" data-hero-position-button="bottom-right" aria-label="Mover abajo a la derecha" aria-pressed="false" title="Mover abajo a la derecha"><span aria-hidden="true">↘</span></button><span class="hero-auto-state" aria-hidden="true">AUTO</span><span class="sr-only" role="status" aria-live="polite">Hero centrado.</span></div></div>
-  <p class="hero-motion-note"><span data-hero-position-label>CENTRO</span><span aria-hidden="true"> / </span><span data-hero-auto-label>AUTO 5.5S</span></p>
- </div>
- <div class="hero-bottom"><span>DEL OSCILOSCOPIO A LOS MUNDOS VIRTUALES</span><a href="#historia" aria-label="Bajar a la historia">SCROLL PARA EXPLORAR <span aria-hidden="true">↓</span></a></div>
-</section>
-<section class="history-section section-wrap" id="historia" aria-labelledby="history-title">
- <div class="section-heading"><div><p class="eyebrow"><span class="section-icon" aria-hidden="true">🕹️</span>01 / EL RECORRIDO</p><h2 id="history-title">Cada era cambió<br />las reglas.</h2></div><p>No es solo una historia de máquinas.<br />Es la historia de lo que hicimos con ellas.</p></div>
- <div class="time-machine" data-time-machine aria-labelledby="time-machine-title"><div class="time-machine-head"><div><span class="eyebrow" id="time-machine-title">MÁQUINA DEL TIEMPO</span><strong data-time-machine-period>1958—1969</strong></div><span data-time-machine-name>NACIMIENTO</span></div><input type="range" min="0" max="6" step="1" value="0" data-time-machine-slider aria-label="Cambiar de era: de 1958 a 2026" /><div class="time-machine-scale" aria-hidden="true"><span>1958</span><span>1970</span><span>1980</span><span>1990</span><span>2000</span><span>2010</span><span>2020+</span></div><p>Arrastra para cambiar en tiempo real la identidad visual. Al soltar, GLHF viaja a esa era.</p></div>
- <div class="timeline-console" aria-label="Línea de tiempo interactiva"><div class="timeline-now" aria-live="polite"><span class="timeline-now-label">ERA ACTIVA</span><strong data-timeline-now-period>1958—1969</strong><span data-timeline-now-title>Nacimiento</span></div><nav class="timeline-rail" data-timeline-rail aria-label="Navegar por décadas"><a class="timeline-rail-link" href="#era-1958" data-era-rail="era-1958" aria-label="1958—1969: nacimiento"><span>1958</span><small>nacimiento</small></a>
-<a class="timeline-rail-link" href="#era-1970" data-era-rail="era-1970" aria-label="1970—1979: arcade y hogar"><span>1970</span><small>arcade y hogar</small></a>
-<a class="timeline-rail-link" href="#era-1980" data-era-rail="era-1980" aria-label="1980—1989: crisis y renacimiento"><span>1980</span><small>crisis y renacimiento</small></a>
-<a class="timeline-rail-link" href="#era-1990" data-era-rail="era-1990" aria-label="1990—1999: 16 bits, 3d y redes"><span>1990</span><small>16 bits, 3d y redes</small></a>
-<a class="timeline-rail-link" href="#era-2000" data-era-rail="era-2000" aria-label="2000—2009: mundos conectados"><span>2000</span><small>mundos conectados</small></a>
-<a class="timeline-rail-link" href="#era-2010" data-era-rail="era-2010" aria-label="2010—2019: comunidades y creadores"><span>2010</span><small>comunidades y creadores</small></a>
-<a class="timeline-rail-link" href="#era-2020" data-era-rail="era-2020" aria-label="2020—2026: nuevas fronteras"><span>2020</span><small>nuevas fronteras</small></a>
-</nav><p class="timeline-hint">ARRASTRA / SCROLL · FLECHAS ← → · ENTER</p></div>
- <div class="history-layout"><aside class="timeline-sidebar" aria-label="Guía del recorrido"><div id="era-controls"><nav class="era-navigation" aria-label="Elegir una era"><p class="eyebrow">ELIGE TU PUNTO DE PARTIDA</p><ol><li><a class="era-link" href="#era-1958" data-era-link="era-1958"><span class="nav-dot" aria-hidden="true"></span><span>1958</span><span class="nav-era-name">nacimiento</span></a></li><li><a class="era-link" href="#era-1970" data-era-link="era-1970"><span class="nav-dot" aria-hidden="true"></span><span>1970</span><span class="nav-era-name">arcade y hogar</span></a></li><li><a class="era-link" href="#era-1980" data-era-link="era-1980"><span class="nav-dot" aria-hidden="true"></span><span>1980</span><span class="nav-era-name">crisis y renacimiento</span></a></li><li><a class="era-link" href="#era-1990" data-era-link="era-1990"><span class="nav-dot" aria-hidden="true"></span><span>1990</span><span class="nav-era-name">16 bits, 3d y redes</span></a></li><li><a class="era-link" href="#era-2000" data-era-link="era-2000"><span class="nav-dot" aria-hidden="true"></span><span>2000</span><span class="nav-era-name">mundos conectados</span></a></li><li><a class="era-link" href="#era-2010" data-era-link="era-2010"><span class="nav-dot" aria-hidden="true"></span><span>2010</span><span class="nav-era-name">comunidades y creadores</span></a></li><li><a class="era-link" href="#era-2020" data-era-link="era-2020"><span class="nav-dot" aria-hidden="true"></span><span>2020</span><span class="nav-era-name">nuevas fronteras</span></a></li></ol><p class="navigation-note">Explora con Tab y Enter.</p></nav></div><a class="source-shortcut" href="#fuentes">Consultar fuentes <span aria-hidden="true">↗</span></a></aside><div class="era-list"><article class="era" id="era-1958" aria-labelledby="era-1958-title" data-era="era-1958">
-<div class="era-stamp"><span class="eyebrow">01 / NACIMIENTO</span><span class="era-period">1958—1969</span></div>
-<div class="era-body"><h3 id="era-1958-title" tabindex="-1">Antes de que existiera la industria.</h3><p class="era-description">Un osciloscopio. Una computadora de laboratorio. La idea de convertir una pantalla en un lugar para jugar precedió a las consolas y a los salones arcade.</p><div class="tags"><span>Laboratorios</span><span>Osciloscopio</span><span>PDP-1</span></div><ol class="milestones"><li class="milestone"><span class="milestone-year">1958</span><div><h4>Tennis for Two</h4><p>William Higinbotham presenta en Brookhaven un juego de tenis para dos personas, mostrado en un osciloscopio.</p><div class="refs"><a href="#source-bnl">Brookhaven National Laboratory</a></div></div></li><li class="milestone"><span class="milestone-year">1962</span><div><h4>Spacewar!</h4><p>Un equipo vinculado al MIT desarrolla un combate espacial para la computadora PDP-1. El juego circula por entornos universitarios.</p><div class="refs"><a href="#source-chm">Computer History Museum</a></div></div></li></ol></div></article><article class="era" id="era-1970" aria-labelledby="era-1970-title" data-era="era-1970">
-<div class="era-stamp"><span class="eyebrow">02 / ARCADE Y HOGAR</span><span class="era-period">1970—1979</span></div>
-<div class="era-body"><h3 id="era-1970-title" tabindex="-1">La pantalla sale a la calle.</h3><p class="era-description">Jugar deja de ser una curiosidad de laboratorio. Las recreativas convierten una moneda en una partida; las primeras consolas llevan esa experiencia al televisor.</p><div class="tags"><span>Recreativas</span><span>Cartuchos</span><span>Atari</span></div><ol class="milestones"><li class="milestone"><span class="milestone-year">1972</span><div><h4>Odyssey y Pong</h4><p>Magnavox Odyssey abre la etapa de las consolas domésticas. Ese mismo año, Atari lanza Pong en los arcades.</p><div class="refs"><a href="#source-odyssey">Smithsonian Institution</a><a href="#source-pong">Computer History Museum</a></div></div></li><li class="milestone"><span class="milestone-year">1977</span><div><h4>Atari VCS</h4><p>La consola que después se conocería como Atari 2600 hace de los cartuchos intercambiables parte del juego en casa.</p><div class="refs"><a href="#source-chm">Computer History Museum</a></div></div></li><li class="milestone"><span class="milestone-year">1978</span><div><h4>Space Invaders</h4><p>El arcade de Taito convierte la defensa frente a oleadas de invasores en un fenómeno de la cultura del videojuego.</p><div class="refs"><a href="#source-invaders">Taito / Google Arts &amp; Culture</a></div></div></li></ol></div></article><article class="era" id="era-1980" aria-labelledby="era-1980-title" data-era="era-1980">
-<div class="era-stamp"><span class="eyebrow">03 / CRISIS Y RENACIMIENTO</span><span class="era-period">1980—1989</span></div>
-<div class="era-body"><h3 id="era-1980-title" tabindex="-1">Caer. Reiniciar. Volver a jugar.</h3><p class="era-description">Los personajes ganan identidad. El desplome del mercado estadounidense de consolas en 1983 no es el fin mundial del videojuego: abre una etapa de reorganización.</p><div class="tags"><span>Nintendo</span><span>8 bits</span><span>Portátiles</span></div><ol class="milestones"><li class="milestone"><span class="milestone-year">1983</span><div><h4>El crash y Famicom</h4><p>Mientras se contrae el mercado estadounidense, Nintendo introduce Famicom en Japón. No todas las regiones viven la misma historia.</p><div class="refs"><a href="#source-crash">The Strong</a><a href="#source-strong">The Strong National Museum of Play</a></div></div></li><li class="milestone"><span class="milestone-year">1984</span><div><h4>Tetris</h4><p>Alexey Pajitnov crea un rompecabezas basado en piezas geométricas que encontraría una nueva vida en las consolas portátiles.</p><div class="refs"><a href="#source-strong">The Strong National Museum of Play</a></div></div></li><li class="milestone"><span class="milestone-year">1985</span><div><h4>NES y Super Mario Bros.</h4><p>El desembarco de NES en Estados Unidos y las aventuras de Mario marcan el nuevo capítulo de Nintendo.</p><div class="refs"><a href="#source-strong">The Strong National Museum of Play</a><a href="#source-mario">Nintendo</a></div></div></li><li class="milestone"><span class="milestone-year">1989</span><div><h4>Game Boy</h4><p>Nintendo lleva el juego de cartuchos al bolsillo con una consola que apuesta por la portabilidad.</p><div class="refs"><a href="#source-strong">The Strong National Museum of Play</a></div></div></li></ol></div></article><article class="era" id="era-1990" aria-labelledby="era-1990-title" data-era="era-1990">
-<div class="era-stamp"><span class="eyebrow">04 / 16 BITS, 3D Y REDES</span><span class="era-period">1990—1999</span></div>
-<div class="era-body"><h3 id="era-1990-title" tabindex="-1">El mundo adquiere profundidad.</h3><p class="era-description">La rivalidad SEGA–Nintendo da paso a un tablero con nuevos protagonistas. Los mundos tridimensionales y el juego conectado amplían el lenguaje del medio.</p><div class="tags"><span>SEGA vs. Nintendo</span><span>CD-ROM</span><span>3D</span></div><ol class="milestones"><li class="milestone"><span class="milestone-year">1991</span><div><h4>Sonic the Hedgehog</h4><p>Sonic da a SEGA un personaje con el que competir frente a Mario. La rivalidad entre ambas marcas define parte de la era de 16 bits.</p><div class="refs"><a href="#source-sonic">The Strong</a></div></div></li><li class="milestone"><span class="milestone-year">1993</span><div><h4>Doom</h4><p>El juego de id Software ayuda a popularizar la acción en primera persona y una comunidad que modifica sus niveles.</p><div class="refs"><a href="#source-chm">Computer History Museum</a></div></div></li><li class="milestone"><span class="milestone-year">1994</span><div><h4>PlayStation</h4><p>Sony lanza PlayStation en Japón el 3 de diciembre. Los CD y los gráficos 3D son parte de su propuesta.</p><div class="refs"><a href="#source-ps1">PlayStation</a></div></div></li><li class="milestone"><span class="milestone-year">1997</span><div><h4>Gran Turismo</h4><p>La serie de conducción de PlayStation inicia su historia con una apuesta por la simulación y un amplio garaje.</p><div class="refs"><a href="#source-sie">Sony Interactive Entertainment</a></div></div></li></ol></div></article><article class="era" id="era-2000" aria-labelledby="era-2000-title" data-era="era-2000">
-<div class="era-stamp"><span class="eyebrow">05 / MUNDOS CONECTADOS</span><span class="era-period">2000—2009</span></div>
-<div class="era-body"><h3 id="era-2000-title" tabindex="-1">Ya no juegas solo.</h3><p class="era-description">Las consolas comparten espacio con mundos persistentes de PC. Las comunidades online, los mundos abiertos y las tiendas móviles replantean cómo se distribuye y se vive un juego.</p><div class="tags"><span>MMORPG</span><span>Online</span><span>Móvil</span></div><ol class="milestones"><li class="milestone"><span class="milestone-year">2000</span><div><h4>PlayStation 2</h4><p>Sony introduce una consola con lector de DVD que conecta videojuegos y entretenimiento doméstico.</p><div class="refs"><a href="#source-sie">Sony Interactive Entertainment</a></div></div></li><li class="milestone"><span class="milestone-year">2001—2002</span><div><h4>Xbox y Xbox Live</h4><p>Xbox llega a Norteamérica en 2001; Xbox Live se estrena en 2002 con juego por banda ancha y comunicación de voz.</p><div class="refs"><a href="#source-xbox">Microsoft</a><a href="#source-live">Microsoft</a></div></div></li><li class="milestone"><span class="milestone-year">2001</span><div><h4>Grand Theft Auto III</h4><p>Rockstar lleva al jugador a una Liberty City abierta a la exploración. El juego de octubre de 2001 se convierte en un referente del mundo abierto.</p><div class="refs"><a href="#source-gta3">Rockstar Games</a></div></div></li><li class="milestone"><span class="milestone-year">2004</span><div><h4>World of Warcraft</h4><p>Blizzard convierte Azeroth en un mundo compartido: el MMORPG tendría su celebración del vigésimo aniversario en 2024.</p><div class="refs"><a href="#source-wow">Blizzard Entertainment</a></div></div></li><li class="milestone"><span class="milestone-year">2008</span><div><h4>App Store</h4><p>La tienda de aplicaciones de Apple abre otro canal de distribución para juegos en dispositivos móviles.</p><div class="refs"><a href="#source-apple">Apple</a></div></div></li></ol></div></article><article class="era" id="era-2010" aria-labelledby="era-2010-title" data-era="era-2010">
-<div class="era-stamp"><span class="eyebrow">06 / COMUNIDADES Y CREADORES</span><span class="era-period">2010—2019</span></div>
-<div class="era-body"><h3 id="era-2010-title" tabindex="-1">Jugar también es mirar.</h3><p class="era-description">Los juegos independientes, las retransmisiones y los deportes electrónicos amplían las maneras de participar. La audiencia deja de estar solamente detrás del mando.</p><div class="tags"><span>Indies</span><span>Streaming</span><span>Battle royale</span></div><ol class="milestones"><li class="milestone"><span class="milestone-year">2011</span><div><h4>TwitchTV</h4><p>La plataforma nace centrada en retransmitir videojuegos y competiciones en directo. El espectador se vuelve parte de la comunidad.</p><div class="refs"><a href="#source-twitch">Justin.tv / TwitchTV</a></div></div></li><li class="milestone"><span class="milestone-year">2017</span><div><h4>Fortnite Battle Royale</h4><p>Epic anuncia su modo gratuito para el 26 de septiembre, con partidas de hasta 100 jugadores.</p><div class="refs"><a href="#source-fortnite">Epic Games</a></div></div></li></ol></div></article><article class="era" id="era-2020" aria-labelledby="era-2020-title" data-era="era-2020">
-<div class="era-stamp"><span class="eyebrow">07 / NUEVAS FRONTERAS</span><span class="era-period">2020—2026</span></div>
-<div class="era-body"><h3 id="era-2020-title" tabindex="-1">El siguiente nivel sigue abierto.</h3><p class="era-description">Consolas, nube, realidad virtual y juegos como servicio conviven. Esta sala distingue los lanzamientos documentados de las preguntas sobre el futuro; no da por cumplidas las promesas tecnológicas.</p><div class="tags"><span>Nube</span><span>VR / AR</span><span>IA generativa</span></div><ol class="milestones"><li class="milestone"><span class="milestone-year">2020</span><div><h4>PS5, Xbox Series y nuevos mundos</h4><p>PS5 y Xbox Series X|S llegan en noviembre. Xbox amplía el juego en la nube y Genshin Impact se estrena en PS4 en septiembre.</p><div class="refs"><a href="#source-ps5">PlayStation</a><a href="#source-series">Xbox Wire</a><a href="#source-cloud">Xbox Wire</a><a href="#source-genshin">HoYoverse / PlayStation Blog</a></div></div></li><li class="milestone"><span class="milestone-year">2023</span><div><h4>PlayStation VR2</h4><p>El visor de Sony incorpora una nueva propuesta de interacción y presencia para la generación PS5.</p><div class="refs"><a href="#source-ps5">PlayStation</a></div></div></li><li class="milestone"><span class="milestone-year">2025</span><div><h4>Nintendo Switch 2</h4><p>Nintendo fija el 5 de junio como fecha de lanzamiento de Switch 2, con Mario Kart World como título de estreno.</p><div class="refs"><a href="#source-switch2">Nintendo</a></div></div></li><li class="milestone"><span class="milestone-year">2025</span><div><h4>Muse: investigación en IA</h4><p>Microsoft Research presenta un modelo generativo para explorar ideas de juego. Es investigación, no una prueba de que la creación de juegos esté resuelta.</p><div class="refs"><a href="#source-muse">Microsoft Research</a></div></div></li></ol></div></article></div></div>
- <p class="editorial-note"><strong>Nota de curaduría.</strong> Este recorrido comienza en 1958 por su valor narrativo. No afirma que exista un único «primer videojuego»: Brookhaven documenta antecedentes anteriores y la importancia de definir qué se considera videojuego. <a href="#source-bnl">Ver fuente.</a></p>
-</section>
-<section class="revolutions-section section-wrap" id="revoluciones" aria-labelledby="revolutions-title"><div class="section-heading"><div><p class="eyebrow"><span class="section-icon" aria-hidden="true">⚡</span>02 / CAMBIOS DE PARADIGMA</p><h2 id="revolutions-title">No fue solo<br />un salto gráfico.</h2></div><p>Seis formas de entender<br />cómo cambió el juego.</p></div><div class="revolution-grid"><article class="revolution"><span class="revolution-number" aria-hidden="true">01</span><span class="eyebrow">ESPACIO</span><h3>De 2D a 3D</h3><p>La profundidad no solo cambia la imagen: obliga a repensar las cámaras, la orientación y la manera de recorrer un mundo.</p><div class="refs"><a href="#source-ps1">PlayStation</a></div></article><article class="revolution"><span class="revolution-number" aria-hidden="true">02</span><span class="eyebrow">CONEXIÓN</span><h3>La partida en red</h3><p>Servicios como Xbox Live integran partidas y voz. Un encuentro deja de depender de compartir la misma habitación.</p><div class="refs"><a href="#source-live">Microsoft</a></div></article><article class="revolution"><span class="revolution-number" aria-hidden="true">03</span><span class="eyebrow">ACCESO</span><h3>El juego en el bolsillo</h3><p>Las tiendas móviles acercan la distribución digital al teléfono. El dispositivo cotidiano también se convierte en plataforma de juego.</p><div class="refs"><a href="#source-apple">Apple</a></div></article><article class="revolution"><span class="revolution-number" aria-hidden="true">04</span><span class="eyebrow">COMUNIDAD</span><h3>Jugar para una audiencia</h3><p>Con TwitchTV, emitir partidas y seguir competiciones se encuentran en una plataforma diseñada alrededor del videojuego.</p><div class="refs"><a href="#source-twitch">Justin.tv / TwitchTV</a></div></article><article class="revolution"><span class="revolution-number" aria-hidden="true">05</span><span class="eyebrow">MONETIZACIÓN</span><h3>Gratis no es un modelo único</h3><p>Free-to-play, cosméticos, microtransacciones y gacha forman parte de este eje temático. Fortnite ilustra una entrada gratuita con monetización prevista en elementos no competitivos.</p><div class="refs"><a href="#source-fortnite">Epic Games</a></div></article><article class="revolution"><span class="revolution-number" aria-hidden="true">06</span><span class="eyebrow">EXPERIMENTACIÓN</span><h3>Nuevas formas de crear</h3><p>La IA generativa abre preguntas sobre herramientas y autoría. Muse es un ejemplo de investigación para explorar posibilidades, no una conclusión sobre el futuro.</p><div class="refs"><a href="#source-muse">Microsoft Research</a></div></article></div></section>
-<section class="collection-section section-wrap" id="coleccion" aria-labelledby="collection-title"><div class="section-heading"><div><p class="eyebrow"><span class="section-icon" aria-hidden="true">🎮</span>03 / LA COLECCIÓN</p><h2 id="collection-title">Hay juegos que<br />se quedan contigo.</h2></div><p>Una selección para abrir el archivo.<br />No un ranking definitivo.</p></div><div class="gallery-note"><span class="label">FICHAS DOCUMENTALES</span><p>Archivo visual real: capturas históricas, hardware, arcades, estudios y eventos procedentes de Wikimedia Commons. No se usan imágenes generadas por IA; cada ficha enlaza su crédito y licencia.</p></div><div class="game-grid"><article class="game-card" data-game-era="era-1958" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Tennis%20For%20Two%20on%20a%20DuMont%20Lab%20Oscilloscope%20Type%20304-A.jpg?width=1200" alt="Tennis for Two ejecutándose en un osciloscopio DuMont, recreación histórica del sistema de 1958." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Pantalla histórica</span><a href="https://commons.wikimedia.org/wiki/File:Tennis%20For%20Two%20on%20a%20DuMont%20Lab%20Oscilloscope%20Type%20304-A.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Tennis for Two en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 001</span><span>1958</span></div><h3>Tennis for Two</h3><p class="game-platform">Computadora analógica</p><p>La pista no estaba en un televisor: se dibujaba en un osciloscopio.</p><p class="media-credit">Brookhaven National Laboratory / Wikimedia Commons</p><div class="refs"><a href="#source-bnl">Brookhaven National Laboratory</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-1958" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Spacewar%20screenshot.jpg?width=1200" alt="Spacewar! ejecutándose en una computadora PDP-1." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Captura histórica</span><a href="https://commons.wikimedia.org/wiki/File:Spacewar%20screenshot.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Spacewar! en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 002</span><span>1962</span></div><h3>Spacewar!</h3><p class="game-platform">DEC PDP-1</p><p>Dos naves se enfrentan alrededor de una estrella en uno de los primeros juegos digitales influyentes.</p><p class="media-credit">Kenneth Lu / Wikimedia Commons</p><div class="refs"><a href="#source-chm">Computer History Museum</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-1970" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/PONG%20arcade.jpg?width=1200" alt="Gabinete arcade de Pong fotografiado en una sala recreativa." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Arcade real</span><a href="https://commons.wikimedia.org/wiki/File:PONG%20arcade.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Pong en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 003</span><span>1972</span></div><h3>Pong</h3><p class="game-platform">Arcade</p><p>Una idea sencilla de tenis de mesa ayuda a abrir el mercado de las recreativas.</p><p class="media-credit">Luis Alfredo Romero / Wikimedia Commons</p><div class="refs"><a href="#source-pong">Computer History Museum</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-1970" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Space%20Invader%20Cabinet.jpg?width=1200" alt="Gabinete arcade de Space Invaders, ejemplo físico de la cultura recreativa de finales de los setenta." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Arcade real</span><a href="https://commons.wikimedia.org/wiki/File:Space%20Invader%20Cabinet.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Space Invaders en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 004</span><span>1978</span></div><h3>Space Invaders</h3><p class="game-platform">Arcade</p><p>Defender la pantalla de oleadas enemigas se convierte en un emblema del arcade.</p><p class="media-credit">Scalleja / Wikimedia Commons</p><div class="refs"><a href="#source-invaders">Taito / Google Arts &amp; Culture</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-1980" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Game-Boy-Original.jpg?width=1200" alt="Nintendo Game Boy original de 1989, plataforma estrechamente asociada con la expansión global de Tetris." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Hardware real</span><a href="https://commons.wikimedia.org/wiki/File:Game-Boy-Original.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Tetris en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 005</span><span>1984</span></div><h3>Tetris</h3><p class="game-platform">Computadora / versiones posteriores</p><p>Piezas geométricas y reglas sencillas sostienen un diseño reconocible entre generaciones.</p><p class="media-credit">Evan-Amos / Wikimedia Commons</p><div class="refs"><a href="#source-strong">The Strong National Museum of Play</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-1980" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Nintendo-Entertainment-System-NES-Console-FL.jpg?width=1200" alt="Nintendo Entertainment System, la plataforma doméstica vinculada al lanzamiento occidental de Super Mario Bros." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Hardware real</span><a href="https://commons.wikimedia.org/wiki/File:Nintendo-Entertainment-System-NES-Console-FL.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Super Mario Bros. en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 006</span><span>1985</span></div><h3>Super Mario Bros.</h3><p class="game-platform">Famicom / NES</p><p>El Reino Champiñón convierte un desplazamiento lateral en una aventura reconocible por millones.</p><p class="media-credit">Evan-Amos / Wikimedia Commons</p><div class="refs"><a href="#source-mario">Nintendo</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-1990" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/American%20McGee%20at%20id%20Software,%206%20October%201995%20(by%20Ian%20Mapleson,%20administrator%20of%20the%20Doom%20Help%20Service).jpg?width=1200" alt="American McGee en id Software en 1995, archivo fotográfico del estudio durante la era de Doom." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Archivo de estudio</span><a href="https://commons.wikimedia.org/wiki/File:American%20McGee%20at%20id%20Software,%206%20October%201995%20(by%20Ian%20Mapleson,%20administrator%20of%20the%20Doom%20Help%20Service).jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Doom en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 007</span><span>1993</span></div><h3>Doom</h3><p class="game-platform">PC</p><p>Su comunidad no solo juega: también transforma niveles y apariencias.</p><p class="media-credit">Ian Mapleson / Wikimedia Commons</p><div class="refs"><a href="#source-chm">Computer History Museum</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-1990" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/PlayStation-SCPH-1000-with-Controller.jpg?width=1200" alt="PlayStation SCPH-1000 con control y tarjeta de memoria, hardware de la generación de Gran Turismo." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Hardware real</span><a href="https://commons.wikimedia.org/wiki/File:PlayStation-SCPH-1000-with-Controller.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Gran Turismo en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 008</span><span>1997</span></div><h3>Gran Turismo</h3><p class="game-platform">PlayStation</p><p>La conducción y la simulación se vuelven parte de la identidad de PlayStation.</p><p class="media-credit">Evan-Amos / Wikimedia Commons</p><div class="refs"><a href="#source-sie">Sony Interactive Entertainment</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-2000" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Xbox-console.jpg?width=1200" alt="Xbox original con control S, plataforma de lanzamiento de Halo: Combat Evolved." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Hardware real</span><a href="https://commons.wikimedia.org/wiki/File:Xbox-console.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Halo: Combat Evolved en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 009</span><span>2001</span></div><h3>Halo: Combat Evolved</h3><p class="game-platform">Xbox</p><p>Forma parte del catálogo que acompaña la llegada de la primera Xbox.</p><p class="media-credit">Evan-Amos / Wikimedia Commons</p><div class="refs"><a href="#source-xbox">Microsoft</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-2000" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Blizzard&#x27;s%20Rob%20Pardo%20and%20Tom%20Chilton%20of%20World%20of%20Warcraft%20(520725354).jpg?width=1200" alt="Rob Pardo y Tom Chilton, desarrolladores vinculados a World of Warcraft, fotografiados en 2007." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Archivo de desarrollo</span><a href="https://commons.wikimedia.org/wiki/File:Blizzard&#x27;s%20Rob%20Pardo%20and%20Tom%20Chilton%20of%20World%20of%20Warcraft%20(520725354).jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de World of Warcraft en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 010</span><span>2004</span></div><h3>World of Warcraft</h3><p class="game-platform">PC / Mac</p><p>Azeroth funciona como escenario compartido para aventuras, grupos y comunidades.</p><p class="media-credit">Joi Ito / Wikimedia Commons</p><div class="refs"><a href="#source-wow">Blizzard Entertainment</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-2000" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/MineCon2015ExpoHall.jpg?width=1200" alt="Vista del pabellón de MineCon 2015, encuentro de la comunidad de Minecraft." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Comunidad real</span><a href="https://commons.wikimedia.org/wiki/File:MineCon2015ExpoHall.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Minecraft en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 011</span><span>2009</span></div><h3>Minecraft</h3><p class="game-platform">PC</p><p>Sus primeras versiones públicas ya permiten construir con bloques: Mojang recuerda ese comienzo en Minecraft Classic.</p><p class="media-credit">Wikimedia Commons</p><div class="refs"><a href="#source-minecraft">Mojang</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-2010" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Fortnite%20Battle%20Royale%20at%20GDC%202018.jpg?width=1200" alt="Instalación de Fortnite Battle Royale durante la Game Developers Conference de 2018." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Evento real</span><a href="https://commons.wikimedia.org/wiki/File:Fortnite%20Battle%20Royale%20at%20GDC%202018.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Fortnite Battle Royale en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 012</span><span>2017</span></div><h3>Fortnite Battle Royale</h3><p class="game-platform">PC / consolas</p><p>El lanzamiento gratuito une supervivencia competitiva y construcción.</p><p class="media-credit">Official GDC / Wikimedia Commons</p><div class="refs"><a href="#source-fortnite">Epic Games</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-2020" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/TECO%20TL32A1TRE%20at%20Genshin%20Impact%20booth%20stage%2020210131.jpg?width=1200" alt="Pantalla y escenario del stand de Genshin Impact en Taipei Game Show 2021." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Evento real</span><a href="https://commons.wikimedia.org/wiki/File:TECO%20TL32A1TRE%20at%20Genshin%20Impact%20booth%20stage%2020210131.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Genshin Impact en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 013</span><span>2020</span></div><h3>Genshin Impact</h3><p class="game-platform">PS4 / otras plataformas</p><p>La exploración de Teyvat se organiza alrededor de poderes elementales.</p><p class="media-credit">Solomon203 / Wikimedia Commons</p><div class="refs"><a href="#source-genshin">HoYoverse / PlayStation Blog</a></div></div>
-</article>
-<article class="game-card" data-game-era="era-2020" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Nintendo%20Switch%202.jpg?width=1200" alt="Nintendo Switch 2 fotografiada en 2025, plataforma de Mario Kart World." loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>Hardware real</span><a href="https://commons.wikimedia.org/wiki/File:Nintendo%20Switch%202.jpg" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de Mario Kart World en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA 014</span><span>2025</span></div><h3>Mario Kart World</h3><p class="game-platform">Nintendo Switch 2</p><p>Acompaña el estreno de la nueva consola de Nintendo.</p><p class="media-credit">Leohideki86 / Wikimedia Commons</p><div class="refs"><a href="#source-switch2">Nintendo</a></div></div>
-</article>
-</div></section>
-<section class="future-section section-wrap" id="futuro" aria-labelledby="future-title"><p class="eyebrow"><span class="section-icon" aria-hidden="true">👾</span>04 / LA PARTIDA CONTINÚA</p><div class="future-layout"><h2 id="future-title">EL FUTURO<br />NO VIENE<br /><span>ESCRITO.</span></h2><div><p class="future-lead">La siguiente revolución no se mide solo en píxeles.</p><p>¿Quién podrá jugar? ¿Qué mundos conservaremos cuando un servicio cierre? ¿Cómo convivirán la creatividad humana, la inteligencia artificial y nuevas formas de presencia?</p><p>Son preguntas de esta edición, no predicciones. Nube, realidad mixta y herramientas generativas abren posibilidades; su impacto seguirá dependiendo de las personas.</p><a class="button primary" href="#inicio">Volver al inicio <span aria-hidden="true">↑</span></a></div></div></section>
-<section class="sources-section section-wrap" id="fuentes" aria-labelledby="sources-title"><details><summary id="sources-title"><span><span class="eyebrow"><span class="section-icon" aria-hidden="true">💾</span>ARCHIVO ABIERTO</span><span class="sources-heading">Fuentes y criterio editorial</span></span><span class="details-symbol" aria-hidden="true">+</span></summary><div class="sources-body"><p>Textos editoriales de GLHF apoyados en archivos de museos, laboratorios y comunicaciones oficiales. Las fechas se refieren a los lanzamientos o territorios indicados. La selección es introductoria y no pretende agotar toda la historia del medio. Revisión: 19 de septiembre de 2026.</p><p>Las salas siguen el alcance del documento de trabajo. La sección de futuro contiene reflexión editorial, no hechos consumados. Las fuentes originales se conservan para permitir verificación y ampliación.</p><ol class="source-list"><li id="source-bnl"><strong>Brookhaven National Laboratory</strong><a href="https://www.bnl.gov/about/history/firstvideo.php" target="_blank" rel="noopener noreferrer">The First Video Game? <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-chm"><strong>Computer History Museum</strong><a href="https://www.computerhistory.org/timeline/graphics-games/" target="_blank" rel="noopener noreferrer">Graphics &amp; Games: Timeline of Computer History <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-strong"><strong>The Strong National Museum of Play</strong><a href="https://www.museumofplay.org/video-game-history-timeline/" target="_blank" rel="noopener noreferrer">Video Game History Timeline <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-pong"><strong>Computer History Museum</strong><a href="https://www.computerhistory.org/timeline/1972/" target="_blank" rel="noopener noreferrer">1972: Pong is released <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-mario"><strong>Nintendo</strong><a href="https://mario.nintendo.com/history/" target="_blank" rel="noopener noreferrer">The history of Super Mario <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-ps1"><strong>PlayStation</strong><a href="https://www.playstation.com/en-us/playstation-history/1994-ps-one/" target="_blank" rel="noopener noreferrer">PlayStation 1994: historia de la consola <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-sie"><strong>Sony Interactive Entertainment</strong><a href="https://sonyinteractive.com/en/our-company/company-history/" target="_blank" rel="noopener noreferrer">Company History <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-xbox"><strong>Microsoft</strong><a href="https://news.microsoft.com/source/2001/11/15/xbox-erupts-on-the-scene/" target="_blank" rel="noopener noreferrer">Xbox Erupts on the Scene (2001) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-live"><strong>Microsoft</strong><a href="https://news.microsoft.com/source/2002/11/15/xbox-live-arrives-in-stores-sparking-the-next-revolution-in-video-games/" target="_blank" rel="noopener noreferrer">Xbox Live Arrives in Stores (2002) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-wow"><strong>Blizzard Entertainment</strong><a href="https://news.blizzard.com/es-mx/article/24136212/celebra-world-of-warcraft-durante-el-20-o-aniversario" target="_blank" rel="noopener noreferrer">Celebración del 20.º aniversario de World of Warcraft <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-apple"><strong>Apple</strong><a href="https://www.apple.com/newsroom/2008/07/10iPhone-3G-on-Sale-Tomorrow/" target="_blank" rel="noopener noreferrer">iPhone 3G on Sale Tomorrow / App Store (2008) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-twitch"><strong>Justin.tv / TwitchTV</strong><a href="https://www.businesswire.com/news/home/20110606005437/en/Justin.tv-Launches-TwitchTV-World%E2%80%99s-Largest-Competitive-Video" target="_blank" rel="noopener noreferrer">Comunicado de lanzamiento de TwitchTV (2011) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-fortnite"><strong>Epic Games</strong><a href="https://www.fortnite.com/news/fortnite-battle-royale-goes-free" target="_blank" rel="noopener noreferrer">Fortnite Battle Royale Goes Free (2017) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-ps5"><strong>PlayStation</strong><a href="https://www.playstation.com/en-us/playstation-history/2020-ps5-ps-vr2/" target="_blank" rel="noopener noreferrer">2020: PlayStation 5 y PS VR2 <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-cloud"><strong>Xbox Wire</strong><a href="https://news.xbox.com/en-us/2020/09/14/cloud-gaming-with-xbox-game-pass-ultimate/" target="_blank" rel="noopener noreferrer">Cloud Gaming with Xbox Game Pass Ultimate (2020) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-genshin"><strong>HoYoverse / PlayStation Blog</strong><a href="https://blog.playstation.com/2020/09/28/your-journey-in-genshin-impact-begins-now/" target="_blank" rel="noopener noreferrer">Your journey in Genshin Impact begins now (2020) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-switch2"><strong>Nintendo</strong><a href="https://www.nintendo.com/us/whatsnew/nintendo-switch-2-launches-june-5-bringing-new-forms-of-game-communication-to-life/" target="_blank" rel="noopener noreferrer">Nintendo Switch 2 launches June 5 (2025) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-muse"><strong>Microsoft Research</strong><a href="https://www.microsoft.com/en-us/research/blog/introducing-muse-our-first-generative-ai-model-designed-for-gameplay-ideation/" target="_blank" rel="noopener noreferrer">Introducing Muse (2025) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-odyssey"><strong>Smithsonian Institution</strong><a href="https://www.si.edu/es/object/magnavox-odyssey-video-game-unit-1972%3Anmah_1302004" target="_blank" rel="noopener noreferrer">Magnavox Odyssey Video Game Unit, 1972 <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-invaders"><strong>Taito / Google Arts &amp; Culture</strong><a href="https://artsandculture.google.com/story/space-invaders-the-game-changer-taito-corporation/SwVBsVEMarKRfA?hl=en" target="_blank" rel="noopener noreferrer">Space Invaders, the Game Changer <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-crash"><strong>The Strong</strong><a href="https://www.museumofplay.org/blog/what-video-game-crash/" target="_blank" rel="noopener noreferrer">What Video Game Crash? <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-sonic"><strong>The Strong</strong><a href="https://www.museumofplay.org/games/sonic-the-hedgehog/" target="_blank" rel="noopener noreferrer">Sonic the Hedgehog <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-gta3"><strong>Rockstar Games</strong><a href="https://media.rockstargames.com/broadcast/20111020/en_US_web.html" target="_blank" rel="noopener noreferrer">Grand Theft Auto III: Ten-Year Anniversary <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-series"><strong>Xbox Wire</strong><a href="https://news.xbox.com/en-us/2020/11/10/power-your-dreams-xbox-series-x-and-xbox-series-s-available-now/" target="_blank" rel="noopener noreferrer">Xbox Series X and Xbox Series S Now Available Worldwide (2020) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li><li id="source-minecraft"><strong>Mojang</strong><a href="https://www.minecraft.net/en-us/article/embrace-past-minecraft-classic" target="_blank" rel="noopener noreferrer">Embrace the Past with Minecraft Classic (2019) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva pestaña)</span></a></li></ol></div></details></section>
-</main>
-<footer class="site-footer"><a class="brand footer-brand" href="#inicio" aria-label="GLHF, volver al inicio"><img src="assets/Logo_GgWp.png" width="44" height="44" alt="" loading="lazy" /><span>GLHF<span class="brand-subtitle">LA HISTORIA SE JUEGA.</span></span></a><div><p>Proyecto editorial independiente. Marcas y juegos pertenecen a sus titulares.</p><p class="build-note">ETAPA 06 / PULIDO FINAL Y QA <span aria-hidden="true">·</span> <span id="runtime-status">Archivo abierto</span></p></div><a class="back-top" href="#inicio" aria-label="Volver al inicio">↑</a></footer>
-<p id="engine-error" class="engine-error" role="status" hidden>El contenido sigue disponible. No se pudo iniciar la navegación C#. Comprueba la conexión y recarga la página.</p>
-</body></html>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="chronology-progress" data-scroll-progress aria-hidden="true">
+        <div class="chronology-progress-track"><span class="chronology-progress-fill" data-scroll-progress-fill></span>
+        </div>
+        <div class="chronology-progress-meta"><span data-scroll-progress-era>1958—1969 / NACIMIENTO</span><span
+                data-scroll-progress-percent>00%</span></div>
+    </div>
+    <div id="inicio" class="top-anchor" aria-hidden="true"></div>
+    <header class="site-header" data-movable-dock data-dock-mode="default" data-dock-orientation="horizontal"
+        data-dock-edge="top" aria-label="Navegación principal movible">
+        <button type="button" class="dock-grip" data-dock-drag aria-label="Arrastrar la barra de navegación"
+            title="Arrastra para mover el menú"><span class="dock-grip-mark"
+                aria-hidden="true">⠿</span><span>MOVER</span></button>
+        <a class="brand" href="#inicio" aria-label="GLHF, inicio"><img src="wwwroot/assets/Logo_GgWp.png" width="48"
+                height="48" alt="" /><span>GLHF<span class="brand-subtitle">ARCHIVO DE VIDEOJUEGOS</span></span></a>
+        <nav class="main-nav" aria-label="Navegación principal"><a href="#historia">Historia</a><a
+                href="#revoluciones">Revoluciones</a><a href="#coleccion">Colección</a><a href="#futuro">Lo que viene
+                <span aria-hidden="true">↗</span></a></nav>
+        <div class="header-actions"><span class="edition">ARCHIVO / 2026</span></div>
+        <div class="dock-controls" role="group" aria-label="Mover la barra de navegación"><span
+                class="dock-controls-label">UBICAR</span><button type="button" data-dock-nudge="left"
+                aria-label="Mover menú a la izquierda" title="Izquierda">←</button><button type="button"
+                data-dock-nudge="up" aria-label="Mover menú hacia arriba" title="Arriba">↑</button><button type="button"
+                data-dock-reset aria-label="Restablecer posición del menú" title="Restablecer">⌂</button><button
+                type="button" data-dock-nudge="down" aria-label="Mover menú hacia abajo" title="Abajo">↓</button><button
+                type="button" data-dock-nudge="right" aria-label="Mover menú a la derecha" title="Derecha">→</button>
+        </div>
+        <span class="sr-only" data-dock-live aria-live="polite">Menú horizontal en la parte superior.</span>
+    </header>
+    <div class="resume-prompt" data-resume-prompt hidden role="region" aria-label="Retomar recorrido"><span
+            class="resume-kicker">PROGRESO GUARDADO</span><span data-resume-label>Continuar donde lo dejaste</span>
+        <div><button type="button" data-resume-go>CONTINUAR</button><button type="button" data-resume-dismiss>EMPEZAR
+                DESDE 1958</button></div>
+    </div>
+    <div class="secret-toast" data-secret-toast role="status" aria-live="polite" hidden>KONAMI CODE · MODO PLAYER 2
+        DESBLOQUEADO</div>
+    <main id="contenido" tabindex="-1">
+        <section class="hero" aria-labelledby="hero-title" data-hero-position="center" data-hero-auto-state="running">
+            <div class="hero-stage">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> MUSEO DIGITAL / 1958—2026</p>
+                    <h1 id="hero-title">LA HISTORIA<br />SE <span>JUEGA.</span></h1>
+                    <p class="hero-description">Antes de tu primera partida, hubo una revolución. Recorre las ideas, las
+                        crisis y los mundos que cambiaron nuestra forma de jugar.</p>
+                    <div class="hero-actions"><a class="button primary" href="#historia">Entrar a la historia <span
+                                aria-hidden="true">↗</span></a><a class="text-link" href="#coleccion">Explorar la
+                            colección <span aria-hidden="true">↓</span></a></div>
+                    <div class="hero-index"><span>07 ERAS</span><span>14 FICHAS</span><span>UN MISMO ESPÍRITU</span>
+                    </div>
+                </div>
+                <figure class="hero-exhibit">
+                    <div class="exhibit-bar"><span>ARCHIVO / IDENTIDAD</span><span aria-hidden="true">■ ■ ■</span></div>
+                    <div class="logo-mat"><img src="wwwroot/assets/Logo_GgWp.png"
+                            alt="Logo de GLHF: calavera negra con figura roja" width="800" height="800"
+                            fetchpriority="high" /></div>
+                    <figcaption><span>GLHF<span class="muted">LA PARTIDA CONTINÚA</span></span><span
+                            class="exhibit-code">N.º 001<br />EST. 2026</span></figcaption>
+                </figure>
+                <div class="hero-axis" aria-hidden="true"><span class="axis-x"></span><span
+                        class="axis-y"></span><i></i></div>
+            </div>
+            <div class="hero-toolbar" aria-label="Control de posición del Hero">
+                <div id="hero-controls">
+                    <div class="hero-position-controls" role="group" aria-label="Posición del bloque principal"><span
+                            class="hero-control-label">MOVER HERO</span><button type="button"
+                            class="hero-position-button" data-hero-position-button="top-left"
+                            aria-label="Mover arriba a la izquierda" aria-pressed="false"
+                            title="Mover arriba a la izquierda"><span aria-hidden="true">↖</span></button><button
+                            type="button" class="hero-position-button" data-hero-position-button="top-right"
+                            aria-label="Mover arriba a la derecha" aria-pressed="false"
+                            title="Mover arriba a la derecha"><span aria-hidden="true">↗</span></button><button
+                            type="button" class="hero-position-button" data-hero-position-button="center"
+                            aria-label="Mover al centro" aria-pressed="true" title="Mover al centro"><span
+                                aria-hidden="true">●</span></button><button type="button" class="hero-position-button"
+                            data-hero-position-button="bottom-left" aria-label="Mover abajo a la izquierda"
+                            aria-pressed="false" title="Mover abajo a la izquierda"><span
+                                aria-hidden="true">↙</span></button><button type="button" class="hero-position-button"
+                            data-hero-position-button="bottom-right" aria-label="Mover abajo a la derecha"
+                            aria-pressed="false" title="Mover abajo a la derecha"><span
+                                aria-hidden="true">↘</span></button><span class="hero-auto-state"
+                            aria-hidden="true">AUTO</span><span class="sr-only" role="status" aria-live="polite">Hero
+                            centrado.</span></div>
+                </div>
+                <p class="hero-motion-note"><span data-hero-position-label>CENTRO</span><span aria-hidden="true"> /
+                    </span><span data-hero-auto-label>AUTO 5.5S</span></p>
+            </div>
+            <div class="hero-bottom"><span>DEL OSCILOSCOPIO A LOS MUNDOS VIRTUALES</span><a href="#historia"
+                    aria-label="Bajar a la historia">SCROLL PARA EXPLORAR <span aria-hidden="true">↓</span></a></div>
+        </section>
+        <section class="archive-brief section-wrap" id="archivo" aria-labelledby="archive-brief-title">
+            <div class="archive-brief-grid">
+                <div class="archive-brief-copy">
+                    <p class="eyebrow"><span class="section-icon archive-icon" aria-hidden="true">▣</span>ARCHIVO /
+                        LECTURA RÁPIDA</p>
+                    <h2 id="archive-brief-title">De experimento científico<br />a cultura global.</h2>
+                    <p>GLHF conecta 68 años de historia: laboratorios, salones arcade, consolas, PC, juego online,
+                        streaming, móvil, nube y nuevas herramientas de creación. El recorrido no trata a cada etapa
+                        como un reemplazo de la anterior: muchas formas de jugar coexistieron y siguen influyéndose
+                        entre sí.</p>
+                </div>
+                <dl class="archive-facts" aria-label="Hitos rápidos de la historia del videojuego">
+                    <div class="archive-fact">
+                        <dt>1958</dt>
+                        <dd><strong>La pantalla se convierte en juego.</strong> Tennis for Two demuestra que una
+                            interfaz científica también podía ser un espacio lúdico.</dd>
+                    </div>
+                    <div class="archive-fact">
+                        <dt>1972</dt>
+                        <dd><strong>El juego sale del laboratorio.</strong> Odyssey lleva la experiencia al televisor y
+                            Pong consolida el atractivo del arcade.</dd>
+                    </div>
+                    <div class="archive-fact">
+                        <dt>1983—85</dt>
+                        <dd><strong>Crisis y reinicio.</strong> El mercado estadounidense se contrae mientras Nintendo
+                            reordena la experiencia doméstica con Famicom/NES.</dd>
+                    </div>
+                    <div class="archive-fact">
+                        <dt>1990s</dt>
+                        <dd><strong>Profundidad y nuevos soportes.</strong> 16 bits, CD-ROM y gráficos 3D amplían tanto
+                            el lenguaje visual como la escala de los mundos.</dd>
+                    </div>
+                    <div class="archive-fact">
+                        <dt>2000s</dt>
+                        <dd><strong>Conexión permanente.</strong> Consolas online, MMORPG, mundos abiertos y tiendas
+                            móviles cambian cómo se juega y distribuye.</dd>
+                    </div>
+                    <div class="archive-fact">
+                        <dt>2010s—26</dt>
+                        <dd><strong>El juego también se mira, comparte y transmite.</strong> Streaming, free-to-play,
+                            nube, VR/AR e IA abren nuevas formas de producir y experimentar videojuegos.</dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="archive-reading-key" aria-label="Cómo explorar GLHF">
+                <p><span>01</span><strong>MUÉVETE</strong> Arrastra el menú: al llevarlo al borde izquierdo o derecho
+                    cambia automáticamente de horizontal a vertical.</p>
+                <p><span>02</span><strong>VIAJA</strong> Usa la máquina del tiempo y la línea cronológica para saltar
+                    entre décadas.</p>
+                <p><span>03</span><strong>VERIFICA</strong> Las fichas y los hitos enlazan sus fuentes para ampliar cada
+                    historia.</p>
+            </div>
+        </section>
+        <section class="history-section section-wrap" id="historia" aria-labelledby="history-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow"><span class="section-icon" aria-hidden="true">🕹️</span>01 / EL RECORRIDO</p>
+                    <h2 id="history-title">Cada era cambió<br />las reglas.</h2>
+                </div>
+                <p>No es solo una historia de máquinas.<br />Es la historia de lo que hicimos con ellas.</p>
+            </div>
+            <div class="time-machine" data-time-machine aria-labelledby="time-machine-title">
+                <div class="time-machine-head">
+                    <div><span class="eyebrow" id="time-machine-title">MÁQUINA DEL TIEMPO</span><strong
+                            data-time-machine-period>1958—1969</strong></div><span
+                        data-time-machine-name>NACIMIENTO</span>
+                </div><input type="range" min="0" max="6" step="1" value="0" data-time-machine-slider
+                    aria-label="Cambiar de era: de 1958 a 2026" />
+                <div class="time-machine-scale" aria-hidden="true">
+                    <span>1958</span><span>1970</span><span>1980</span><span>1990</span><span>2000</span><span>2010</span><span>2020+</span>
+                </div>
+                <p>Arrastra para cambiar en tiempo real la identidad visual. Al soltar, GLHF viaja a esa era.</p>
+            </div>
+            <div class="timeline-console" aria-label="Línea de tiempo interactiva">
+                <div class="timeline-now" aria-live="polite"><span class="timeline-now-label">ERA ACTIVA</span><strong
+                        data-timeline-now-period>1958—1969</strong><span data-timeline-now-title>Nacimiento</span></div>
+                <nav class="timeline-rail" data-timeline-rail aria-label="Navegar por décadas"><a
+                        class="timeline-rail-link" href="#era-1958" data-era-rail="era-1958"
+                        aria-label="1958—1969: nacimiento"><span>1958</span><small>nacimiento</small></a>
+                    <a class="timeline-rail-link" href="#era-1970" data-era-rail="era-1970"
+                        aria-label="1970—1979: arcade y hogar"><span>1970</span><small>arcade y hogar</small></a>
+                    <a class="timeline-rail-link" href="#era-1980" data-era-rail="era-1980"
+                        aria-label="1980—1989: crisis y renacimiento"><span>1980</span><small>crisis y
+                            renacimiento</small></a>
+                    <a class="timeline-rail-link" href="#era-1990" data-era-rail="era-1990"
+                        aria-label="1990—1999: 16 bits, 3d y redes"><span>1990</span><small>16 bits, 3d y
+                            redes</small></a>
+                    <a class="timeline-rail-link" href="#era-2000" data-era-rail="era-2000"
+                        aria-label="2000—2009: mundos conectados"><span>2000</span><small>mundos conectados</small></a>
+                    <a class="timeline-rail-link" href="#era-2010" data-era-rail="era-2010"
+                        aria-label="2010—2019: comunidades y creadores"><span>2010</span><small>comunidades y
+                            creadores</small></a>
+                    <a class="timeline-rail-link" href="#era-2020" data-era-rail="era-2020"
+                        aria-label="2020—2026: nuevas fronteras"><span>2020</span><small>nuevas fronteras</small></a>
+                </nav>
+                <p class="timeline-hint">ARRASTRA / SCROLL · FLECHAS ← → · ENTER</p>
+            </div>
+            <div class="history-layout">
+                <aside class="timeline-sidebar" aria-label="Guía del recorrido">
+                    <div id="era-controls">
+                        <nav class="era-navigation" aria-label="Elegir una era">
+                            <p class="eyebrow">ELIGE TU PUNTO DE PARTIDA</p>
+                            <ol>
+                                <li><a class="era-link" href="#era-1958" data-era-link="era-1958"><span class="nav-dot"
+                                            aria-hidden="true"></span><span>1958</span><span
+                                            class="nav-era-name">nacimiento</span></a></li>
+                                <li><a class="era-link" href="#era-1970" data-era-link="era-1970"><span class="nav-dot"
+                                            aria-hidden="true"></span><span>1970</span><span class="nav-era-name">arcade
+                                            y hogar</span></a></li>
+                                <li><a class="era-link" href="#era-1980" data-era-link="era-1980"><span class="nav-dot"
+                                            aria-hidden="true"></span><span>1980</span><span class="nav-era-name">crisis
+                                            y renacimiento</span></a></li>
+                                <li><a class="era-link" href="#era-1990" data-era-link="era-1990"><span class="nav-dot"
+                                            aria-hidden="true"></span><span>1990</span><span class="nav-era-name">16
+                                            bits, 3d y redes</span></a></li>
+                                <li><a class="era-link" href="#era-2000" data-era-link="era-2000"><span class="nav-dot"
+                                            aria-hidden="true"></span><span>2000</span><span class="nav-era-name">mundos
+                                            conectados</span></a></li>
+                                <li><a class="era-link" href="#era-2010" data-era-link="era-2010"><span class="nav-dot"
+                                            aria-hidden="true"></span><span>2010</span><span
+                                            class="nav-era-name">comunidades y creadores</span></a></li>
+                                <li><a class="era-link" href="#era-2020" data-era-link="era-2020"><span class="nav-dot"
+                                            aria-hidden="true"></span><span>2020</span><span class="nav-era-name">nuevas
+                                            fronteras</span></a></li>
+                            </ol>
+                            <p class="navigation-note">Explora con Tab y Enter.</p>
+                        </nav>
+                    </div><a class="source-shortcut" href="#fuentes">Consultar fuentes <span
+                            aria-hidden="true">↗</span></a>
+                </aside>
+                <div class="era-list">
+                    <article class="era" id="era-1958" aria-labelledby="era-1958-title" data-era="era-1958">
+                        <div class="era-stamp"><span class="eyebrow">01 / NACIMIENTO</span><span
+                                class="era-period">1958—1969</span></div>
+                        <div class="era-body">
+                            <h3 id="era-1958-title" tabindex="-1">Antes de que existiera la industria.</h3>
+                            <p class="era-description">Un osciloscopio. Una computadora de laboratorio. La idea de
+                                convertir una pantalla en un lugar para jugar precedió a las consolas y a los salones
+                                arcade.</p>
+                            <div class="tags"><span>Laboratorios</span><span>Osciloscopio</span><span>PDP-1</span></div>
+                            <ol class="milestones">
+                                <li class="milestone"><span class="milestone-year">1958</span>
+                                    <div>
+                                        <h4>Tennis for Two</h4>
+                                        <p>William Higinbotham presenta en Brookhaven un juego de tenis para dos
+                                            personas, mostrado en un osciloscopio.</p>
+                                        <div class="refs"><a href="#source-bnl">Brookhaven National Laboratory</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1962</span>
+                                    <div>
+                                        <h4>Spacewar!</h4>
+                                        <p>Un equipo vinculado al MIT desarrolla un combate espacial para la computadora
+                                            PDP-1. El juego circula por entornos universitarios.</p>
+                                        <div class="refs"><a href="#source-chm">Computer History Museum</a></div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+                    <article class="era" id="era-1970" aria-labelledby="era-1970-title" data-era="era-1970">
+                        <div class="era-stamp"><span class="eyebrow">02 / ARCADE Y HOGAR</span><span
+                                class="era-period">1970—1979</span></div>
+                        <div class="era-body">
+                            <h3 id="era-1970-title" tabindex="-1">La pantalla sale a la calle.</h3>
+                            <p class="era-description">Jugar deja de ser una curiosidad de laboratorio. Las recreativas
+                                convierten una moneda en una partida; las primeras consolas llevan esa experiencia al
+                                televisor.</p>
+                            <div class="tags"><span>Recreativas</span><span>Cartuchos</span><span>Atari</span></div>
+                            <ol class="milestones">
+                                <li class="milestone"><span class="milestone-year">1972</span>
+                                    <div>
+                                        <h4>Odyssey y Pong</h4>
+                                        <p>Magnavox Odyssey abre la etapa de las consolas domésticas. Ese mismo año,
+                                            Atari lanza Pong en los arcades.</p>
+                                        <div class="refs"><a href="#source-odyssey">Smithsonian Institution</a><a
+                                                href="#source-pong">Computer History Museum</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1977</span>
+                                    <div>
+                                        <h4>Atari VCS</h4>
+                                        <p>La consola que después se conocería como Atari 2600 hace de los cartuchos
+                                            intercambiables parte del juego en casa.</p>
+                                        <div class="refs"><a href="#source-chm">Computer History Museum</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1978</span>
+                                    <div>
+                                        <h4>Space Invaders</h4>
+                                        <p>El arcade de Taito convierte la defensa frente a oleadas de invasores en un
+                                            fenómeno de la cultura del videojuego.</p>
+                                        <div class="refs"><a href="#source-invaders">Taito / Google Arts &amp;
+                                                Culture</a></div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+                    <article class="era" id="era-1980" aria-labelledby="era-1980-title" data-era="era-1980">
+                        <div class="era-stamp"><span class="eyebrow">03 / CRISIS Y RENACIMIENTO</span><span
+                                class="era-period">1980—1989</span></div>
+                        <div class="era-body">
+                            <h3 id="era-1980-title" tabindex="-1">Caer. Reiniciar. Volver a jugar.</h3>
+                            <p class="era-description">Los personajes ganan identidad. El desplome del mercado
+                                estadounidense de consolas en 1983 no es el fin mundial del videojuego: abre una etapa
+                                de reorganización.</p>
+                            <div class="tags"><span>Nintendo</span><span>8 bits</span><span>Portátiles</span></div>
+                            <ol class="milestones">
+                                <li class="milestone"><span class="milestone-year">1983</span>
+                                    <div>
+                                        <h4>El crash y Famicom</h4>
+                                        <p>Mientras se contrae el mercado estadounidense, Nintendo introduce Famicom en
+                                            Japón. No todas las regiones viven la misma historia.</p>
+                                        <div class="refs"><a href="#source-crash">The Strong</a><a
+                                                href="#source-strong">The Strong National Museum of Play</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1984</span>
+                                    <div>
+                                        <h4>Tetris</h4>
+                                        <p>Alexey Pajitnov crea un rompecabezas basado en piezas geométricas que
+                                            encontraría una nueva vida en las consolas portátiles.</p>
+                                        <div class="refs"><a href="#source-strong">The Strong National Museum of
+                                                Play</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1985</span>
+                                    <div>
+                                        <h4>NES y Super Mario Bros.</h4>
+                                        <p>El desembarco de NES en Estados Unidos y las aventuras de Mario marcan el
+                                            nuevo capítulo de Nintendo.</p>
+                                        <div class="refs"><a href="#source-strong">The Strong National Museum of
+                                                Play</a><a href="#source-mario">Nintendo</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1989</span>
+                                    <div>
+                                        <h4>Game Boy</h4>
+                                        <p>Nintendo lleva el juego de cartuchos al bolsillo con una consola que apuesta
+                                            por la portabilidad.</p>
+                                        <div class="refs"><a href="#source-strong">The Strong National Museum of
+                                                Play</a></div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+                    <article class="era" id="era-1990" aria-labelledby="era-1990-title" data-era="era-1990">
+                        <div class="era-stamp"><span class="eyebrow">04 / 16 BITS, 3D Y REDES</span><span
+                                class="era-period">1990—1999</span></div>
+                        <div class="era-body">
+                            <h3 id="era-1990-title" tabindex="-1">El mundo adquiere profundidad.</h3>
+                            <p class="era-description">La rivalidad SEGA–Nintendo da paso a un tablero con nuevos
+                                protagonistas. Los mundos tridimensionales y el juego conectado amplían el lenguaje del
+                                medio.</p>
+                            <div class="tags"><span>SEGA vs. Nintendo</span><span>CD-ROM</span><span>3D</span></div>
+                            <ol class="milestones">
+                                <li class="milestone"><span class="milestone-year">1991</span>
+                                    <div>
+                                        <h4>Sonic the Hedgehog</h4>
+                                        <p>Sonic da a SEGA un personaje con el que competir frente a Mario. La rivalidad
+                                            entre ambas marcas define parte de la era de 16 bits.</p>
+                                        <div class="refs"><a href="#source-sonic">The Strong</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1993</span>
+                                    <div>
+                                        <h4>Doom</h4>
+                                        <p>El juego de id Software ayuda a popularizar la acción en primera persona y
+                                            una comunidad que modifica sus niveles.</p>
+                                        <div class="refs"><a href="#source-chm">Computer History Museum</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1994</span>
+                                    <div>
+                                        <h4>PlayStation</h4>
+                                        <p>Sony lanza PlayStation en Japón el 3 de diciembre. Los CD y los gráficos 3D
+                                            son parte de su propuesta.</p>
+                                        <div class="refs"><a href="#source-ps1">PlayStation</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">1997</span>
+                                    <div>
+                                        <h4>Gran Turismo</h4>
+                                        <p>La serie de conducción de PlayStation inicia su historia con una apuesta por
+                                            la simulación y un amplio garaje.</p>
+                                        <div class="refs"><a href="#source-sie">Sony Interactive Entertainment</a></div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+                    <article class="era" id="era-2000" aria-labelledby="era-2000-title" data-era="era-2000">
+                        <div class="era-stamp"><span class="eyebrow">05 / MUNDOS CONECTADOS</span><span
+                                class="era-period">2000—2009</span></div>
+                        <div class="era-body">
+                            <h3 id="era-2000-title" tabindex="-1">Ya no juegas solo.</h3>
+                            <p class="era-description">Las consolas comparten espacio con mundos persistentes de PC. Las
+                                comunidades online, los mundos abiertos y las tiendas móviles replantean cómo se
+                                distribuye y se vive un juego.</p>
+                            <div class="tags"><span>MMORPG</span><span>Online</span><span>Móvil</span></div>
+                            <ol class="milestones">
+                                <li class="milestone"><span class="milestone-year">2000</span>
+                                    <div>
+                                        <h4>PlayStation 2</h4>
+                                        <p>Sony introduce una consola con lector de DVD que conecta videojuegos y
+                                            entretenimiento doméstico.</p>
+                                        <div class="refs"><a href="#source-sie">Sony Interactive Entertainment</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">2001—2002</span>
+                                    <div>
+                                        <h4>Xbox y Xbox Live</h4>
+                                        <p>Xbox llega a Norteamérica en 2001; Xbox Live se estrena en 2002 con juego por
+                                            banda ancha y comunicación de voz.</p>
+                                        <div class="refs"><a href="#source-xbox">Microsoft</a><a
+                                                href="#source-live">Microsoft</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">2001</span>
+                                    <div>
+                                        <h4>Grand Theft Auto III</h4>
+                                        <p>Rockstar lleva al jugador a una Liberty City abierta a la exploración. El
+                                            juego de octubre de 2001 se convierte en un referente del mundo abierto.</p>
+                                        <div class="refs"><a href="#source-gta3">Rockstar Games</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">2004</span>
+                                    <div>
+                                        <h4>World of Warcraft</h4>
+                                        <p>Blizzard convierte Azeroth en un mundo compartido: el MMORPG tendría su
+                                            celebración del vigésimo aniversario en 2024.</p>
+                                        <div class="refs"><a href="#source-wow">Blizzard Entertainment</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">2008</span>
+                                    <div>
+                                        <h4>App Store</h4>
+                                        <p>La tienda de aplicaciones de Apple abre otro canal de distribución para
+                                            juegos en dispositivos móviles.</p>
+                                        <div class="refs"><a href="#source-apple">Apple</a></div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+                    <article class="era" id="era-2010" aria-labelledby="era-2010-title" data-era="era-2010">
+                        <div class="era-stamp"><span class="eyebrow">06 / COMUNIDADES Y CREADORES</span><span
+                                class="era-period">2010—2019</span></div>
+                        <div class="era-body">
+                            <h3 id="era-2010-title" tabindex="-1">Jugar también es mirar.</h3>
+                            <p class="era-description">Los juegos independientes, las retransmisiones y los deportes
+                                electrónicos amplían las maneras de participar. La audiencia deja de estar solamente
+                                detrás del mando.</p>
+                            <div class="tags"><span>Indies</span><span>Streaming</span><span>Battle royale</span></div>
+                            <ol class="milestones">
+                                <li class="milestone"><span class="milestone-year">2011</span>
+                                    <div>
+                                        <h4>TwitchTV</h4>
+                                        <p>La plataforma nace centrada en retransmitir videojuegos y competiciones en
+                                            directo. El espectador se vuelve parte de la comunidad.</p>
+                                        <div class="refs"><a href="#source-twitch">Justin.tv / TwitchTV</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">2017</span>
+                                    <div>
+                                        <h4>Fortnite Battle Royale</h4>
+                                        <p>Epic anuncia su modo gratuito para el 26 de septiembre, con partidas de hasta
+                                            100 jugadores.</p>
+                                        <div class="refs"><a href="#source-fortnite">Epic Games</a></div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+                    <article class="era" id="era-2020" aria-labelledby="era-2020-title" data-era="era-2020">
+                        <div class="era-stamp"><span class="eyebrow">07 / NUEVAS FRONTERAS</span><span
+                                class="era-period">2020—2026</span></div>
+                        <div class="era-body">
+                            <h3 id="era-2020-title" tabindex="-1">El siguiente nivel sigue abierto.</h3>
+                            <p class="era-description">Consolas, nube, realidad virtual y juegos como servicio conviven.
+                                Esta sala distingue los lanzamientos documentados de las preguntas sobre el futuro; no
+                                da por cumplidas las promesas tecnológicas.</p>
+                            <div class="tags"><span>Nube</span><span>VR / AR</span><span>IA generativa</span></div>
+                            <ol class="milestones">
+                                <li class="milestone"><span class="milestone-year">2020</span>
+                                    <div>
+                                        <h4>PS5, Xbox Series y nuevos mundos</h4>
+                                        <p>PS5 y Xbox Series X|S llegan en noviembre. Xbox amplía el juego en la nube y
+                                            Genshin Impact se estrena en PS4 en septiembre.</p>
+                                        <div class="refs"><a href="#source-ps5">PlayStation</a><a
+                                                href="#source-series">Xbox Wire</a><a href="#source-cloud">Xbox
+                                                Wire</a><a href="#source-genshin">HoYoverse / PlayStation Blog</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">2023</span>
+                                    <div>
+                                        <h4>PlayStation VR2</h4>
+                                        <p>El visor de Sony incorpora una nueva propuesta de interacción y presencia
+                                            para la generación PS5.</p>
+                                        <div class="refs"><a href="#source-ps5">PlayStation</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">2025</span>
+                                    <div>
+                                        <h4>Nintendo Switch 2</h4>
+                                        <p>Nintendo fija el 5 de junio como fecha de lanzamiento de Switch 2, con Mario
+                                            Kart World como título de estreno.</p>
+                                        <div class="refs"><a href="#source-switch2">Nintendo</a></div>
+                                    </div>
+                                </li>
+                                <li class="milestone"><span class="milestone-year">2025</span>
+                                    <div>
+                                        <h4>Muse: investigación en IA</h4>
+                                        <p>Microsoft Research presenta un modelo generativo para explorar ideas de
+                                            juego. Es investigación, no una prueba de que la creación de juegos esté
+                                            resuelta.</p>
+                                        <div class="refs"><a href="#source-muse">Microsoft Research</a></div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <p class="editorial-note"><strong>Nota de curaduría.</strong> Este recorrido comienza en 1958 por su valor
+                narrativo. No afirma que exista un único «primer videojuego»: Brookhaven documenta antecedentes
+                anteriores y la importancia de definir qué se considera videojuego. <a href="#source-bnl">Ver
+                    fuente.</a></p>
+        </section>
+        <section class="revolutions-section section-wrap" id="revoluciones" aria-labelledby="revolutions-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow"><span class="section-icon" aria-hidden="true">⚡</span>02 / CAMBIOS DE PARADIGMA
+                    </p>
+                    <h2 id="revolutions-title">No fue solo<br />un salto gráfico.</h2>
+                </div>
+                <p>Seis formas de entender<br />cómo cambió el juego.</p>
+            </div>
+            <div class="revolution-grid">
+                <article class="revolution"><span class="revolution-number" aria-hidden="true">01</span><span
+                        class="eyebrow">ESPACIO</span>
+                    <h3>De 2D a 3D</h3>
+                    <p>La profundidad no solo cambia la imagen: obliga a repensar las cámaras, la orientación y la
+                        manera de recorrer un mundo.</p>
+                    <div class="refs"><a href="#source-ps1">PlayStation</a></div>
+                </article>
+                <article class="revolution"><span class="revolution-number" aria-hidden="true">02</span><span
+                        class="eyebrow">CONEXIÓN</span>
+                    <h3>La partida en red</h3>
+                    <p>Servicios como Xbox Live integran partidas y voz. Un encuentro deja de depender de compartir la
+                        misma habitación.</p>
+                    <div class="refs"><a href="#source-live">Microsoft</a></div>
+                </article>
+                <article class="revolution"><span class="revolution-number" aria-hidden="true">03</span><span
+                        class="eyebrow">ACCESO</span>
+                    <h3>El juego en el bolsillo</h3>
+                    <p>Las tiendas móviles acercan la distribución digital al teléfono. El dispositivo cotidiano también
+                        se convierte en plataforma de juego.</p>
+                    <div class="refs"><a href="#source-apple">Apple</a></div>
+                </article>
+                <article class="revolution"><span class="revolution-number" aria-hidden="true">04</span><span
+                        class="eyebrow">COMUNIDAD</span>
+                    <h3>Jugar para una audiencia</h3>
+                    <p>Con TwitchTV, emitir partidas y seguir competiciones se encuentran en una plataforma diseñada
+                        alrededor del videojuego.</p>
+                    <div class="refs"><a href="#source-twitch">Justin.tv / TwitchTV</a></div>
+                </article>
+                <article class="revolution"><span class="revolution-number" aria-hidden="true">05</span><span
+                        class="eyebrow">MONETIZACIÓN</span>
+                    <h3>Gratis no es un modelo único</h3>
+                    <p>Free-to-play, cosméticos, microtransacciones y gacha forman parte de este eje temático. Fortnite
+                        ilustra una entrada gratuita con monetización prevista en elementos no competitivos.</p>
+                    <div class="refs"><a href="#source-fortnite">Epic Games</a></div>
+                </article>
+                <article class="revolution"><span class="revolution-number" aria-hidden="true">06</span><span
+                        class="eyebrow">EXPERIMENTACIÓN</span>
+                    <h3>Nuevas formas de crear</h3>
+                    <p>La IA generativa abre preguntas sobre herramientas y autoría. Muse es un ejemplo de investigación
+                        para explorar posibilidades, no una conclusión sobre el futuro.</p>
+                    <div class="refs"><a href="#source-muse">Microsoft Research</a></div>
+                </article>
+            </div>
+        </section>
+        <section class="collection-section section-wrap" id="coleccion" aria-labelledby="collection-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow"><span class="section-icon" aria-hidden="true">🎮</span>03 / LA COLECCIÓN</p>
+                    <h2 id="collection-title">Hay juegos que<br />se quedan contigo.</h2>
+                </div>
+                <p>Una selección para abrir el archivo.<br />No un ranking definitivo.</p>
+            </div>
+            <div class="gallery-note"><span class="label">FICHAS DOCUMENTALES</span>
+                <p>Archivo visual real: capturas históricas, hardware, arcades, estudios y eventos procedentes de
+                    Wikimedia Commons. No se usan imágenes generadas por IA; cada ficha enlaza su crédito y licencia.
+                </p>
+            </div>
+            <div class="game-grid">
+                <article class="game-card" data-game-era="era-1958" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Tennis%20For%20Two%20on%20a%20DuMont%20Lab%20Oscilloscope%20Type%20304-A.jpg?width=1200"
+                                alt="Tennis for Two ejecutándose en un osciloscopio DuMont, recreación histórica del sistema de 1958."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Pantalla histórica</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Tennis%20For%20Two%20on%20a%20DuMont%20Lab%20Oscilloscope%20Type%20304-A.jpg"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Tennis for Two en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 001</span><span>1958</span></div>
+                        <h3>Tennis for Two</h3>
+                        <p class="game-platform">Computadora analógica</p>
+                        <p>La pista no estaba en un televisor: se dibujaba en un osciloscopio.</p>
+                        <p class="media-credit">Brookhaven National Laboratory / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-bnl">Brookhaven National Laboratory</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-1958" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Spacewar%20screenshot.jpg?width=1200"
+                                alt="Spacewar! ejecutándose en una computadora PDP-1." loading="lazy" decoding="async"
+                                fetchpriority="low" referrerpolicy="no-referrer" /></div>
+                        <figcaption><span>Captura histórica</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Spacewar%20screenshot.jpg" target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Spacewar! en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 002</span><span>1962</span></div>
+                        <h3>Spacewar!</h3>
+                        <p class="game-platform">DEC PDP-1</p>
+                        <p>Dos naves se enfrentan alrededor de una estrella en uno de los primeros juegos digitales
+                            influyentes.</p>
+                        <p class="media-credit">Kenneth Lu / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-chm">Computer History Museum</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-1970" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/PONG%20arcade.jpg?width=1200"
+                                alt="Gabinete arcade de Pong fotografiado en una sala recreativa." loading="lazy"
+                                decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div>
+                        <figcaption><span>Arcade real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:PONG%20arcade.jpg" target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Pong en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 003</span><span>1972</span></div>
+                        <h3>Pong</h3>
+                        <p class="game-platform">Arcade</p>
+                        <p>Una idea sencilla de tenis de mesa ayuda a abrir el mercado de las recreativas.</p>
+                        <p class="media-credit">Luis Alfredo Romero / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-pong">Computer History Museum</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-1970" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Space%20Invader%20Cabinet.jpg?width=1200"
+                                alt="Gabinete arcade de Space Invaders, ejemplo físico de la cultura recreativa de finales de los setenta."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Arcade real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Space%20Invader%20Cabinet.jpg"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Space Invaders en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 004</span><span>1978</span></div>
+                        <h3>Space Invaders</h3>
+                        <p class="game-platform">Arcade</p>
+                        <p>Defender la pantalla de oleadas enemigas se convierte en un emblema del arcade.</p>
+                        <p class="media-credit">Scalleja / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-invaders">Taito / Google Arts &amp; Culture</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-1980" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Game-Boy-Original.jpg?width=1200"
+                                alt="Nintendo Game Boy original de 1989, plataforma estrechamente asociada con la expansión global de Tetris."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Hardware real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Game-Boy-Original.jpg" target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Tetris en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 005</span><span>1984</span></div>
+                        <h3>Tetris</h3>
+                        <p class="game-platform">Computadora / versiones posteriores</p>
+                        <p>Piezas geométricas y reglas sencillas sostienen un diseño reconocible entre generaciones.</p>
+                        <p class="media-credit">Evan-Amos / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-strong">The Strong National Museum of Play</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-1980" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Nintendo-Entertainment-System-NES-Console-FL.jpg?width=1200"
+                                alt="Nintendo Entertainment System, la plataforma doméstica vinculada al lanzamiento occidental de Super Mario Bros."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Hardware real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Nintendo-Entertainment-System-NES-Console-FL.jpg"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Super Mario Bros. en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 006</span><span>1985</span></div>
+                        <h3>Super Mario Bros.</h3>
+                        <p class="game-platform">Famicom / NES</p>
+                        <p>El Reino Champiñón convierte un desplazamiento lateral en una aventura reconocible por
+                            millones.</p>
+                        <p class="media-credit">Evan-Amos / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-mario">Nintendo</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-1990" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/American%20McGee%20at%20id%20Software,%206%20October%201995%20(by%20Ian%20Mapleson,%20administrator%20of%20the%20Doom%20Help%20Service).jpg?width=1200"
+                                alt="American McGee en id Software en 1995, archivo fotográfico del estudio durante la era de Doom."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Archivo de estudio</span><a
+                                href="https://commons.wikimedia.org/wiki/File:American%20McGee%20at%20id%20Software,%206%20October%201995%20(by%20Ian%20Mapleson,%20administrator%20of%20the%20Doom%20Help%20Service).jpg"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Doom en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 007</span><span>1993</span></div>
+                        <h3>Doom</h3>
+                        <p class="game-platform">PC</p>
+                        <p>Su comunidad no solo juega: también transforma niveles y apariencias.</p>
+                        <p class="media-credit">Ian Mapleson / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-chm">Computer History Museum</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-1990" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/PlayStation-SCPH-1000-with-Controller.jpg?width=1200"
+                                alt="PlayStation SCPH-1000 con control y tarjeta de memoria, hardware de la generación de Gran Turismo."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Hardware real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:PlayStation-SCPH-1000-with-Controller.jpg"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Gran Turismo en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 008</span><span>1997</span></div>
+                        <h3>Gran Turismo</h3>
+                        <p class="game-platform">PlayStation</p>
+                        <p>La conducción y la simulación se vuelven parte de la identidad de PlayStation.</p>
+                        <p class="media-credit">Evan-Amos / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-sie">Sony Interactive Entertainment</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-2000" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Xbox-console.jpg?width=1200"
+                                alt="Xbox original con control S, plataforma de lanzamiento de Halo: Combat Evolved."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Hardware real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Xbox-console.jpg" target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Halo: Combat Evolved en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 009</span><span>2001</span></div>
+                        <h3>Halo: Combat Evolved</h3>
+                        <p class="game-platform">Xbox</p>
+                        <p>Forma parte del catálogo que acompaña la llegada de la primera Xbox.</p>
+                        <p class="media-credit">Evan-Amos / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-xbox">Microsoft</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-2000" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Blizzard&#x27;s%20Rob%20Pardo%20and%20Tom%20Chilton%20of%20World%20of%20Warcraft%20(520725354).jpg?width=1200"
+                                alt="Rob Pardo y Tom Chilton, desarrolladores vinculados a World of Warcraft, fotografiados en 2007."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Archivo de desarrollo</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Blizzard&#x27;s%20Rob%20Pardo%20and%20Tom%20Chilton%20of%20World%20of%20Warcraft%20(520725354).jpg"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de World of Warcraft en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 010</span><span>2004</span></div>
+                        <h3>World of Warcraft</h3>
+                        <p class="game-platform">PC / Mac</p>
+                        <p>Azeroth funciona como escenario compartido para aventuras, grupos y comunidades.</p>
+                        <p class="media-credit">Joi Ito / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-wow">Blizzard Entertainment</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-2000" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/MineCon2015ExpoHall.jpg?width=1200"
+                                alt="Vista del pabellón de MineCon 2015, encuentro de la comunidad de Minecraft."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Comunidad real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:MineCon2015ExpoHall.jpg" target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Minecraft en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 011</span><span>2009</span></div>
+                        <h3>Minecraft</h3>
+                        <p class="game-platform">PC</p>
+                        <p>Sus primeras versiones públicas ya permiten construir con bloques: Mojang recuerda ese
+                            comienzo en Minecraft Classic.</p>
+                        <p class="media-credit">Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-minecraft">Mojang</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-2010" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Fortnite%20Battle%20Royale%20at%20GDC%202018.jpg?width=1200"
+                                alt="Instalación de Fortnite Battle Royale durante la Game Developers Conference de 2018."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Evento real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Fortnite%20Battle%20Royale%20at%20GDC%202018.jpg"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Fortnite Battle Royale en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 012</span><span>2017</span></div>
+                        <h3>Fortnite Battle Royale</h3>
+                        <p class="game-platform">PC / consolas</p>
+                        <p>El lanzamiento gratuito une supervivencia competitiva y construcción.</p>
+                        <p class="media-credit">Official GDC / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-fortnite">Epic Games</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-2020" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/TECO%20TL32A1TRE%20at%20Genshin%20Impact%20booth%20stage%2020210131.jpg?width=1200"
+                                alt="Pantalla y escenario del stand de Genshin Impact en Taipei Game Show 2021."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Evento real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:TECO%20TL32A1TRE%20at%20Genshin%20Impact%20booth%20stage%2020210131.jpg"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Genshin Impact en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 013</span><span>2020</span></div>
+                        <h3>Genshin Impact</h3>
+                        <p class="game-platform">PS4 / otras plataformas</p>
+                        <p>La exploración de Teyvat se organiza alrededor de poderes elementales.</p>
+                        <p class="media-credit">Solomon203 / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-genshin">HoYoverse / PlayStation Blog</a></div>
+                    </div>
+                </article>
+                <article class="game-card" data-game-era="era-2020" data-tilt-card>
+                    <figure class="game-media">
+                        <div class="game-media-frame"><img
+                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Nintendo%20Switch%202.jpg?width=1200"
+                                alt="Nintendo Switch 2 fotografiada en 2025, plataforma de Mario Kart World."
+                                loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />
+                        </div>
+                        <figcaption><span>Hardware real</span><a
+                                href="https://commons.wikimedia.org/wiki/File:Nintendo%20Switch%202.jpg" target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Ver crédito y licencia de la imagen de Mario Kart World en Wikimedia Commons">Crédito/licencia
+                                ↗</a></figcaption>
+                    </figure>
+                    <div class="game-card-body">
+                        <div class="game-top"><span>FICHA 014</span><span>2025</span></div>
+                        <h3>Mario Kart World</h3>
+                        <p class="game-platform">Nintendo Switch 2</p>
+                        <p>Acompaña el estreno de la nueva consola de Nintendo.</p>
+                        <p class="media-credit">Leohideki86 / Wikimedia Commons</p>
+                        <div class="refs"><a href="#source-switch2">Nintendo</a></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="future-section section-wrap" id="futuro" aria-labelledby="future-title">
+            <p class="eyebrow"><span class="section-icon" aria-hidden="true">👾</span>04 / LA PARTIDA CONTINÚA</p>
+            <div class="future-layout">
+                <h2 id="future-title">EL FUTURO<br />NO VIENE<br /><span>ESCRITO.</span></h2>
+                <div>
+                    <p class="future-lead">La siguiente revolución no se mide solo en píxeles.</p>
+                    <p>¿Quién podrá jugar? ¿Qué mundos conservaremos cuando un servicio cierre? ¿Cómo convivirán la
+                        creatividad humana, la inteligencia artificial y nuevas formas de presencia?</p>
+                    <p>Son preguntas de esta edición, no predicciones. Nube, realidad mixta y herramientas generativas
+                        abren posibilidades; su impacto seguirá dependiendo de las personas.</p><a
+                        class="button primary" href="#inicio">Volver al inicio <span aria-hidden="true">↑</span></a>
+                </div>
+            </div>
+        </section>
+        <section class="sources-section section-wrap" id="fuentes" aria-labelledby="sources-title">
+            <details>
+                <summary id="sources-title"><span><span class="eyebrow"><span class="section-icon"
+                                aria-hidden="true">💾</span>ARCHIVO ABIERTO</span><span class="sources-heading">Fuentes
+                            y criterio editorial</span></span><span class="details-symbol" aria-hidden="true">+</span>
+                </summary>
+                <div class="sources-body">
+                    <p>Textos editoriales de GLHF apoyados en archivos de museos, laboratorios y comunicaciones
+                        oficiales. Las fechas se refieren a los lanzamientos o territorios indicados. La selección es
+                        introductoria y no pretende agotar toda la historia del medio. Revisión: 19 de septiembre de
+                        2026.</p>
+                    <p>Las salas siguen el alcance del documento de trabajo. La sección de futuro contiene reflexión
+                        editorial, no hechos consumados. Las fuentes originales se conservan para permitir verificación
+                        y ampliación.</p>
+                    <ol class="source-list">
+                        <li id="source-bnl"><strong>Brookhaven National Laboratory</strong><a
+                                href="https://www.bnl.gov/about/history/firstvideo.php" target="_blank"
+                                rel="noopener noreferrer">The First Video Game? <span aria-hidden="true">↗</span><span
+                                    class="sr-only"> (abre una nueva pestaña)</span></a></li>
+                        <li id="source-chm"><strong>Computer History Museum</strong><a
+                                href="https://www.computerhistory.org/timeline/graphics-games/" target="_blank"
+                                rel="noopener noreferrer">Graphics &amp; Games: Timeline of Computer History <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-strong"><strong>The Strong National Museum of Play</strong><a
+                                href="https://www.museumofplay.org/video-game-history-timeline/" target="_blank"
+                                rel="noopener noreferrer">Video Game History Timeline <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-pong"><strong>Computer History Museum</strong><a
+                                href="https://www.computerhistory.org/timeline/1972/" target="_blank"
+                                rel="noopener noreferrer">1972: Pong is released <span aria-hidden="true">↗</span><span
+                                    class="sr-only"> (abre una nueva pestaña)</span></a></li>
+                        <li id="source-mario"><strong>Nintendo</strong><a href="https://mario.nintendo.com/history/"
+                                target="_blank" rel="noopener noreferrer">The history of Super Mario <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-ps1"><strong>PlayStation</strong><a
+                                href="https://www.playstation.com/en-us/playstation-history/1994-ps-one/"
+                                target="_blank" rel="noopener noreferrer">PlayStation 1994: historia de la consola <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-sie"><strong>Sony Interactive Entertainment</strong><a
+                                href="https://sonyinteractive.com/en/our-company/company-history/" target="_blank"
+                                rel="noopener noreferrer">Company History <span aria-hidden="true">↗</span><span
+                                    class="sr-only"> (abre una nueva pestaña)</span></a></li>
+                        <li id="source-xbox"><strong>Microsoft</strong><a
+                                href="https://news.microsoft.com/source/2001/11/15/xbox-erupts-on-the-scene/"
+                                target="_blank" rel="noopener noreferrer">Xbox Erupts on the Scene (2001) <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-live"><strong>Microsoft</strong><a
+                                href="https://news.microsoft.com/source/2002/11/15/xbox-live-arrives-in-stores-sparking-the-next-revolution-in-video-games/"
+                                target="_blank" rel="noopener noreferrer">Xbox Live Arrives in Stores (2002) <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-wow"><strong>Blizzard Entertainment</strong><a
+                                href="https://news.blizzard.com/es-mx/article/24136212/celebra-world-of-warcraft-durante-el-20-o-aniversario"
+                                target="_blank" rel="noopener noreferrer">Celebración del 20.º aniversario de World of
+                                Warcraft <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-apple"><strong>Apple</strong><a
+                                href="https://www.apple.com/newsroom/2008/07/10iPhone-3G-on-Sale-Tomorrow/"
+                                target="_blank" rel="noopener noreferrer">iPhone 3G on Sale Tomorrow / App Store (2008)
+                                <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-twitch"><strong>Justin.tv / TwitchTV</strong><a
+                                href="https://www.businesswire.com/news/home/20110606005437/en/Justin.tv-Launches-TwitchTV-World%E2%80%99s-Largest-Competitive-Video"
+                                target="_blank" rel="noopener noreferrer">Comunicado de lanzamiento de TwitchTV (2011)
+                                <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-fortnite"><strong>Epic Games</strong><a
+                                href="https://www.fortnite.com/news/fortnite-battle-royale-goes-free" target="_blank"
+                                rel="noopener noreferrer">Fortnite Battle Royale Goes Free (2017) <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-ps5"><strong>PlayStation</strong><a
+                                href="https://www.playstation.com/en-us/playstation-history/2020-ps5-ps-vr2/"
+                                target="_blank" rel="noopener noreferrer">2020: PlayStation 5 y PS VR2 <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-cloud"><strong>Xbox Wire</strong><a
+                                href="https://news.xbox.com/en-us/2020/09/14/cloud-gaming-with-xbox-game-pass-ultimate/"
+                                target="_blank" rel="noopener noreferrer">Cloud Gaming with Xbox Game Pass Ultimate
+                                (2020) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-genshin"><strong>HoYoverse / PlayStation Blog</strong><a
+                                href="https://blog.playstation.com/2020/09/28/your-journey-in-genshin-impact-begins-now/"
+                                target="_blank" rel="noopener noreferrer">Your journey in Genshin Impact begins now
+                                (2020) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-switch2"><strong>Nintendo</strong><a
+                                href="https://www.nintendo.com/us/whatsnew/nintendo-switch-2-launches-june-5-bringing-new-forms-of-game-communication-to-life/"
+                                target="_blank" rel="noopener noreferrer">Nintendo Switch 2 launches June 5 (2025) <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-muse"><strong>Microsoft Research</strong><a
+                                href="https://www.microsoft.com/en-us/research/blog/introducing-muse-our-first-generative-ai-model-designed-for-gameplay-ideation/"
+                                target="_blank" rel="noopener noreferrer">Introducing Muse (2025) <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-odyssey"><strong>Smithsonian Institution</strong><a
+                                href="https://www.si.edu/es/object/magnavox-odyssey-video-game-unit-1972%3Anmah_1302004"
+                                target="_blank" rel="noopener noreferrer">Magnavox Odyssey Video Game Unit, 1972 <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-invaders"><strong>Taito / Google Arts &amp; Culture</strong><a
+                                href="https://artsandculture.google.com/story/space-invaders-the-game-changer-taito-corporation/SwVBsVEMarKRfA?hl=en"
+                                target="_blank" rel="noopener noreferrer">Space Invaders, the Game Changer <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-crash"><strong>The Strong</strong><a
+                                href="https://www.museumofplay.org/blog/what-video-game-crash/" target="_blank"
+                                rel="noopener noreferrer">What Video Game Crash? <span aria-hidden="true">↗</span><span
+                                    class="sr-only"> (abre una nueva pestaña)</span></a></li>
+                        <li id="source-sonic"><strong>The Strong</strong><a
+                                href="https://www.museumofplay.org/games/sonic-the-hedgehog/" target="_blank"
+                                rel="noopener noreferrer">Sonic the Hedgehog <span aria-hidden="true">↗</span><span
+                                    class="sr-only"> (abre una nueva pestaña)</span></a></li>
+                        <li id="source-gta3"><strong>Rockstar Games</strong><a
+                                href="https://media.rockstargames.com/broadcast/20111020/en_US_web.html" target="_blank"
+                                rel="noopener noreferrer">Grand Theft Auto III: Ten-Year Anniversary <span
+                                    aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-series"><strong>Xbox Wire</strong><a
+                                href="https://news.xbox.com/en-us/2020/11/10/power-your-dreams-xbox-series-x-and-xbox-series-s-available-now/"
+                                target="_blank" rel="noopener noreferrer">Xbox Series X and Xbox Series S Now Available
+                                Worldwide (2020) <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                        <li id="source-minecraft"><strong>Mojang</strong><a
+                                href="https://www.minecraft.net/en-us/article/embrace-past-minecraft-classic"
+                                target="_blank" rel="noopener noreferrer">Embrace the Past with Minecraft Classic (2019)
+                                <span aria-hidden="true">↗</span><span class="sr-only"> (abre una nueva
+                                    pestaña)</span></a></li>
+                    </ol>
+                </div>
+            </details>
+        </section>
+    </main>
+    <footer class="site-footer"><a class="brand footer-brand" href="#inicio" aria-label="GLHF, volver al inicio"><img
+                src="wwwroot/assets/Logo_GgWp.png" width="44" height="44" alt="" loading="lazy" /><span>GLHF<span
+                    class="brand-subtitle">LA HISTORIA SE JUEGA.</span></span></a>
+        <div>
+            <p>Proyecto editorial independiente. Marcas y juegos pertenecen a sus titulares.</p>
+            <p class="build-note">Desarrolladora: Stefanny <span id="runtime-status" class="sr-only">Vista previa
+                    HTML</span></p>
+        </div><a class="back-top" href="#inicio" aria-label="Volver al inicio">↑</a>
+    </footer>
+    <p id="engine-error" class="engine-error" role="status" hidden>El contenido sigue disponible. No se pudo iniciar la
+        navegación C#. Comprueba la conexión y recarga la página.</p>
+</body>
+
+</html>

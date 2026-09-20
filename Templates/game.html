@@ -1,4 +1,16 @@
 <article class="game-card" data-game-era="{{eraId}}" data-tilt-card>
-<figure class="game-media"><div class="game-media-frame"><img src="{{mediaUrl}}" alt="{{mediaAlt}}" loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" /></div><figcaption><span>{{mediaKind}}</span><a href="{{mediaSource}}" target="_blank" rel="noopener noreferrer" aria-label="Ver crédito y licencia de la imagen de {{name}} en Wikimedia Commons">Crédito/licencia ↗</a></figcaption></figure>
-<div class="game-card-body"><div class="game-top"><span>FICHA {{number}}</span><span>{{year}}</span></div><h3>{{name}}</h3><p class="game-platform">{{platform}}</p><p>{{description}}</p><p class="media-credit">{{mediaCredit}}</p>{{sources}}</div>
+    <figure class="game-media">
+        <div class="game-media-frame"><img src="{{mediaUrl}}" alt="{{mediaAlt}}" loading="lazy" decoding="async"
+                fetchpriority="low" referrerpolicy="no-referrer" /></div>
+        <figcaption><span>{{mediaKind}}</span><a href="{{mediaSource}}" target="_blank" rel="noopener noreferrer"
+                aria-label="Ver crédito y licencia de la imagen de {{name}} en Wikimedia Commons">Crédito/licencia ↗</a>
+        </figcaption>
+    </figure>
+    <div class="game-card-body">
+        <div class="game-top"><span>FICHA {{number}}</span><span>{{year}}</span></div>
+        <h3>{{name}}</h3>
+        <p class="game-platform">{{platform}}</p>
+        <p>{{description}}</p>
+        <p class="media-credit">{{mediaCredit}}</p>{{sources}}
+    </div>
 </article>

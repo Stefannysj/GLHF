@@ -357,6 +357,9 @@
   function decorateRevealItems() {
     const groups = [
       ".section-heading > *",
+      ".archive-brief-copy",
+      ".archive-fact",
+      ".archive-reading-key > *",
       ".era",
       ".milestone",
       ".editorial-note",
@@ -465,10 +468,9 @@
   }
 
 
-  // Stage 06 — time machine, remembered progress, installability and Konami easter egg.
+  // Stage 06 — time machine, remembered progress and Konami easter egg.
   const STORAGE_ERA = "glhf:last-era";
   const STORAGE_SECRET = "glhf:player2";
-  let deferredInstallPrompt = null;
   let timeMachineDragging = false;
   let progressPersistenceReady = false;
 
@@ -559,28 +561,6 @@
     });
   }
 
-  function initializePwa() {
-    const button = document.querySelector("[data-pwa-install]");
-    window.addEventListener("beforeinstallprompt", event => {
-      event.preventDefault();
-      deferredInstallPrompt = event;
-      if (button) button.hidden = false;
-    });
-    button?.addEventListener("click", async () => {
-      if (!deferredInstallPrompt) return;
-      deferredInstallPrompt.prompt();
-      try { await deferredInstallPrompt.userChoice; } catch { }
-      deferredInstallPrompt = null;
-      button.hidden = true;
-    });
-    window.addEventListener("appinstalled", () => { if (button) button.hidden = true; });
-
-    if ("serviceWorker" in navigator && location.protocol !== "file:") {
-      const mode = document.querySelector('meta[name="glhf-mode"]')?.content;
-      const sw = mode === "preview" ? "wwwroot/sw.js" : "sw.js";
-      window.addEventListener("load", () => navigator.serviceWorker.register(sw).catch(() => {}), { once: true });
-    }
-  }
 
   window.glhf = {
     hero: {
@@ -630,5 +610,235 @@
   initializeResumeProgress();
   progressPersistenceReady = true;
   initializeKonamiCode();
-  initializePwa();
+})();
+
+/* ================================================================
+   ETAPA EXTRA V2 — Edge-aware navigation dock
+   - Center/top: horizontal utility bar.
+   - Left/right edge: vertical utility rail.
+   - Mouse, touch, keyboard and persistence supported.
+   ================================================================ */
+(() => {
+  "use strict";
+  const dock = document.querySelector("[data-movable-dock]");
+  if (!dock) return;
+
+  const grip = dock.querySelector("[data-dock-drag]");
+  const live = dock.querySelector("[data-dock-live]");
+  const storageKey = "glhf-nav-dock-v2";
+  const legacyKey = "glhf-nav-dock-v1";
+  const edgeGap = 10;
+  const step = 34;
+  let drag = null;
+
+  const clamp = (value, minValue, maxValue) => Math.max(minValue, Math.min(maxValue, value));
+  const isVertical = () => dock.dataset.dockOrientation === "vertical";
+  const sideThreshold = () => Math.min(170, Math.max(88, Math.round(window.innerWidth * 0.18)));
+
+  function announce(message) {
+    if (live) live.textContent = message;
+  }
+
+  function setOrientation(orientation, edge = "free") {
+    dock.dataset.dockOrientation = orientation;
+    dock.dataset.dockEdge = edge;
+    dock.dataset.dockMode = orientation === "horizontal" && edge === "top" ? "default" : "custom";
+  }
+
+  function bounds() {
+    return {
+      maxX: Math.max(edgeGap, window.innerWidth - dock.offsetWidth - edgeGap),
+      maxY: Math.max(edgeGap, window.innerHeight - dock.offsetHeight - edgeGap)
+    };
+  }
+
+  function currentPoint() {
+    const rect = dock.getBoundingClientRect();
+    return { x: Math.round(rect.left), y: Math.round(rect.top) };
+  }
+
+  function place(x, y) {
+    const limit = bounds();
+    let nextX = clamp(Math.round(x), edgeGap, limit.maxX);
+    const nextY = clamp(Math.round(y), edgeGap, limit.maxY);
+
+    if (isVertical()) {
+      nextX = dock.dataset.dockEdge === "right" ? limit.maxX : edgeGap;
+    }
+
+    dock.classList.add("is-user-positioned");
+    dock.style.left = `${nextX}px`;
+    dock.style.top = `${nextY}px`;
+    dock.style.right = "auto";
+    dock.style.transform = "none";
+    dock.dataset.dockX = String(nextX);
+    dock.dataset.dockY = String(nextY);
+    return { x: nextX, y: nextY };
+  }
+
+  function stateFromCurrent() {
+    const point = currentPoint();
+    const limit = bounds();
+    return {
+      orientation: isVertical() ? "vertical" : "horizontal",
+      edge: dock.dataset.dockEdge || "free",
+      x: point.x / Math.max(1, limit.maxX),
+      y: point.y / Math.max(1, limit.maxY)
+    };
+  }
+
+  function persist() {
+    try { localStorage.setItem(storageKey, JSON.stringify(stateFromCurrent())); } catch { }
+  }
+
+  function horizontalAt(x, y, { say = true, save = true } = {}) {
+    setOrientation("horizontal", "free");
+    const point = place(x, y);
+    if (save) persist();
+    if (say) announce("Menú horizontal.");
+    return point;
+  }
+
+  function verticalAt(side, y, { say = true, save = true } = {}) {
+    setOrientation("vertical", side);
+    // Reading offsetWidth after the orientation attribute forces the correct rail dimensions.
+    const limit = bounds();
+    const x = side === "right" ? limit.maxX : edgeGap;
+    const point = place(x, y);
+    if (save) persist();
+    if (say) announce(`Menú vertical en el lado ${side === "right" ? "derecho" : "izquierdo"}.`);
+    return point;
+  }
+
+  function defaultPosition({ say = false } = {}) {
+    setOrientation("horizontal", "top");
+    const x = Math.max(edgeGap, Math.round((window.innerWidth - dock.offsetWidth) / 2));
+    const point = place(x, 12);
+    if (say) announce("Menú horizontal restablecido en la parte superior.");
+    return point;
+  }
+
+  function reset() {
+    try {
+      localStorage.removeItem(storageKey);
+      localStorage.removeItem(legacyKey);
+    } catch { }
+    defaultPosition({ say: true });
+  }
+
+  function restore() {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return false;
+      const saved = JSON.parse(raw);
+      if (!Number.isFinite(saved?.x) || !Number.isFinite(saved?.y)) return false;
+      if (saved.orientation === "vertical" && (saved.edge === "left" || saved.edge === "right")) {
+        setOrientation("vertical", saved.edge);
+        const limit = bounds();
+        verticalAt(saved.edge, saved.y * Math.max(1, limit.maxY), { say: false, save: false });
+      } else {
+        setOrientation("horizontal", "free");
+        const limit = bounds();
+        horizontalAt(saved.x * Math.max(1, limit.maxX), saved.y * Math.max(1, limit.maxY), { say: false, save: false });
+      }
+      return true;
+    } catch { return false; }
+  }
+
+  function snapFromPointer(pointerX, currentY) {
+    const threshold = sideThreshold();
+    if (pointerX <= threshold) return verticalAt("left", currentY);
+    if (pointerX >= window.innerWidth - threshold) return verticalAt("right", currentY);
+    const point = currentPoint();
+    return horizontalAt(point.x, currentY);
+  }
+
+  function nudge(direction) {
+    const point = currentPoint();
+
+    if (isVertical()) {
+      if (direction === "left") return verticalAt("left", point.y);
+      if (direction === "right") return verticalAt("right", point.y);
+      if (direction === "up") point.y -= step;
+      if (direction === "down") point.y += step;
+      place(point.x, point.y);
+      persist();
+      announce(`Menú vertical, ${dock.dataset.dockEdge === "right" ? "derecha" : "izquierda"}.`);
+      return;
+    }
+
+    if (direction === "left") point.x -= step;
+    if (direction === "right") point.x += step;
+    if (direction === "up") point.y -= step;
+    if (direction === "down") point.y += step;
+
+    const placed = place(point.x, point.y);
+    const rect = dock.getBoundingClientRect();
+    if (direction === "left" && rect.left <= sideThreshold() * .45) return verticalAt("left", placed.y);
+    if (direction === "right" && rect.right >= window.innerWidth - sideThreshold() * .45) return verticalAt("right", placed.y);
+    dock.dataset.dockEdge = "free";
+    dock.dataset.dockMode = "custom";
+    persist();
+    announce("Menú horizontal movido.");
+  }
+
+  grip?.addEventListener("pointerdown", event => {
+    if (event.button !== 0) return;
+    const point = currentPoint();
+    drag = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      x: point.x,
+      y: point.y
+    };
+    dock.classList.add("is-dragging");
+    dock.dataset.dockMode = "custom";
+    grip.setPointerCapture?.(event.pointerId);
+    event.preventDefault();
+  });
+
+  grip?.addEventListener("pointermove", event => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    // Keep the current orientation while dragging; orientation changes cleanly on release.
+    place(drag.x + event.clientX - drag.startX, drag.y + event.clientY - drag.startY);
+    event.preventDefault();
+  });
+
+  function finishDrag(event) {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    const currentY = currentPoint().y;
+    drag = null;
+    dock.classList.remove("is-dragging");
+    try { grip?.releasePointerCapture?.(event.pointerId); } catch { }
+    snapFromPointer(event.clientX, currentY);
+  }
+
+  grip?.addEventListener("pointerup", finishDrag);
+  grip?.addEventListener("pointercancel", finishDrag);
+
+  dock.querySelectorAll("[data-dock-nudge]").forEach(button => {
+    button.addEventListener("click", () => nudge(button.dataset.dockNudge));
+  });
+  dock.querySelector("[data-dock-reset]")?.addEventListener("click", reset);
+
+  grip?.addEventListener("keydown", event => {
+    const map = { ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down" };
+    if (!map[event.key]) return;
+    event.preventDefault();
+    nudge(map[event.key]);
+  });
+
+  window.addEventListener("resize", () => {
+    const state = stateFromCurrent();
+    if (state.orientation === "vertical") {
+      verticalAt(state.edge === "right" ? "right" : "left", state.y * Math.max(1, bounds().maxY), { say: false, save: false });
+    } else {
+      const limit = bounds();
+      horizontalAt(state.x * Math.max(1, limit.maxX), state.y * Math.max(1, limit.maxY), { say: false, save: false });
+    }
+  }, { passive: true });
+
+  try { localStorage.removeItem(legacyKey); } catch { }
+  if (!restore()) defaultPosition();
 })();

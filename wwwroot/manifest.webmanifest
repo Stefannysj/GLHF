@@ -5,10 +5,15 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#07080c",
-  "theme_color": "#07080c",
+  "background_color": "#9b9d99",
+  "theme_color": "#9b9d99",
   "lang": "es",
   "icons": [
-    { "src": "assets/Logo_GgWp.png", "sizes": "800x800", "type": "image/png", "purpose": "any" }
+    {
+      "src": "assets/Logo_GgWp.png",
+      "sizes": "800x800",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }

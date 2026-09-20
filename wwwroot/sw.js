@@ -1,4 +1,4 @@
-const CACHE_NAME = "glhf-v6-shell";
+const CACHE_NAME = "glhf-redesign-v1-shell";
 const APP_SHELL = [
   "./",
   "./index.html",
